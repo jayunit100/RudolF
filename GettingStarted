@@ -5,26 +5,28 @@ doolittle-5:bioclojure Jpeerindex$ ls
 README      lib         resources   test
 classes     project.clj src
 
+2) Now run "lein deps".  This will go get the apache StringUtils.
 
-2) Now, start repl 
+
+3) Now, start repl 
 
 doolittle-5:bioclojure Jpeerindex$ lein repl
 
 
 REPL started; server listening on localhost port 28701
 
-3) Now, load up the core.clj script 
+4) Now, load up the core.clj script 
 
 user=> (load-file "src/BioClojure/core.clj")
 #'SeqMine2.core/hasSubstring
 
-4) Yay, it saw the file !  Now, switch to the namespace that has the
+5) Yay, it saw the file !  Now, switch to the namespace that has the
 methods in it for the core.clj.  There are really only two methods.
 
 user=> (in-ns 'SeqMine2.core)
 #<Namespace SeqMine2.core>
 
-5) Okay, now try to see if you can capitalize this string.  just 
+6) Okay, now try to see if you can capitalize this string.  just 
 call the makeCap method : 
 
 SeqMine2.core=> (makeCap "s1")
@@ -33,7 +35,7 @@ SeqMine2.core=> (makeCap "s1")
 SeqMine2.core=> 
 
 
-6) Your done !  Now edit the file to support some real operations.
+7) Your done !  Now edit the file to support some real operations.
 When you are done, just type 
 
 git add core.clj
@@ -43,8 +45,3 @@ git push
 And that will do it.  
 
 By the way, if you like syntax highlighting, make sure and get this installedthttp://kuriqoo.blogspot.com/2011/02/using-clojure-in-vim.html
-
-
-
-
-
