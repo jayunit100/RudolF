@@ -1,46 +1,43 @@
 Minimotif Library Analysis Software (8/3/11)
 
-Summary
-We are building a library of minimotifs (concatamers of 100s of unique units into lengths of 1-100) and need to know the composition of motif in each clone and population statistics.
+ Summary
 
-We have identified 4 common workflows which would be of interest.
+We are building a library of minimotifs (concatamers of 100s of unique units into lengths of 1-100) and need to know the composition of motif in each clone and population statistics.  We have identified 4 common workflows which would be of interest.
 
-Inputs
-1.DNA sequence files (S1-Sx). (text files with clone id and string of DNA letters.)
-2.SQL database of Minimotifs (table of motifs (M1 - Mx and sequences to be searched, and labels)
-3.Linker sequence for all motifs
-4.Restriction site sequence
+ Inputs
 
-Data Processing workflows
++ DNA sequence files (S1-Sx). (text files with clone id and string of DNA letters.)  
++ SQL database of Minimotifs (table of motifs (M1 - Mx and sequences to be searched, and labels)  
++ Linker sequence for all motifs  
++ Restriction site sequence  
 
-1. Single clone analysis
+ Data Processing workflows
+
++ Single clone analysis
 Read sequence file Si and report the following:
-1.Identify motifs (M1 - Mx) present in DNA and their order
-2.Confirm initiator motif and terminator motif and positions
-3.Confirm proper insertion into two restriction sites.
-4.Flag any incorrect assemblies and sequences with N positions
-5.Report total number of minimotifs in clone
-6.Generate a graph of overall structure, show linker regions that glue motifs together and alignment of motifs to sequences with labels.
-7.Report any 1 nucleotide mutations in DNA
++ Identify motifs (M1 - Mx) present in DNA and their order
++ Confirm initiator motif and terminator motif and positions
++ Confirm proper insertion into two restriction sites.
++ Flag any incorrect assemblies and sequences with N positions
++ Report total number of minimotifs in clone
++ Generate a graph of overall structure, show linker regions that glue motifs together and alignment of motifs to sequences with labels.
++ Report any 1 nucleotide mutations in DNA  
 
-Multiple sequence file analysis
+ Read sequence files and report the following:
 
-Read sequence files and report the following:
-1.Identify common motifs present in all clones (not initiator and terminator)
-2.Identify unique motifs present in each individual clone
-3. Counts of occurrences of above
-4. Identification of an clustering patterns of multiple motifs.
-5.Flag if there are any duplicate clones.
-6.Flag if there is more than one initiator and terminator
-7.Flag clones with just and initiator and terminator
+* Identify common motifs present in all clones (not initiator and terminator)
+* Identify unique motifs present in each individual clone
+* Counts of occurrences of above
+* Identification of an clustering patterns of multiple motifs 
+* Flag if there are any duplicate clones
+* Flag if there is more than one initiator and terminator
+* Flag clones with just and initiator and terminator
 
-Library coverage
-	Read sequence files and report the following:
-	Read file of motif names or ids
-	Report statistics on each motif in the clones (# occurrences, range of occurrences in clones, missing motifs in the library
+ Library coverage Read files and report
+* Read file of motif names or ids
+* Report statistics on each motif in the clones (occurrences, range of occurrences in clones, missing motifs in the library)
 
-96 well plate analysis
-same as single clone analysis but reads an array of 96 ids from A-H and 1-12. Also include plate id.  Files will be named plate id.letter.number.
-
-
-Distributed under the Eclipse Public License, the same as Clojure.
+ 96 well plate analysis
+* Same as single clone analysis but reads an array of 96 ids from A to H and 1 through 12
+* Also include plate
+* Files will be named plate id_letter_number
