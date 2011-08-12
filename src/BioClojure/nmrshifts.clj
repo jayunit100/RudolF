@@ -12,7 +12,7 @@
    "ILE-CD" 13,
    "CG" 25})
 
-(defn likely-c-match
+(defn get-shift-differences
   "get differences of input shift, average shift for various Carbon nucleus types as a sorted list of pairs"
   [ shift ]
   (let [diffs (for [[atom avgshift] approx-c-shifts] 	; computer difference between shift and average shift for each nucleus type
