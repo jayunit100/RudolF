@@ -1,0 +1,7 @@
+link to Clojure coding conventions:  http://dev.clojure.org/display/design/Library+Coding+Standards
+
+learning functional programming:  http://en.wikipedia.org/wiki/Structure_and_Interpretation_of_Computer_Programs
+
+Clojure and FP:  http://clojure.org/functional_programming
+
+the importance of functional programming (John Backus):  http://www.google.com/url?sa=t&source=web&cd=1&ved=0CBkQFjAA&url=http%3A%2F%2Fciteseerx.ist.psu.edu%2Fviewdoc%2Fdownload%3Fdoi%3D10.1.1.72.2622%26rep%3Drep1%26type%3Dpdf&ei=4XVJToSdPNC5tgfYw-DzBQ&usg=AFQjCNF1bPlH2Omg4kX0eeXCgKQKaHwL0g
