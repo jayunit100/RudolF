@@ -12,3 +12,10 @@ To deploy :
 5) Finally, when you run the command to "push" to the heroku repository, 
      sudo git push heroku master
      heroku ps:scale web=1
+6) If you cant push to the heroku master, try to run heroku keys:add ~/.ssh/id_rsa.pub (this adds an ssh key to heroku servers, i believe, so that
+the recognize you) //
+
+
+-- You can change the code locally, and run it on port 5000 by typing >foreman start, and navigating to port 5000
+-- Then, you can push your changes by commiting them to git, and pushing to the heroku master. 
+
