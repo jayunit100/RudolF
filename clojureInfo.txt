@@ -1,5 +1,7 @@
 link to Clojure coding conventions:  http://dev.clojure.org/display/design/Library+Coding+Standards
 
+Clojure and indentation, parentheses:  http://en.wikibooks.org/wiki/Learning_Clojure/Coding_Conventions
+
 learning functional programming:  http://en.wikipedia.org/wiki/Structure_and_Interpretation_of_Computer_Programs
 
 Clojure and FP:  http://clojure.org/functional_programming
