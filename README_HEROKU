@@ -1,0 +1,14 @@
+BioClojure is now online ! 
+
+To deploy : 
+
+1) Checkout and set up the project, (see the README).
+2) Make sure you have RubyGems installed, so you can run the $>gem install commands....
+3) Create a heroku account if you don't already have one.  
+4) Follow these directions 
+   https://devcenter.heroku.com/articles/clojure
+   (Ignore the parts regarding the Procfile and the web.clj file, since we already 
+   have those in Bioclojure's source file.
+5) Finally, when you run the command to "push" to the heroku repository, 
+     sudo git push heroku master
+     heroku ps:scale web=1
