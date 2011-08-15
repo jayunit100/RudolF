@@ -2,13 +2,6 @@
   (:use [clojure.pprint])
   (:import (org.apache.commons.lang StringUtils)))
 
-;; Capitalize Function
-(defn makeCap "This makes capitals" [inString]
-  (StringUtils/capitalize inString))
-
-;; input s1, b1 b2 b3
-(defn hasSubstring "has" [ main b ]
-  (map #(.indexOf main %) b     ))
 
 (defn transform-entry
   "Transform a meta string into a map of metadata about a DNA entry."
