@@ -21,6 +21,20 @@
             {:meta (transform-entry m) :dna dna})
          entries)))
 
+(defn read-motif-file
+  "Read a motif file, transforming it into a map with :meta and :dnamotif keys."  
+  [filename]
+  (.split (.trim (slurp filename)) "\n"))
+
+;;Create a random nucleotide, from a c g t.  Used to generate motifs randomly. 
+;;DO NOT Call this method by itself, it will go for infinity. 
+(defn rand-nuc "Returns a random nucleotide" [] (repeatedly #(get ["a" "c" "g" "t"] (rand-int 4))))
+
+;;Creates a DNA motif of random length
+;;user=> (rand-motif-str 4)
+;;("a" "c" "c" "c")
+(defn rand-motif-str "Returns a random motif" [l] (take l (rand-nuc)))
+
 (defn read-and-print
   "Read a FASTA file and print it."
   [filename]
