@@ -1,43 +1,13 @@
-Minimotif Library Analysis Software (8/3/11)
+We have no single "readme" because these projects
+are currently only loosely coupled.
 
- Summary
+Please see the various "flavors" of READMEs, based on your interests, or contact
+one of the developers
 
-We are building a library of minimotifs (concatamers of 100s of unique units into lengths of 1-100) and need to know the composition of motif in each clone and population statistics.  We have identified 4 common workflows which would be of interest.
-
- Inputs
-
-+ DNA sequence files (S1-Sx). (text files with clone id and string of DNA letters.)  
-+ SQL database of Minimotifs (table of motifs (M1 - Mx and sequences to be searched, and labels)  
-+ Linker sequence for all motifs  
-+ Restriction site sequence  
-
- Data Processing workflows
-
-+ Single clone analysis
-Read sequence file Si and report the following:
-+ Identify motifs (M1 - Mx) present in DNA and their order
-+ Confirm initiator motif and terminator motif and positions
-+ Confirm proper insertion into two restriction sites.
-+ Flag any incorrect assemblies and sequences with N positions
-+ Report total number of minimotifs in clone
-+ Generate a graph of overall structure, show linker regions that glue motifs together and alignment of motifs to sequences with labels.
-+ Report any 1 nucleotide mutations in DNA  
-
- Read sequence files and report the following:
-
-* Identify common motifs present in all clones (not initiator and terminator)
-* Identify unique motifs present in each individual clone
-* Counts of occurrences of above
-* Identification of an clustering patterns of multiple motifs 
-* Flag if there are any duplicate clones
-* Flag if there is more than one initiator and terminator
-* Flag clones with just and initiator and terminator
-
- Library coverage Read files and report
-* Read file of motif names or ids
-* Report statistics on each motif in the clones (occurrences, range of occurrences in clones, missing motifs in the library)
-
- 96 well plate analysis
-* Same as single clone analysis but reads an array of 96 ids from A to H and 1 through 12
-* Also include plate
-* Files will be named plate id_letter_number
+#Members add info here :
+lee hinman, Clojure expert & Lead : dracone at ....
+jay vyas, Project Planner ; J2EE guy :  jayunit100 at gmail.com
+matt fenwick, Structural Biology guy, Functional Programming Enthusiast mfenwick100 at gmail.com
+shiva,
+diego,
+emeka,
