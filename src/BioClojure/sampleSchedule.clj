@@ -4,7 +4,11 @@
 (defstruct schedule :points :num-dimensions)
 
 
-
+;;MATT This is good shit.   Can YOU RENAME THIS FILE TO START with NMR like YOUR OTHER ONES ...  ?
+;;bash> git mv sampleSchedule.clj nmr_sampleSchedule.clj
+;;bash> git add nmr_sampleSchedule.clj
+;;bash> git commit 
+;;bash> git push 
 (defn make-schedule
   [ point-map num-dimensions ]
   (let [points (keys point-map)
