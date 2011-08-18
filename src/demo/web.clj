@@ -1,4 +1,11 @@
-(ns demo.web (:use [ring.adapter.jetty] [BioClojure.core] ))
+(ns demo.web (:use [ring.adapter.jetty] [BioClojure.seqUtils] ))
+
+(defn demo[]
+
+	(let [random_motif (str (rand-motif-str (rand-int 30)))
+       random_aa (rand-aa-str (rand-int 10))
+       translated_aa (aa-to-3-letter "ASADD" )])  
+)
 
 (defn app [req]
   {:status 200
