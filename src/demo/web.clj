@@ -2,8 +2,12 @@
 
 (defn demo []
   (let [random_motif (apply str (rand-motif-str (rand-int 30)))
-        random_aa (rand-aa-str (rand-int 10))
-        translated_aa (aa-to-3-letter "ASADD")]))
+        random_aa (rand-aa-str (rand-int 40))
+        translated_aa (aa-to-3-letter random_aa)]
+  
+  ["rand dna = " random_motif "; a  rand protein = " random_aa " which is  translated to " translated_aa]
+  )
+)
 
 (defn app [req]
   {:status 200
