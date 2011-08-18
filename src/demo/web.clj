@@ -12,7 +12,11 @@
 (defn app [req]
   {:status 200
    :headers {"Content-Type" "text/plain"}
-   :body (str ["Welcome Mini-ClotifMiner : The Flagship App of the BioClojure Framework " (rand-motif-str (rand-int 15)) ] )
+   :body (str 
+         ["Welcome Mini-ClotifMiner : The Flagship App of the BioClojure Framework " 
+         (demo) 
+         ] 
+	 )
    }
   )
 
