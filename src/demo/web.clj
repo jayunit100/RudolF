@@ -23,8 +23,9 @@
            (demo) 
            "<H1>A Prettier Version : in one line of code, using ' interpose ' demoPretty:</H1>"
            (demoPretty)
-           "<PRE>An NMR sampling schedule:</PRE>"
-           (format-schedule example)])})
+           "<PRE>An NMR sampling schedule:"
+           (format-schedule example)
+           "</PRE>"])})
 
 (defn -main []
   (let [port (Integer/parseInt (System/getenv "PORT"))]
