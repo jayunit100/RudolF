@@ -1,4 +1,4 @@
-(ns BioClojure.sampleSchedule)
+(ns BioClojure.nmrSampleSchedule)
 
 
 (defstruct schedule :points :num-dimensions)
@@ -28,5 +28,5 @@
   (make-schedule
     (into {} 
       (map (fn [x] [x 1]) 
-           (uniformly-sampled-grid 1 10 1 10)) ; convert list to map (with default values of 1)
+           (uniformly-sampled-grid 1 10 1 10))) ; convert list to map (with default values of 1)
     2))
