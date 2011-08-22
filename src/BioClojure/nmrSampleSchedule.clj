@@ -30,3 +30,18 @@
       (map (fn [x] [x 1]) 
            (uniformly-sampled-grid 1 10 1 10))) ; convert list to map (with default values of 1)
     2))
+
+(defn format-point
+  [ pt ]
+  (reduce 
+    (fn [b n] (str b " " n)) 
+    "" 
+    (concat 
+      (pt :coordinates)
+      (pt :quadrature))))
+  
+
+(defn format-schedule
+  [ sched ]
+  (let [point-lines (map format-point (keys (sched :points)))]
+    (reduce (fn [b n] (str b "\n" n)) point-lines)))
