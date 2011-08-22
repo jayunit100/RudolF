@@ -26,5 +26,7 @@
 
 (def example 
   (make-schedule
-    (into {} (map (fn [x] [x 1]) mylist)) ; convert list to map (with default values of 1)
+    (into {} 
+      (map (fn [x] [x 1]) 
+           (uniformly-sampled-grid 1 10 1 10)) ; convert list to map (with default values of 1)
     2))
