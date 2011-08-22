@@ -1,5 +1,8 @@
 (ns demo.web 
-  (:use [ring.adapter.jetty] [BioClojure.seqUtils] ))
+  (:use 
+    [ring.adapter.jetty] 
+    [BioClojure.seqUtils]
+    [BioClojure.nmrSampleSchedule] ))
 
 (defn demo []
   (let [random_motif (apply str (rand-motif-str (rand-int 30)))
@@ -19,7 +22,9 @@
            ["Welcome Mini-ClotifMiner : The Flagship App of the BioClojure Framework <BR></BR> demo:" 
            (demo) 
            "<H1>A Prettier Version : in one line of code, using ' interpose ' demoPretty:</H1>"
-           (demoPretty)])})
+           (demoPretty)
+           "<PRE>An NMR sampling schedule:</PRE>"
+           (format-schedule example)])})
 
 (defn -main []
   (let [port (Integer/parseInt (System/getenv "PORT"))]
