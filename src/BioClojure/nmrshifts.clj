@@ -13,8 +13,11 @@
    "CG" 25})
 
 (defn get-shift-differences
-  "get differences of input shift, average shift for various Carbon nucleus types as a sorted list of pairs"
-  [ shift ]
-  (let [diffs (for [[atom avgshift] approx-c-shifts] 	; computer difference between shift and average shift for each nucleus type
+  "get differences of input shift, average shift for various Carbon nucleus
+  types as a sorted list of pairs"
+  [shift]
+  ;; computer difference between shift and average shift for each nucleus type
+  (let [diffs (for [[atom avgshift] approx-c-shifts] 
                 (list atom (abs (- shift avgshift))))]
-    (sort-by #(second %) diffs))) 	; return a sorted list (by shift difference)
+    ;; return a sorted list (by shift difference)
+    (sort-by #(second %) diffs)))
