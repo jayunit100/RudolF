@@ -1,3 +1,12 @@
+Clojure indentation within a function definition:  
+  2 spaces of indentation for parameter-list line 
+  then one additional space for each level of nesting after that
+  unless parentheses can be matched up
+No spaces between square brackets and parameter names
+
+
+
+
 link to Clojure coding conventions:  http://dev.clojure.org/display/design/Library+Coding+Standards
 
 Clojure and indentation, parentheses:  http://en.wikibooks.org/wiki/Learning_Clojure/Coding_Conventions
