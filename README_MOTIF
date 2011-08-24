@@ -1,5 +1,31 @@
 Minimotif Library Analysis Software (8/3/11)
 
+------------------------------------------------------------
+
+BioClojure MiniApp 1 : DNASeqMiner
+
+REQUIREMENTS : 
+
+This application takes, as input, two files
+
+1) A motif file (A list of maps, with each map having a "motif=" key). [call each row a DnaMotif]
+2) A DNA sequence file, which is FASTA formatted. [call each row a DnaSeq] 
+
+The program will 
+
+1) Provide a user interface to upload or paste inputs 
+2) Internalize and validate inputs  (DnaSeq file and DnaMotif file)
+3) Compare each DnaSeq to each DnaMotif (that is, look for the DnaMotif.motif attribute in the DnaSeq), store matches.
+4) Present the results of (3) to the user in a single CSV file, of format
+
+   motif, FASTA header, FASTA sequence 
+
+SPECIFICATIONS : 
+
+
+
+------------------------------------------------------------
+
  Summary
 
 We are building a library of minimotifs (concatamers of 100s of unique units into lengths of 1-100) and need to know the composition of motif in each clone and population statistics.  We have identified 4 common workflows which would be of interest.

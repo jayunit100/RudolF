@@ -45,3 +45,8 @@ git push
 And that will do it.  
 
 By the way, if you like syntax highlighting, make sure and get this installedthttp://kuriqoo.blogspot.com/2011/02/using-clojure-in-vim.html
+
+
+COMMON ERRORS 
+
+- Can't cast "..." to "INf" : This means that you might have extra parenthesis.
