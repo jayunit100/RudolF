@@ -21,10 +21,36 @@
             {:meta (transform-entry m) :dna dna})
          entries)))
 
+(defn parse-fasta
+  "parse a FASTA-formatted string, transforming it into a map with :meta and :dna keys."
+  [fasta-string]
+  (let [text (.trim fasta-string)
+        entries (-> text (.replaceAll "\r" "") (.split "\n\n") seq)]
+    (map #(let [[m dna] (.split % "\n")]
+            {:meta (transform-entry m) :dna dna})
+         entries)))
+
+(defn read-and-parse-fasta-file
+  "Parse a file in fasta format -- parsing is now a separate function (isolate functional code from non-functional) for testability, generality and maintenance"
+  [filename]
+  (parse-fasta (slurp filename)))
+
+
 (defn read-motif-file
-  "Read a motif file, transforming it into a map with :meta and :dnamotif keys."
+  "Read a motif file"
   [filename]
   (.split (.trim (slurp filename)) "\n"))
+
+(defn parse-motif
+  "Parse a string in motif format -- parsing is now a separate function for testability, generality and maintenance"
+  [motif-string]
+  (.split (.trim motif-string) "\n"))
+
+(defn read-and-parse-motif-file
+  "read a file and parse it as a motif file"
+  [filename]
+  (parse-motif (slurp filename)))
+
 
 ;;Create a random nucleotide, from a c g t.  Used to generate motifs randomly.
 ;;DO NOT Call this method by itself, it will go for infinity.
@@ -34,8 +60,9 @@
 ;;Create a random nucleotide, from a c g t.  Used to generate motifs randomly.
 ;;DO NOT Call this method by itself, it will go for infinity.
 (defn rand-aa "Returns a random amino" []
-  (repeatedly #(get ["A" "Q" "W" "R" "T" "Y" "I" "P" "S"
-                     "D" "F" "H" "K" "L" "C" "V" "N" "M"] (rand-int 18))))
+  (repeatedly #(get ["R" "H" "K" "D" "E" "S" "T" "N" "Q" "C"
+                     "U" "G" "P" "A" "V" "I" "L" "M" "F" "Y" "W"] 
+                     (rand-int 21)))) ; 21 amino acids
 
 ;;Creates a DNA motif of random length
 ;;user=> (rand-motif-str 4)
@@ -75,7 +102,7 @@
    "Y" "TYR",
    "W" "TRP"})
 
-;;This demonstrates two important distinction in clojure
+;;This demonstrates two important distinctions in clojure
 ;;(1) Strings are "Sequences" : When we send "ABCDEFGH" as an argument to a "map" function,
 ;;     each character is individually sent to the map's function (in this case, "convert").
 ;;(2) In order to find a key (which is a string in this case) in the Map,
