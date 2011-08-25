@@ -31,7 +31,7 @@
          entries)))
 
 (defn read-and-parse-fasta-file
-  "Parse a file in fasta format -- parsing is now a separate function (isolate functional code from non-functional) for testability, generality and maintenance"
+  "Parse a file in fasta format"
   [filename]
   (parse-fasta (slurp filename)))
 
@@ -42,7 +42,7 @@
   (.split (.trim (slurp filename)) "\n"))
 
 (defn parse-motif
-  "Parse a string in motif format -- parsing is now a separate function for testability, generality and maintenance"
+  "Parse a string in motif format"
   [motif-string]
   (.split (.trim motif-string) "\n"))
 
