@@ -22,7 +22,8 @@
          entries)))
 
 (defn parse-fasta
-  "parse a FASTA-formatted string, transforming it into a map with :meta and :dna keys."
+  "parse a FASTA-formatted string, transforming it into a map with :meta and
+  :dna keys."
   [fasta-string]
   (let [text (.trim fasta-string)
         entries (-> text (.replaceAll "\r" "") (.split "\n\n") seq)]
@@ -55,14 +56,13 @@
 ;;Create a random nucleotide, from a c g t.  Used to generate motifs randomly.
 ;;DO NOT Call this method by itself, it will go for infinity.
 (defn rand-nuc "Returns a random nucleotide" []
-  (repeatedly #(get ["a" "c" "g" "t"] (rand-int 4))))
+  (repeatedly #(rand-nth ["a" "c" "g" "t"])))
 
 ;;Create a random nucleotide, from a c g t.  Used to generate motifs randomly.
 ;;DO NOT Call this method by itself, it will go for infinity.
 (defn rand-aa "Returns a random amino" []
-  (repeatedly #(get ["R" "H" "K" "D" "E" "S" "T" "N" "Q" "C"
-                     "U" "G" "P" "A" "V" "I" "L" "M" "F" "Y" "W"] 
-                     (rand-int 21)))) ; 21 amino acids
+  (repeatedly #(rand-nth ["R" "H" "K" "D" "E" "S" "T" "N" "Q" "C" "U"
+                          "G" "P" "A" "V" "I" "L" "M" "F" "Y" "W"])))
 
 ;;Creates a DNA motif of random length
 ;;user=> (rand-motif-str 4)
@@ -102,14 +102,17 @@
    "Y" "TYR",
    "W" "TRP"})
 
-;;This demonstrates two important distinctions in clojure
-;;(1) Strings are "Sequences" : When we send "ABCDEFGH" as an argument to a "map" function,
-;;     each character is individually sent to the map's function (in this case, "convert").
-;;(2) In order to find a key (which is a string in this case) in the Map,
-;;     the char must be converted into a string
-;;(3) Clojure is dynamically, strongly typed -- source:  http://www.citerus.se/post/220609-from-java-to-clojure
+;; This demonstrates two important distinctions in clojure (1) Strings
+;; are "Sequences" : When we send "ABCDEFGH" as an argument to a "map"
+;; function, each character is individually sent to the map's function
+;; (in this case, "convert").  (2) In order to find a key (which is a
+;; string in this case) in the Map, the char must be converted into a
+;; string (3) Clojure is dynamically, strongly typed -- source:
+;; http://www.citerus.se/post/220609-from-java-to-clojure
 (defn aa-to-3-letter
-  "Converts a string into a list of 3-letter amino acid names.  Needs refactoring:  assumes capital letters; if letter not found, mapping function returns nil; accepts string instead of list"
+  "Converts a string into a list of 3-letter amino acid names.  Needs
+  refactoring:  assumes capital letters; if letter not found, mapping function
+  returns nil; accepts string instead of list"
   [string]
   (let [convert (fn [c] (one-to-three (str c)))]
     (map convert string)))
