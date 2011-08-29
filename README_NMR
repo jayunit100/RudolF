@@ -1,5 +1,46 @@
 BioClojure-NMR
 
+--------------------------------------------------------
+
+NMR Library 1 :  Spin System Classification
+
+OUTLINE of PROBLEM :
+
+1) Amino acid -- a group of covalently bonded atoms.  
+There are 20 different common amino acids of known composition.  
+Common subunit of proteins and other common biological molecules.  
+Atoms of different amino acids resonate at characteristic frequencies when placed in magnetic fields, based on local environment.  
+For example, CA of Glycine is usually easy to distinguish from CA of Serine based on resonance frequency.  Source -- http://www.bmrb.wisc.edu/ref_info/statful.htm
+
+2) Spin system -- NMR spectroscopists collect spectra.  
+By some process, peaks are identified within the spectra.  
+An n-dimensional peak corresponds to n atoms that are covalently bonded (this is not quite true) -- within the same amino acid subunit.  
+Peaks in one spectra are correlated with peaks in other spectra based on matching resonance frequencies.  
+The interpretation of a correlation between two peaks from different spectra is:  the atoms in one peak are in the same amino acid subunit as the atoms in the other peak.  When peaks from many spectra are correlated, this is known as a 'spin system'.
+
+3) Classification -- from a protein with 200 amino acid residues, there will be approximately 200 spin systems in the spectra.  
+These spin systems need to be 'assigned' to amino acids.  
+This is a bipartite matching problem.  
+Information that is used to help with this problem:  
+  comparison of resonance frequencies of peaks in a spin system to average/typical reported values of each amino acid type; 
+  atoms that are missing from a spin system, compared to an amino acid;
+  atoms that are in a spin system but not in an amino acid;
+  (sequential connectivity information).
+
+
+REQUIREMENTS/SPECIFICATIONS (need clarification of difference between the two) :
+
+Input:  a spin system
+
+Output: a comparison of the spin system to each amino acid
+  where 'comparison' is the frequency between each atom in the spin system and its corresponding atom in the amino acid
+
+
+TESTING (Andrew's input here) :
+?????
+
+--------------------------------------------------------
+
 Summary
 	???
 
