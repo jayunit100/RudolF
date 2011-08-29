@@ -1,11 +1,20 @@
 (ns BioClojure.nmrSampleSchedule)
 
-;; Lee: Structs are deprecated, use a record (see 'defrecord') if you
-;; actually need an object, or a map if you don't need an object
-(defstruct schedule :points :num-dimensions)
-
 ;;@matt : Can we move this to nmr_samplesched.clj for consistency ?
 ;;bash> git mv sampleSchedule.clj nmr_sampleSchedule.clj
+
+;; Lee: Structs are deprecated, use a record (see 'defrecord') if you
+;; actually need an object, or a map if you don't need an object
+
+(defstruct schedule :points :num-dimensions)
+
+; Matt:  resource for using records: http://groups.google.com/group/clojure/browse_thread/thread/94ed69c0cd6951b3
+; records create java classes; structs may already be deprecated or may soon be
+; records need to be :import (ed)
+; why are structs deprecated?
+; clojuredocs for defrecord:  http://clojuredocs.org/clojure_core/clojure.core/defrecord#example_454
+
+
 (defn make-schedule
   [point-map num-dimensions]
   (let [points (keys point-map)
@@ -35,7 +44,7 @@
 (defn format-point
   [pt]
   (reduce
-   (fn [b n] (str b " " n))
+   (fn [base next] (str base " " next))
    ""
    (concat
     (pt :coordinates)
