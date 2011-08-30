@@ -40,7 +40,9 @@
 
 
 (defn compare-atom
-  "Return difference if both ss- and aa-shift defined.  Otherwise return which of the two is not defined.  Result is meaningless if both are not defined."
+  "Return difference if both ss- and aa-shift defined.  
+   Otherwise return which of the two is not defined.  
+   Result is meaningless if both are not defined."
   [ss-shift aa-shift]
   (cond
    (= nil ss-shift) 'not-in-ss
@@ -49,22 +51,23 @@
 
 
 (defn compare-ss-to-aa
-  "for each atom in ss:
-     compare ss-atom to aa-atom (of same name) or leave blank"
+  "for each atom in spin system:
+     compare to amino acid's atom (of same name)
+   return:  map -- key is atom, value is comparison result"
   [ss aa-atoms]
   (let [all-atoms (union (set (keys aa-atoms)) 
 			 (set (keys ss)))]
-   (for [atom all-atoms]
-    (list atom (compare-atom (ss atom) (aa-atoms atom)))))) ; this should return a map, not a list
+   (into {} (for [atom all-atoms]
+                 [atom (compare-atom (ss atom) (aa-atoms atom))]))))
 
 
 ; (compare-ss-to-aas {"H" 3.32 "CA" 55})
 (defn compare-ss-to-aas
-  "for each aa in avg-aa-shift:
-     compare ss to aa
-   result: number, 'not-in-aa, or 'not-in-ss (for each atom in union of ss,aa)"
+  "for each amino acid:
+     compare spin system to amino acid
+   return:  map -- key is amino acid, value is comparison"
   [ss]
-  (for [[aa atoms] avg-aa-shifts]
-   (list aa (compare-ss-to-aa ss atoms)))) ; this should return a map, not a list
+  (into {} (for [[aa atoms] avg-aa-shifts]
+                [aa (compare-ss-to-aa ss atoms)])))
 
 
