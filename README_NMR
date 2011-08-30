@@ -26,6 +26,8 @@ Information that is used to help with this problem:
   atoms that are missing from a spin system, compared to an amino acid;
   atoms that are in a spin system but not in an amino acid;
   (sequential connectivity information).
+For now we're only looking at comparing resonance frequencies between spin systems and amino acids; 
+  in the future we should provide algorithms for ranking each of the 20 comparisons (sum of magnitude of differences, sum of differences, number of atoms missing, etc.)
 
 
 REQUIREMENTS/SPECIFICATIONS (need clarification of difference between the two) :
@@ -34,6 +36,15 @@ Input:  a spin system
 
 Output: a comparison of the spin system to each amino acid
   where 'comparison' is the frequency between each atom in the spin system and its corresponding atom in the amino acid
+
+Example:  
+  INPUT -- spin system
+    "CA": 56, "CB": 72, "H": 9.32, "N": 117.02
+  INPUT -- amino acid -- Glycine
+    "CA": 45.37, "C": 173.88, "N": 109.89, "H": 8.33, "HA2": 3.97, "HA3": 3.89
+  OUTPUT -- comparison:
+    "CA": 10.63, "CB": not in amino acid, "C": not in spin system, "N": 7.13, "H": 0.99, "HA2": not in spin system, "HA3": not in spin system
+  NOTE:  negatives or positives?  doesn't really matter, but should pick a convention and stay with it.  Let's do shift(spin system) - shift(amino acid).
 
 
 TESTING (Andrew's input here) :

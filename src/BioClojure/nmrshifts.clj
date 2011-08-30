@@ -40,7 +40,7 @@
 
 
 (defn compare-atom
-  ""
+  "Return difference if both ss- and aa-shift defined.  Otherwise return which of the two is not defined.  Result is meaningless if both are not defined."
   [ss-shift aa-shift]
   (cond
    (= nil ss-shift) 'not-in-ss
@@ -66,4 +66,5 @@
   [ss]
   (for [[aa atoms] avg-aa-shifts]
    (list aa (compare-ss-to-aa ss atoms)))) ; this should return a map, not a list
+
 
