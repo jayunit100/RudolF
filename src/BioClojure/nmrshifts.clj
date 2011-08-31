@@ -87,8 +87,15 @@
 (defn best-match
   ""
   [comparison]
-  (let [key-fn (fn [[_ v]] v)] ; need to do absolute value, and need to filter out non-numeric values
-   (first (sort-by key-fn comparison))))
+  ;; need to do absolute value, and need to filter out non-numeric values
+  ;; Lee: I believe I did this, but keeping your comment here just in case
+  (->> comparison
+       ;; Filter out ones that aren't float-able
+       (filter #(try (float (val %)) (catch Exception _ nil)))
+       ;; Sort by smallest absolute value number 
+       (sort-by (comp abs val))
+       ;; First is the best match
+       first))
 
 (defn worst-match
   ""
