@@ -17,11 +17,11 @@
   "get differences of input shift, average shift for various Carbon nucleus
   types as a sorted list of pairs"
   [shift]
-  ;; computer difference between shift and average shift for each nucleus type
+  ;; compute difference between shift and average shift for each nucleus type
   (let [diffs (for [[atom avgshift] approx-c-shifts] 
                 (list atom (abs (- shift avgshift))))]
     ;; return a sorted list (by shift difference)
-    (sort-by #(second %) diffs)))
+    (sort-by second diffs)))
 
 
 
@@ -61,7 +61,7 @@
   (cond
    (= nil ss-shift) 'not-in-ss
    (= nil aa-shift) 'not-in-aa
-   true (- ss-shift aa-shift)))
+   :else (- ss-shift aa-shift)))
 
 
 (defn compare-ss-to-aa
@@ -86,17 +86,15 @@
 
 (defn best-match
   ""
-  [comparison]
-  (let [key-fn (fn [[_ v]] v)] ; need to do absolute value, and need to filter out non-numeric values
-   (first (sort-by key-fn comparison))))
+  [comparison]; need to do absolute value, and need to filter out non-numeric values
+  (first (sort-by second comparison)))
 
 (defn worst-match
   ""
   [comparison]
-  (let [key-fn (fn [[_ v]] v)]
-   (first 
-     (reverse 
-       (sort-by key-fn comparison)))))
+  (first 
+   (reverse 
+    (sort-by second comparison))))
 
 (defn rank-comparison
   ""
