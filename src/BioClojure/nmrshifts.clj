@@ -61,7 +61,7 @@
   (cond
    (= nil ss-shift) 'not-in-ss
    (= nil aa-shift) 'not-in-aa
-   true (- ss-shift aa-shift)))
+   :else (- ss-shift aa-shift)))
 
 
 (defn compare-ss-to-aa
@@ -91,19 +91,18 @@
   ;; Lee: I believe I did this, but keeping your comment here just in case
   (->> comparison
        ;; Filter out ones that aren't float-able
-       (filter #(try (float (val %)) (catch Exception _ nil)))
+       (filter #(try (float (second %)) (catch Exception _ nil)))
        ;; Sort by smallest absolute value number
-       (sort-by (comp abs val))
+       (sort-by (comp abs second))
        ;; First is the best match
        first))
 
 (defn worst-match
   ""
   [comparison]
-  (let [key-fn (fn [[_ v]] v)]
-    (first
-     (reverse
-      (sort-by key-fn comparison)))))
+  (first
+   (reverse
+    (sort-by second comparison))))
 
 (defn rank-comparison
   ""
