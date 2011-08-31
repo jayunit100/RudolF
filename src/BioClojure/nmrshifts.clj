@@ -19,7 +19,7 @@
   [shift]
   ;; computer difference between shift and average shift for each nucleus type
   (let [diffs (for [[atom avgshift] approx-c-shifts]
-                (list atom (abs (- shift avgshift))))]
+                [atom (abs (- shift avgshift))])]
     ;; return a sorted list (by shift difference)
     (sort-by second diffs)))
 
