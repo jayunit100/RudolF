@@ -85,7 +85,9 @@
              [aa (compare-ss-to-aa ss atoms)])))
 
 (defn best-match
-  ""
+  "comparison:  map
+    keys:  atom names (refactor from strings to symbols)
+    values: numbers, or symbols indicating reason why no number"
   [comparison]
   ;; need to do absolute value, and need to filter out non-numeric values
   ;; Lee: I believe I did this, but keeping your comment here just in case
@@ -105,7 +107,11 @@
     (sort-by second comparison))))
 
 (defn rank-comparison
-  ""
+  "comparisons:  map
+    keys:  amino acid names (refactor to symbols)
+    values:  maps
+   algorithm:  function of one argument
+    accepts values from comparisons"
   [comparisons algorithm]
   (sort-by (fn [[_ v]] (algorithm v)) comparisons))
 
