@@ -6,7 +6,7 @@
 ; @Matt: are you following the clojure/'testing in clojure' conventions?
 ; are you using the test API properly/effectively?
 ; Refactor to make the tests more meaningful.
-(deftest compare-atom
+(deftest test-compare-atom
   "1. does it return a positive when ss-shift is greater than aa-shift
    2. does it return a negative when aa-shift greater
    3. does it return 0 when they're equal

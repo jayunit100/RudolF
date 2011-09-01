@@ -96,6 +96,19 @@
        (map abs)  ;; get absolute values
        sort       ;; Sort by smallest
        first))    ;; First is the best match
+
+
+(defn worst-match-of-comparison
+  "comparison:  map
+    keys:  atom names
+    values: numbers
+   returns: a non-negative number"
+  [comparison]
+  (->> comparison
+       vals       ;; extract values (of key-value pairs)
+       (map abs)  ;; get absolute values
+       sort       ;; Sort by smallest
+       last))     ;; last is the worst match
        
 
 (defn remove-non-numbers
@@ -106,7 +119,7 @@
           seq))
 
 
-(defn rank-by-best-match
+(defn rank-by-best-match ; what about ranking by best __normalized__ match?
   [comparisons]
   (->> comparisons
        (fmap remove-non-numbers)  				;; remove non-numeric results from each comparison
@@ -114,12 +127,13 @@
        (sort-by #(best-match-of-comparison (second %)))))    	;; sort comparisons by best (i.e. smallest absolute value) result
     
 
-(defn worst-match
+(defn rank-by-worst-match
   "under construction"
-  [comparison]
-  (first
-   (reverse
-    (sort-by second comparison))))
+  [comparisons]
+  (->> comparisons
+       (fmap remove-non-numbers)
+       (filter #(> (count (second %)) 0))
+       (sort-by #(worst-match-of-comparison (second %)))))
 
 
 (def example-comps (compare-ss-to-aas {:H 3.32 :CA 55}))
