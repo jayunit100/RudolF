@@ -12,15 +12,6 @@
         props (drop 1 meta-props)]
     (assoc (into {} (map #(vec (.split % "=")) props)) "name" name)))
 
-(defn read-fasta-file
-  "Read a FASTA file, transforming it into a map with :meta and :dna keys."
-  [filename]
-  (let [text (.trim (slurp filename))
-        entries (-> text (.replaceAll "\r" "") (.split "\n\n") seq)]
-    (map #(let [[m dna] (.split % "\n")]
-            {:meta (transform-entry m) :dna dna})
-         entries)))
-
 (defn parse-fasta
   "parse a FASTA-formatted string, transforming it into a map with :meta and
   :dna keys."
@@ -31,23 +22,17 @@
             {:meta (transform-entry m) :dna dna})
          entries)))
 
-(defn read-and-parse-fasta-file
+(defn read-fasta-file
   "Parse a file in fasta format"
   [filename]
   (parse-fasta (slurp filename)))
-
-
-(defn read-motif-file
-  "Read a motif file"
-  [filename]
-  (.split (.trim (slurp filename)) "\n"))
 
 (defn parse-motif
   "Parse a string in motif format"
   [motif-string]
   (.split (.trim motif-string) "\n"))
 
-(defn read-and-parse-motif-file
+(defn read-motif-file
   "read a file and parse it as a motif file"
   [filename]
   (parse-motif (slurp filename)))
