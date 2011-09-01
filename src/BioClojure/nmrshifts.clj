@@ -1,6 +1,7 @@
 (ns BioClojure.nmrshifts
   (:use clojure.contrib.math)
-  (:use clojure.set))
+  (:use clojure.set)
+  (:use clojure.contrib.generic.functor))
 
 (def approx-c-shifts
   {:CA 58
@@ -84,44 +85,45 @@
   (into {} (for [[aa atoms] avg-aa-shifts]
              [aa (compare-ss-to-aa ss atoms)])))
 
-(defn best-match
+(defn best-match-of-comparison
   "comparison:  map
-    keys:  atom names (refactor from strings to symbols)
-    values: numbers, or symbols indicating reason why no number
-   goal: turn map of pairs into list of pairs, sorted by smallest difference from the values
-   returns: a pair [key value]"
+    keys:  atom names
+    values: numbers
+   returns: a non-negative number"
   [comparison]
-  ;; need to do absolute value, and need to filter out non-numeric values
-  ;; Lee: I believe I did this, but keeping your comment here just in case
   (->> comparison
-       ;; Filter out ones that aren't float-able
-       (filter #(try (float (second %)) (catch Exception _ nil)))
-       ;; Sort by smallest absolute value number
-       (sort-by (comp abs second))
-       ;; First is the best match
-       first))
+       vals       ;; extract values (of key-value pairs)
+       (map abs)  ;; get absolute values
+       sort       ;; Sort by smallest
+       first))    ;; First is the best match
+       
+
+(defn remove-non-numbers
+  "remove elements from a sequence of pairs, where the second value is non-numeric (i.e. non-floatable)"
+  [seq]
+  (filter #(try (float (second %)) ; what is try? is it a macro or a function?
+                (catch Exception _ nil)) 
+          seq))
+
+
+(defn rank-by-best-match
+  [comparisons]
+  (->> comparisons
+       (fmap remove-non-numbers)  				;; remove non-numeric results from each comparison
+       (filter #(> (count (second %)) 0))   			;; completely remove any empty comparison (i.e. comparison with no numeric results)
+       (sort-by #(best-match-of-comparison (second %)))))    	;; sort comparisons by best (i.e. smallest absolute value) result
+    
 
 (defn worst-match
-  ""
+  "under construction"
   [comparison]
   (first
    (reverse
     (sort-by second comparison))))
 
-(defn rank-comparison
-  "comparisons:  map
-    keys:  amino acid names (refactor to symbols)
-    values:  maps
-   algorithm:  function of one argument
-    accepts values from comparisons
-
-   goal:
-    turn map of pairs into list of pairs, sorted by some comparison function"
-  [comparisons algorithm]
-  (sort-by (fn [[_ v]] (abs (second (algorithm v)))) comparisons)) ; needs intellectual refactoring or something ... figure out what this is supposed to do
-
-
 
 (def example-comps (compare-ss-to-aas {:H 3.32 :CA 55}))
 (def example-comp (example-comps :GLY))
+(def best-match-final (rank-by-best-match example-comps))
+(def fmap-example (fmap str {1 2 3 4}))
 
