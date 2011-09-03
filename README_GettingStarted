@@ -1,52 +1,16 @@
 
-1) First, go to your checkout directory (the root) 
-
-doolittle-5:bioclojure Jpeerindex$ ls
-README      lib         resources   test
-classes     project.clj src
-
-2) Now run "lein deps".  This will go get the apache StringUtils.
 
 
-3) Now, start repl 
+0) Read the README and follow instructions (don't worry there arent necessarily alot, but this is
+the central point for developers to add important notes for newcomers )
 
-doolittle-5:bioclojure Jpeerindex$ lein repl
+Tutorial 1) To get started with Clojure & JMOL 
 
+	>Read the README_JMOL to install the jmol into maven. 
+	>Run "lein deps"
+	>Launch "lein repl" from the bioclojure root directory 
+	>First, load clomol wrapper : (load-file "src/BioClojure/clomol.clj")
+	>Now type: (use 'BioClojure.clomol)
+	>Now type: (launch) 
+	>... Now you can visualize your molecules in the repl 
 
-REPL started; server listening on localhost port 28701
-
-4) Now, load up the core.clj script 
-
-user=> (load-file "src/BioClojure/core.clj")
-#'SeqMine2.core/hasSubstring
-
-5) Yay, it saw the file !  Now, switch to the namespace that has the
-methods in it for the core.clj.  There are really only two methods.
-
-user=> (in-ns 'SeqMine2.core)
-#<Namespace SeqMine2.core>
-
-6) Okay, now try to see if you can capitalize this string.  just 
-call the makeCap method : 
-
-SeqMine2.core=> (makeCap "s1")
-"S1"
-
-SeqMine2.core=> 
-
-
-7) Your done !  Now edit the file to support some real operations.
-When you are done, just type 
-
-git add core.clj
-git commit
-git push 
-
-And that will do it.  
-
-By the way, if you like syntax highlighting, make sure and get this installedthttp://kuriqoo.blogspot.com/2011/02/using-clojure-in-vim.html
-
-
-COMMON ERRORS 
-
-- Can't cast "..." to "INf" : This means that you might have extra parenthesis.

@@ -62,6 +62,10 @@
   [avg-shifts prot]
   ) ;; this is not done
 
+;;NEcessary for this code to compile, unimplemented.
+;;See venn-nmr-help
+(defn merge-bmrb [])
+
 (defn venn-nmr-help
   [seqstr shiftstr bmrbstr]
   (let [seq (parse-sequence seqstr)
@@ -70,7 +74,6 @@
    (let [prot (seq-to-protein seq)]
     (let [prot-shifts (merge-shifts prot shifts)] ;; merge-shifts
      (merge-bmrb avg-shifts prot-shifts))))) ;; some-func
-
 
 (defn venn-nmr
   [seqfile shiftfile bmrbfile]
