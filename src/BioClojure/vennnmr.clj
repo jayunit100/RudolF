@@ -83,11 +83,18 @@
                                         (avg-shifts (res :aatype))))]
    (fmap selector prot)))
 
+(defn transform-stats
+  "input: list of maps based on bmrb shift statistics file
+   output: map of keys -- amino acid type names, values maps of keys -- atom names, values maps of -- stats about that atom in that amino acid (avg shift, std dev, etc.)"
+  [shift-stats]
+  (let [f (fn [base linemap] base)] ;; this is not done -- function should create new amino acid if it doesn't exist, then insert atom and its values into that amino acid
+   (reduce f {} shift-stats))) 
+
 (defn venn-nmr-help
   [seqstr shiftstr bmrbstr]
   (let [seq (parse-sequence seqstr)               ;; parse the sequence string (comments need refactoring)
         shifts (parse-shifts shiftstr)            ;; parse the assigned shifts string
-        avg-shifts (parse-bmrb-stats bmrbstr)]    ;; parse the bmrb stats string
+        avg-shifts (transform-stats (parse-bmrb-stats bmrbstr))]    ;; parse the bmrb stats string
    (let [prot (seq-to-protein seq)]               ;; create a protein object from the sequence
     (let [prot-shifts (merge-shifts prot shifts)] ;; put the assigned chemical shifts into the protein
      (merge-bmrb avg-shifts prot-shifts)))))      ;; put the bmrb standard shifts into the protein (based on matching aatype/atomtype)
