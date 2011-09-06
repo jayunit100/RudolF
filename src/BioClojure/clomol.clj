@@ -23,7 +23,13 @@
 
 ;;This is a good example of how to use object API's in clojure, via the let special form  -- 'let' is not a function
 ;; what is the return value intended to be?  panel?  what is the return value of .evalString?
-;; can this no-arg procedure also be refactored as a (def ...) binding?
+;; can this no-arg procedure be refactored as a (def ...) binding?
+;; 
+;; check out the 'doto' special form:  http://clojure.org/java_interop#Java%20Interop-The%20Dot%20special%20form-%28doto%20instance-expr%20%28instanceMethodName-symbol%20args*%29*%29
+;; this could be rewritten as:
+;;  (doto (new org.biojava.bio.structure.gui.BiojavaJmol)]
+;;   (.setStructure (getStructure "1WRP"))
+;;   (.evalString "select *; spacefill 200; wireframe off; backbone 0.4; color chain"))
 (defn ex1 
   "Launch a viewer that views trp represor. And then colors it blue, with spacefill. "
   []
