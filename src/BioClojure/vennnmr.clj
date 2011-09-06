@@ -2,6 +2,12 @@
   (:use [clojure.contrib.str-utils2 :only (split-lines trim)])
   (:use clojure.contrib.generic.functor))
 
+;; @Matt:  suggested refactorings:
+;; refactor and post data model -- make sure all code uses it
+;; clarify, post general procedure for merging these data (sequence, shifts, shift-stats)
+;; clojure-idiomatize code
+
+
 (defn parse-bmrb-stats
   "output: list of maps
      each map: keys are /Res, Name, Atom, Count, Min. Max., Avg., StdDev/"
@@ -52,28 +58,39 @@
                         shift)))))
 
 (defn merge-shifts
-  "input: map of index to residue, list of maps of header to value"
+  "input: protein, list of maps of header to value"
   [prot shift-list]
   (reduce place-shift prot shift-list))
 
-(defn merge-bmrb-stats
-  "input: bmrb stats, prot
-   output: prot with bmrb stats combined"
-  [avg-shifts prot]
-  ) ;; this is not done
+(defn place-stats
+  "marked for refactoring:  what data model does this use?
+   input: residue, average shifts map (specific to that residue) -- keys: atomname, values: map maybe?"
+  [res avg-shifts]
+  (let [my-func (fn [atommap] (into atommap [[:stdshift (avg-shifts (atommap ??atomname??))]])) ] ; this function takes an atommap, looks up the atomname in avg-shifts, and gets *some* information (whatever *some* means)
+   (fmap my-func res))) ;; does fmap work here ???? need the atom name to look up the shift
 
-;;NEcessary for this code to compile, unimplemented.
-;;See venn-nmr-help
-(defn merge-bmrb [])
+(defn merge-bmrb
+  "input: bmrb stats, protein with chemical shifts of assigned atoms
+   output: protein with bmrb stats for each atom that initially had an assignment"
+  [avg-shifts prot]
+    ;; for each residue in the protein
+    ;; find the matching shifts in the average stats
+    ;;      use the aatype of the residue to look up the stats
+    ;;   then for each atom in the residue
+    ;;     look up the shift
+    ;;     place it in the dictionary for the protein's atom .... or something
+  (let [selector (fn [res] (place-stats res 
+                                        (avg-shifts (res :aatype))))]
+   (fmap selector prot)))
 
 (defn venn-nmr-help
   [seqstr shiftstr bmrbstr]
-  (let [seq (parse-sequence seqstr)
-        shifts (parse-shifts shiftstr)
-        avg-shifts (parse-bmrb-stats bmrbstr)]
-   (let [prot (seq-to-protein seq)]
-    (let [prot-shifts (merge-shifts prot shifts)] ;; merge-shifts
-     (merge-bmrb avg-shifts prot-shifts))))) ;; some-func
+  (let [seq (parse-sequence seqstr)               ;; parse the sequence string (comments need refactoring)
+        shifts (parse-shifts shiftstr)            ;; parse the assigned shifts string
+        avg-shifts (parse-bmrb-stats bmrbstr)]    ;; parse the bmrb stats string
+   (let [prot (seq-to-protein seq)]               ;; create a protein object from the sequence
+    (let [prot-shifts (merge-shifts prot shifts)] ;; put the assigned chemical shifts into the protein
+     (merge-bmrb avg-shifts prot-shifts)))))      ;; put the bmrb standard shifts into the protein (based on matching aatype/atomtype)
 
 (defn venn-nmr
   [seqfile shiftfile bmrbfile]
