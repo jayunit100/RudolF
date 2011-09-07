@@ -4,7 +4,6 @@
                  [org.clojure/clojure-contrib "1.2.0"]
 		 [commons-lang "2.3"]
                  [ring/ring-jetty-adapter "0.3.9"]
-                 [jmol/jmol "12.0.49"]
 		 [org.biojava/biojava3-core "3.0"]
 		 [org.biojava/biojava3-structure "3.0"]
 		 [org.biojava/biojava3-structure-gui "3.0"]]
