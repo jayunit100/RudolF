@@ -7,7 +7,5 @@
                  [jmol/jmol "12.0.49"]
 		 [org.biojava/biojava3-core "3.0"]
 		 [org.biojava/biojava3-structure "3.0"]
-		 [org.biojava/biojava3-structure-gui "3.0"]
-		 ]
-  :repositories [["biojava-maven-repo" "http://www.biojava.org/download/maven/"]]
-)
+		 [org.biojava/biojava3-structure-gui "3.0"]]
+  :repositories [["biojava-maven-repo" "http://www.biojava.org/download/maven/"]])
