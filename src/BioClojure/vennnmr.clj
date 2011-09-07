@@ -66,6 +66,15 @@
   [prot shift-list]
   (reduce place-shift prot shift-list))
 
+(defn get-stats
+  "input:  ???
+   output: "
+  [stats atomname]
+  (let [atomstats (stats atomname)]
+   (if atomstats 
+       (atomstats :avg)
+       'no-stats-for-atom)))
+
 (defn place-stats
   "input: 1) atoms, keys are atom names, values are maps
           2) average shifts map (specific to that residue) -- keys: atom names, values: maps of info about that atom
@@ -75,7 +84,7 @@
     ;; find the standard data in stats
     ;; put that into the atom's map
   (into {} (for [[atomname atommap] atoms]
-                [atomname (assoc-in atommap [:avg] ((stats atomname) :avg))]))) ;; but what does this do if (stats atomname) is nil????
+                [atomname (assoc-in atommap [:avg] (get-stats stats atomname))]))) ;; but what does this do if (stats atomname) is nil????
 
 (defn merge-bmrb
   "input: bmrb stats, protein with chemical shifts of assigned atoms
@@ -108,7 +117,7 @@
 ;;(venn-nmr "resources/venn_nmr/sequence.txt" "resources/venn_nmr/assigned-shifts.prot" "resources/venn_nmr/bmrbstats.txt")
 
 (def mseq   (slurp "resources/venn_nmr/sequence.txt"))
-(def mshift (slurp "resources/venn_nmr/assigned-shifts2.prot"))
+(def mshift (slurp "resources/venn_nmr/assigned-shifts.prot"))
 (def mstat  (slurp "resources/venn_nmr/bmrbstats.txt"))
 
 ;; for informal testing

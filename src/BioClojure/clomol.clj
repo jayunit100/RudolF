@@ -22,8 +22,7 @@
   (str "select ", index, "; color green")) 
 
 ;;This is a good example of how to use object API's in clojure, via the let special form  -- 'let' is not a function
-;; what is the return value intended to be?  panel?  what is the return value of .evalString?
-;; can this no-arg procedure be refactored as a (def ...) binding?
+;; what is the return value intended to be?
 ;; 
 ;; check out the 'doto' special form:  http://clojure.org/java_interop#Java%20Interop-The%20Dot%20special%20form-%28doto%20instance-expr%20%28instanceMethodName-symbol%20args*%29*%29
 ;; this could be rewritten as:
@@ -41,7 +40,7 @@
 ;; this is (?supposed?) to be a map of amino acid numbers -> rgb colors , to use venn nmr
 ;; refactored from no-args function to a name binding
 (def aaColors 
-  ([1 2 3]) ) ;; is this supposed to be a map?  should it be [1 2 3] -- without the parentheses?
+  [1 2 3]) ;; is this supposed to be a map?
 
 ;;incomplete method to map color statements 
 ;;over all residues.
