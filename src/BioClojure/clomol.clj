@@ -34,7 +34,9 @@
   []
   (let [panel (new org.biojava.bio.structure.gui.BiojavaJmol)] 
        (.setStructure panel (getStructure "1WRP")) 
-       (.evalString panel "select *; spacefill 200; wireframe off; backbone 0.4; color chain")))
+       (.evalString panel "select *; spacefill 200; wireframe off; backbone 0.4; color chain")
+       (.evalString panel "select atomno=1; color RED") ;;<--- color this one atom red.
+))
 
 
 ;; this is (?supposed?) to be a map of amino acid numbers -> rgb colors , to use venn nmr
