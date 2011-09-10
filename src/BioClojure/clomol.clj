@@ -1,6 +1,8 @@
 (ns BioClojure.clomol
   (:use [clojure.contrib.string :only (replace-by)])
-  (:use clojure.contrib.generic.functor))
+  (:use clojure.contrib.generic.functor)
+  (import org.biojava.bio.structure.StructureTools)
+)
 
 (defn launchGui 
   "Here is a starting point - it will launch biojava jmol gui. 
@@ -41,13 +43,20 @@
 
 ;; this is (?supposed?) to be a map of amino acid numbers -> rgb colors , to use venn nmr
 ;; refactored from no-args function to a name binding
-(def aaColors 
-  [1 2 3]) ;; is this supposed to be a map?
+(defn atomColors "" [acount] 
+	(
+		zipmap (range 1 acount) (repeat (rand)) 
+	)
+) ;; is this supposed to be a map?
 
-;;incomplete method to map color statements 
-;;over all residues.
-(defn ex2 []
-  (let [panel (new org.biojava.bio.structure.gui.BiojavaJmol)]
+;;ounch a viewer that views trp represor. And then colors it blue, with spacefill. "
+(defn ex2  []
+  (let [ panel (new org.biojava.bio.structure.gui.BiojavaJmol) 
+	 atomToFloat atomColors
+	 ]
        (.setStructure panel (getStructure "1WRP"))
-       (map colorAA aaColors)))
-
+       (.evalString panel "select *; spacefill 200; wireframe off; backbone 0.4; color chain")
+       ;;this methodo creates a map  of iindices to selct statements .... how to select the key and put value in the right half ?
+	(fmap #(str "select atomno=" % ";" ) (atomColors (StructureTools/getNrAtoms (getStructure "1WRP") )))
+)
+)
