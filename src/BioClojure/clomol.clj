@@ -37,7 +37,12 @@
        (.setStructure panel (getStructure "1WRP")) 
        (.evalString panel "select *; spacefill 200; wireframe off; backbone 0.4; color chain")
        (.evalString panel "select atomno=1; color RED"))) ;;<--- color this one atom red.
-
+ 
+(defn atomColorPct 
+  "Returns a map of atom #s to floats" 
+  [acount] 
+  (zipmap (range 1 acount) 
+          (repeatedly rand)))
 
 (defn atomColorValue 
   "Uses the atomColorPct method to scale rbg colors. 
@@ -45,27 +50,20 @@
   [acount]
   (let [atomColors (atomColorPct acount)
         mykeys (range 1 acount)
-        myvalues (map #([(atomColors %) 255 255]) mykeys)] ;; this probably needs refactoring .... -- Matt
-   (zipmap mykeys myvalues)));; c [255 255 255]
+        myvalues (map (fn [x] [(atomColors x) 255 255]) mykeys)] ;; this probably needs refactoring .... -- Matt ... this code is just generating keys, and then generating a value from each of those keys, and then putting those key/value pairs into a map
+   (zipmap mykeys myvalues)))
 	     ;;@Matt : can you create a map of size "acount", 
 	     ;;with keys being the numbers from 1 to acount, 
 	     ;;and vlues being = [x 255 255 ], where x = 
 	     ;;the value of (:key (atomColorPct)) * 255 
-
 	     ;;this will give the rgb colors for the atoms. 
 
- 
-(defn atomColorPct 
-  "Returns a map of atom #s to floats" 
-  [acount] 
-  (zipmap (range 1 acount) 
-          (repeat (rand))))
 
 (defn ex2  
   "launch a viewer that views trp represor. And then colors it blue, with spacefill. "
   []
   (let [ panel (new org.biojava.bio.structure.gui.BiojavaJmol) 
-	 atomToFloat atomColors]
+	 atomToFloat (atomColorPct 4)] ;; changed to make it compile -- 4 is any arbitrary number, 'atomColorPct' is an arbitrary function
        (.setStructure panel (getStructure "1WRP"))
        (.evalString panel "select *; spacefill 200; wireframe off; backbone 0.4; color chain")
        ;; this method creates a map of indices to select statements .... how to select the key and put value in the right half ?
