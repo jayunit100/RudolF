@@ -1,8 +1,7 @@
 (ns BioClojure.clomol
   (:use [clojure.contrib.string :only (replace-by)])
   (:use clojure.contrib.generic.functor)
-  (import org.biojava.bio.structure.StructureTools)
-)
+  (import org.biojava.bio.structure.StructureTools))
 
 (defn launchGui 
   "Here is a starting point - it will launch biojava jmol gui. 
@@ -37,38 +36,37 @@
   (let [panel (new org.biojava.bio.structure.gui.BiojavaJmol)] 
        (.setStructure panel (getStructure "1WRP")) 
        (.evalString panel "select *; spacefill 200; wireframe off; backbone 0.4; color chain")
-       (.evalString panel "select atomno=1; color RED") ;;<--- color this one atom red.
-))
+       (.evalString panel "select atomno=1; color RED"))) ;;<--- color this one atom red.
 
-;; Uses the atomColorPct method to scale rbg colors. 
-;; returns a map of atoms to colors. 
-(defn atomColorValue "" [acount]
-	(let [a (zipmap acount) 
-              c [255 255 255]
-	 
+
+(defn atomColorValue 
+  "Uses the atomColorPct method to scale rbg colors. 
+  returns a map of atoms to colors" 
+  [acount]
+  (let [atomColors (atomColorPct acount)
+        mykeys (range 1 acount)
+        myvalues (map #([(atomColors %) 255 255]) mykeys)] ;; this probably needs refactoring .... -- Matt
+   (zipmap mykeys myvalues)));; c [255 255 255]
 	     ;;@Matt : can you create a map of size "acount", 
 	     ;;with keys being the numbers from 1 to acount, 
 	     ;;and vlues being = [x 255 255 ], where x = 
 	     ;;the value of (:key (atomColorPct)) * 255 
 
 	     ;;this will give the rgb colors for the atoms. 
-	))
 
-;; Returns a map of atom #s to floats 
-(defn atomColorPct "" [acount] 
-	(
-		zipmap (range 1 acount) (repeat (rand)) 
-	)
-) ;; is this supposed to be a map?
+ 
+(defn atomColorPct 
+  "Returns a map of atom #s to floats" 
+  [acount] 
+  (zipmap (range 1 acount) 
+          (repeat (rand))))
 
-;;ounch a viewer that views trp represor. And then colors it blue, with spacefill. "
-(defn ex2  []
+(defn ex2  
+  "launch a viewer that views trp represor. And then colors it blue, with spacefill. "
+  []
   (let [ panel (new org.biojava.bio.structure.gui.BiojavaJmol) 
-	 atomToFloat atomColors
-	 ]
+	 atomToFloat atomColors]
        (.setStructure panel (getStructure "1WRP"))
        (.evalString panel "select *; spacefill 200; wireframe off; backbone 0.4; color chain")
-       ;;this methodo creates a map  of iindices to selct statements .... how to select the key and put value in the right half ?
-	(fmap #(str "select atomno=" % ";" ) (atomColorValue (StructureTools/getNrAtoms (getStructure "1WRP") )))
-)
-)
+       ;; this method creates a map of indices to select statements .... how to select the key and put value in the right half ?
+       (fmap #(str "select atomno=" % ";" ) (atomColorValue (StructureTools/getNrAtoms (getStructure "1WRP"))))))
