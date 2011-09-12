@@ -40,10 +40,22 @@
        (.evalString panel "select atomno=1; color RED") ;;<--- color this one atom red.
 ))
 
+;; Uses the atomColorPct method to scale rbg colors. 
+;; returns a map of atoms to colors. 
+(defn atomColorValue "" [acount]
+	(let [a (zipmap acount) 
+              c [255 255 255]
+	 
+	     ;;@Matt : can you create a map of size "acount", 
+	     ;;with keys being the numbers from 1 to acount, 
+	     ;;and vlues being = [x 255 255 ], where x = 
+	     ;;the value of (:key (atomColorPct)) * 255 
 
-;; this is (?supposed?) to be a map of amino acid numbers -> rgb colors , to use venn nmr
-;; refactored from no-args function to a name binding
-(defn atomColors "" [acount] 
+	     ;;this will give the rgb colors for the atoms. 
+	))
+
+;; Returns a map of atom #s to floats 
+(defn atomColorPct "" [acount] 
 	(
 		zipmap (range 1 acount) (repeat (rand)) 
 	)
@@ -57,6 +69,6 @@
        (.setStructure panel (getStructure "1WRP"))
        (.evalString panel "select *; spacefill 200; wireframe off; backbone 0.4; color chain")
        ;;this methodo creates a map  of iindices to selct statements .... how to select the key and put value in the right half ?
-	(fmap #(str "select atomno=" % ";" ) (atomColors (StructureTools/getNrAtoms (getStructure "1WRP") )))
+	(fmap #(str "select atomno=" % ";" ) (atomColorValue (StructureTools/getNrAtoms (getStructure "1WRP") )))
 )
 )
