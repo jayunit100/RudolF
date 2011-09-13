@@ -1,7 +1,9 @@
 (ns BioClojure.clomol
   (:use [clojure.contrib.string :only (replace-by)])
   (:use clojure.contrib.generic.functor)
-  (import org.biojava.bio.structure.StructureTools))
+  (import org.biojava.bio.structure.StructureTools)
+  (import java.lang.Math)
+ )
 
 (defn launchGui 
   "Here is a starting point - it will launch biojava jmol gui. 
@@ -50,13 +52,8 @@
   [acount]
   (let [atomColors (atomColorPct acount)
         mykeys (range 1 acount)
-        myvalues (map (fn [x] [(atomColors x) 255 255]) mykeys)] ;; this probably needs refactoring .... -- Matt ... this code is just generating keys, and then generating a value from each of those keys, and then putting those key/value pairs into a map
+        myvalues (map (fn [x] [(Math/floor (* 255 (atomColors x))) 111 111]) mykeys)] ;; this probably needs refactoring .... -- Matt ... this code is just generating keys, and then generating a value from each of those keys, and then putting those key/value pairs into a map
    (zipmap mykeys myvalues)))
-	     ;;@Matt : can you create a map of size "acount", 
-	     ;;with keys being the numbers from 1 to acount, 
-	     ;;and vlues being = [x 255 255 ], where x = 
-	     ;;the value of (:key (atomColorPct)) * 255 
-	     ;;this will give the rgb colors for the atoms. 
 
 
 (defn ex2  
@@ -67,4 +64,5 @@
        (.setStructure panel (getStructure "1WRP"))
        (.evalString panel "select *; spacefill 200; wireframe off; backbone 0.4; color chain")
        ;; this method creates a map of indices to select statements .... how to select the key and put value in the right half ?
-       (fmap #(str "select atomno=" % ";" ) (atomColorValue (StructureTools/getNrAtoms (getStructure "1WRP"))))))
+       (doseq [[k v] (atomColorValue (StructureTools/getNrAtoms (getStructure "1WRP")))] (.evalString panel (str "select atomno=" k " ; color " v  " ;" ) )) ))
+	;;(fmap #(str "select atomno=" %?KEY? "; color " % "" ) (atomColorValue (StructureTools/getNrAtoms (getStructure "1WRP")))) ))
