@@ -25,7 +25,7 @@
   (let [f (fn [base linemap] 
               (assoc-in base 
                         [(linemap "Res") (linemap "Name")] 
-                        {:avg (linemap "Avg.") :stddev (linemap "StdDev")}))] ;; refactor the return value ....
+                        {:avg (Float/parseFloat (linemap "Avg.")) :stddev (Float/parseFloat (linemap "StdDev"))}))] ;; refactor the return value ....
    (reduce f {} shift-stats))) 
 
 (defn parse-sequence
@@ -58,8 +58,9 @@
   [prot shift-map]
   (let [resid (shift-map :resid)
         atomname (shift-map :atom)
-        shift (shift-map :shift)]
-   (assoc-in prot [resid :atoms atomname] {:shift shift})))
+        shift (shift-map :shift)
+        atomid (shift-map :id)]
+   (assoc-in prot [resid :atoms atomname] {:shift (Float/parseFloat shift) :id (Integer/parseInt atomid)})))
 
 (defn merge-shifts
   "input: protein, list of maps of header to value"
@@ -114,10 +115,10 @@
                  (slurp bmrbfile)))
 
 
-
 ;;(def mseq   (slurp "resources/venn_nmr/sequence.txt"))
-;;(def mshift (slurp "resources/venn_nmr/assigned-shifts.prot"))
+;;(def mshift (slurp "resources/venn_nmr/assigned-shifts.txt"))
 ;;(def mstat  (slurp "resources/venn_nmr/bmrbstats.txt"))
+;;(def goodstats (transform-stats (parse-bmrb-stats (slurp "resources/venn_nmr/bmrbstats.txt"))))
 ;;(venn-nmr-help mseq mshift mstat)
-;;(venn-nmr "resources/venn_nmr/sequence.txt" "resources/venn_nmr/assigned-shifts.prot" "resources/venn_nmr/bmrbstats.txt")
+;;(venn-nmr "resources/venn_nmr/sequence.txt" "resources/venn_nmr/assigned-shifts.txt" "resources/venn_nmr/bmrbstats.txt")
 
