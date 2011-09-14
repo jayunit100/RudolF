@@ -124,6 +124,6 @@
 
 (def nums-eg (stats-to-atomid-map (venn-nmr "resources/venn_nmr/sequence.txt" "resources/venn_nmr/assigned-shifts.txt" "resources/venn_nmr/bmrbstats.txt")))
 
-(def color-eg (color-maker junk))
+(def color-eg (color-maker nums-eg))
 
 (def venn-struc (venn-nmr "resources/venn_nmr/sequence.txt" "resources/venn_nmr/assigned-shifts.txt" "resources/venn_nmr/bmrbstats.txt"))
