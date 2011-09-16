@@ -5,8 +5,19 @@
   (import org.biojava.bio.structure.StructureTools)
   (import java.lang.Math))
 
+;;    String filename =  "/path/to/PDBFile.pdb" ;
+;;        PDBFileReader pdbreader = new PDBFileReader();
+;;        pdbreader.setParseSecStruc(true);
+;;        pdbreader.setAlignSeqRes(true);
+;;        pdbreader.setParseCAOnly(false);
+;;        pdbreader.setAutoFetch(true);
+;;        Structure struc = pdbreader.getStructure(filename);
+(defn getStructureF "Get a structure, local" [filename]
+        (.getStructure (new org.biojava.bio.structure.io.PDBFileReader) filename)
+)
 (defn launchGui 
-  "Here is a starting point - it will launch biojava jmol gui. 
+  "Matt - maybe move this to vennnmr.clj or app.clj ?  
+   Here is a starting point - it will launch biojava jmol gui. 
    INPUT: a biojava Structure object (org.biojava.bio.structure.Structure)
    OUTPUT:  ???"
   [s]
