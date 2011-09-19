@@ -12,9 +12,11 @@
 ;;        pdbreader.setParseCAOnly(false);
 ;;        pdbreader.setAutoFetch(true);
 ;;        Structure struc = pdbreader.getStructure(filename);
-(defn getStructureF "Get a structure, local" [filename]
-        (.getStructure (new org.biojava.bio.structure.io.PDBFileReader) filename)
-)
+(defn getStructureF 
+  "Get a structure, local" 
+  [filename]
+  (.getStructure (new org.biojava.bio.structure.io.PDBFileReader) filename))
+
 (defn launchGui 
   "Matt - maybe move this to vennnmr.clj or app.clj ?  
    Here is a starting point - it will launch biojava jmol gui. 
@@ -35,11 +37,7 @@
   [index]
   (str "select ", index, "; color green")) 
 
-;;This is a good example of how to use object API's in clojure, via the let special form  -- 'let' is not a function
-;; what is the return value intended to be?
-;; 
-;; check out the 'doto' special form:  http://clojure.org/java_interop#Java%20Interop-The%20Dot%20special%20form-%28doto%20instance-expr%20%28instanceMethodName-symbol%20args*%29*%29
-;; this could be rewritten as:
+;; could/should this could be rewritten as:
 ;;  (doto (new org.biojava.bio.structure.gui.BiojavaJmol)]
 ;;   (.setStructure (getStructure "1WRP"))
 ;;   (.evalString "select *; spacefill 200; wireframe off; backbone 0.4; color chain"))
@@ -63,8 +61,10 @@
   [acount]
   (let [atomColors (atomColorPct acount)
         mykeys (range 1 acount)
-        myvalues (map (fn [x] [(Math/floor (* 255 (atomColors x))) 111 111]) mykeys)] ;; this probably needs refactoring .... -- Matt 
-		;; ... this code is just generating keys, and then generating a value from each of those keys, and then putting those key/value pairs into a map
+        myvalues (map (fn [x] [(Math/floor (* 255 (atomColors x))) 111 111]) mykeys)] 
+                ;; this probably needs refactoring .... -- Matt 
+		;; ... this code is just generating keys, and then generating a value from each of those keys, 
+                ;;          and then putting those key/value pairs into a map
    (zipmap mykeys myvalues)))
 
 
@@ -85,10 +85,9 @@
   [atomid (std-shift-map atomid)])
 
 (defn ex3  
-  "launch a viewer that views 2X8N, then colors it by shift deviation from norms"
+  "launch a viewer that views 16790, then colors it by shift deviation from norms"
   [std-shift-map]
-  (let [panel (new org.biojava.bio.structure.gui.BiojavaJmol) 
-	atomToFloat (atomColorPct 4)]
+  (let [panel (new org.biojava.bio.structure.gui.BiojavaJmol)]
        (.setStructure panel (getStructure "2X8N"))
        (.evalString panel "select *; spacefill 200; wireframe off; backbone 0.4; color chain")
 	;; get the number of atoms
@@ -98,16 +97,37 @@
        (doseq [[k v] std-shift-map] 
               (.evalString panel (str  "select atomno=",  k,  " ; color ",  v,  " ;"))))) ; @Matt -- read about 'doseq'
 
+(defn new-gui-example  
+  "launch a viewer that views 16790, then colors it by shift deviation from norms"
+  [atoms]
+  (let [panel (new org.biojava.bio.structure.gui.BiojavaJmol)]
+       (.setStructure panel (getStructureF "resources/venn_nmr/structure.pdb"))
+       (.evalString panel "select *; spacefill 200; wireframe off; backbone 0.4; color chain")
+       (doseq [x atoms] 
+              (.evalString panel (str  "select resno="
+                                       (:resid x)
+                                       " and atomname=\""
+                                       (:aname x)
+                                       "\" ; color "
+                                       (:color x)
+                                       " ;"))))) 
+
 (defn color-maker
   "input: map of atomid to normalized shift"
   [atoms-to-shifts]
   (fmap (fn [x] [(Math/floor (* 128 x)) 111 111]) atoms-to-shifts))
 
+(defn color-maker2
+  "input: ???"
+  [num]
+  (let [value (Math/floor (* 128 num))]
+   [value 111 111]))
+
 (defn translate-shift
   "compare shift to avg-shift, returning an arbitrary number of no avg-shift"
   [shift avg-shift]
-  (if (symbol? avg-shift)   ;; if there was no shift in the bmrb shifts to compare to
-      0			    ;; then return an arbitrary number
+  (if (symbol? avg-shift)   ;; if there was no shift in the bmrb stats to compare to
+      1.99			    ;; then return an arbitrary number
       (/ shift avg-shift))) ;; but if there was, compare (by division)
 
 (defn my-vals
@@ -127,14 +147,35 @@
                     [(atom-map :id) (translate-shift (atom-map :shift) (atom-map :avg))]) 
                 (flatten (map my-vals (map :atoms (vals stats-map)))))))
 
+(defn stats-to-new-map
+  "thing to transform stats data from venn-nmr to what we need here"
+  [stats-map]
+  (apply concat  ;; using apply because concat is broken (concat accepts multiple parameters instead of an iterable) 
+   (for [[resid res] stats-map]
+    (for [[aname atom-map] (res :atoms)]
+     {:resid resid 
+      :aname aname 
+      :color (color-maker2 (translate-shift (atom-map :shift) (atom-map :avg)))}))))
+
 (defn example-4
   "??colors?? atoms according to normalization against std shifts??"
   []
   (ex3 (color-maker (stats-to-atomid-map (venn-nmr "resources/venn_nmr/sequence.txt" "resources/venn_nmr/assigned-shifts.txt" "resources/venn_nmr/bmrbstats.txt")))))
 
+(defn example-5
+  ""
+  []
+  (new-gui-example (stats-to-new-map (venn-nmr "resources/venn_nmr/sequence.txt" "resources/venn_nmr/assigned-shifts.txt" "resources/venn_nmr/bmrbstats.txt"))))
 
-(def nums-eg (stats-to-atomid-map (venn-nmr "resources/venn_nmr/sequence.txt" "resources/venn_nmr/assigned-shifts.txt" "resources/venn_nmr/bmrbstats.txt")))
+(def stats-stuff (stats-to-new-map (venn-nmr "resources/venn_nmr/sequence.txt" 
+                                             "resources/venn_nmr/assigned-shifts.txt" 
+                                             "resources/venn_nmr/bmrbstats.txt")))
 
-(def color-eg (color-maker nums-eg))
+;;
+;;(def nums-eg (stats-to-atomid-map (venn-nmr "resources/venn_nmr/sequence.txt" 
+;;                                            "resources/venn_nmr/assigned-shifts.txt" 
+;;                                            "resources/venn_nmr/bmrbstats.txt")))
 
-(def venn-struc (venn-nmr "resources/venn_nmr/sequence.txt" "resources/venn_nmr/assigned-shifts.txt" "resources/venn_nmr/bmrbstats.txt"))
+;;(def color-eg (color-maker nums-eg))
+
+;;(def venn-struc (venn-nmr "resources/venn_nmr/sequence.txt" "resources/venn_nmr/assigned-shifts.txt" "resources/venn_nmr/bmrbstats.txt"))
