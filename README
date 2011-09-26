@@ -1,0 +1,33 @@
+# Generic NMR README file: version 1.0 (MRG June, 2000)
+#   Version 1.0 is generated and edited from the mgsvf macro when 
+#       the experiment is saved on the spectrometers.
+#   Field Strength and Phase information available through procpar.prl
+
+
+Purpose of Experiment:   Adam test HSQC
+
+Note: Doesn't appear to be 1 mM 
+
+Additional Files:  
+
+Gradsort: y
+
+Special Referencing Information:
+
+Sample Conditions:  
+
+   Sample Concentration: ~1 mM 
+   Uniform labelling: 15N
+   Fractional labelling: 90%HN/10%DN
+   Selective labelling: none
+   Solvent: 90%H2O/10%D2O
+   Salt: 135 mM NaCl, 45 mM PO4
+   pH: 6.8
+   Additives: 0.001% NaN3, 2 mM DTT, 200 uM AEBSF
+   Temperature: 25C
+   Pressure: atmospheric
+   Volume: ~600 ul
+   Date originally purified: 03/02/28
+   Notes: 
+
+
