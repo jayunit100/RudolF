@@ -1,0 +1,17 @@
+We have no single "readme" because these projects
+are currently only loosely coupled.
+
+Please see the various "flavors" of READMEs, based on your interests, or contact
+one of the developers
+
+Important startup notes 
+
+If you are working on the NMR section : you might need jmol.  Please read the README_NMR / README_JMOL instructions.
+
+#Members add info here :
+lee hinman, Clojure expert & Lead : lee at writequit dot org
+jay vyas, Project Planner ; J2EE guy :  jayunit100 at gmail.com
+matt fenwick, Structural Biology guy, NMR guy Functional Programming Enthusiast mfenwick100 at gmail.com
+shiva,
+diego,
+emeka,
