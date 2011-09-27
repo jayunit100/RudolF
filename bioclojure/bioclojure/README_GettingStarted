@@ -1,0 +1,16 @@
+
+
+
+0) Read the README and follow instructions (don't worry there arent necessarily alot, but this is
+the central point for developers to add important notes for newcomers )
+
+Tutorial 1) To get started with Clojure & JMOL 
+
+	>Read the README_JMOL to install the jmol into maven. 
+	>Run "lein deps"
+	>Launch "lein repl" from the bioclojure root directory 
+	>First, load clomol wrapper : (load-file "src/BioClojure/clomol.clj")
+	>Now type: (use 'BioClojure.clomol)
+	>Now type: (launch) 
+	>... Now you can visualize your molecules in the repl 
+

@@ -1,0 +1,69 @@
+Minimotif Library Analysis Software (8/3/11)
+
+------------------------------------------------------------
+
+BioClojure MiniApp 1 : DNASeqMiner
+
+REQUIREMENTS : 
+
+This application takes, as input, two files
+
+1) A motif file (A list of maps, with each map having a "motif=" key). [call each row a DnaMotif]
+2) A DNA sequence file, which is FASTA formatted. [call each row a DnaSeq] 
+
+The program will 
+
+1) Provide a user interface to upload or paste inputs 
+2) Internalize and validate inputs  (DnaSeq file and DnaMotif file)
+3) Compare each DnaSeq to each DnaMotif (that is, look for the DnaMotif.motif attribute in the DnaSeq), store matches.
+4) Present the results of (3) to the user in a single CSV file, of format
+
+   motif, FASTA header, FASTA sequence 
+
+SPECIFICATIONS : 
+
+
+
+------------------------------------------------------------
+
+ Summary
+
+We are building a library of minimotifs (concatamers of 100s of unique units into lengths of 1-100) and need to know the composition of motif in each clone and population statistics.  We have identified 4 common workflows which would be of interest.
+
+ Inputs
+
++ DNA sequence files (S1-Sx). (text files with clone id and string of DNA letters.)  
++ SQL database of Minimotifs (table of motifs (M1 - Mx and sequences to be searched, and labels)  
++ Linker sequence for all motifs  
++ Restriction site sequence  
+
+ Data Processing workflows
+
++ Single clone analysis
+Read sequence file Si and report the following:
++ Identify motifs (M1 - Mx) present in DNA and their order
++ Confirm initiator motif and terminator motif and positions
++ Confirm proper insertion into two restriction sites.
++ Flag any incorrect assemblies and sequences with N positions
++ Report total number of minimotifs in clone
++ Generate a graph of overall structure, show linker regions that glue motifs together and alignment of motifs to sequences with labels.
++ Report any 1 nucleotide mutations in DNA  
+
+ Read sequence files and report the following:
+
+* Identify common motifs present in all clones (not initiator and terminator)
+* Identify unique motifs present in each individual clone
+* Counts of occurrences of above
+* Identification of an clustering patterns of multiple motifs 
+* Flag if there are any duplicate clones
+* Flag if there is more than one initiator and terminator
+* Flag clones with just and initiator and terminator
+
+ Library coverage Read files and report
+* Read file of motif names or ids
+* Report statistics on each motif in the clones (occurrences, range of occurrences in clones, missing motifs in the library)
+
+ 96 well plate analysis
+* Same as single clone analysis but reads an array of 96 ids from A to H and 1 through 12
+* Also include plate
+* Files will be named plate id_letter_number
