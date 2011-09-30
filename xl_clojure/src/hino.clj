@@ -1,6 +1,11 @@
 (use '[clojure.string :only (join split)])
 
-;;returns a list with tuples like this 
+
+;;This function exemplifies 
+;; 1 reading text into clojure
+;; 2 spliting a string and creating a regex using #
+;; 3 forwarding arguments so your code is threaded and reads linearly using -> ->>
+;; 4 the use of let : let binds a variable, which can then be returned at end of function.
 ;;regex=#"_|/" splits by _ and / 
 (defn ll [regex] "gets a list"
    (let
@@ -15,8 +20,11 @@
   ll 
   )
 )
-
-;;output a matrix w headers
+;;
+;;This code exemplifies 
+;;1 Parial functions : by sending the 1st arg to a function, you can then "complete" the function w/ 2nd arg in a map ;;2 Clojures facility for filtering maps by key "select-keys" 
+;;3 the use of preconditions to make sure data is formatted (the input here is a list of strings.
+;;4 the importance of being careful with maps and intermediate data types.  this functino becomes unweildy.
 (defn tomat [l] "listtomatrix"
 	{:pre [ (seq? l) ]} ;;precondition ensures that input is sequence 
 	(let ;; just to linearize the workflow 
@@ -28,5 +36,3 @@
 	)
 	
 )
-
-
