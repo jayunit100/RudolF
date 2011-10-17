@@ -12,8 +12,7 @@
 (defn run [mode pdbFile]
   {
     ;;Two preconditions :the option is valid, the file must exist
-    :pre  [(contains? options mode) 
-	   (.exists (clojure.contrib.java-utils/file pdbFile))]
+    :pre  [(contains? options mode) (.exists (clojure.contrib.java-utils/file pdbFile))]
   }
   (print "valid\n"))
 
