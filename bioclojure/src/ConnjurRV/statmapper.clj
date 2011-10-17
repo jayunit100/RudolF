@@ -1,7 +1,8 @@
 (ns ConnjurRV.statmapper
   (:use clojure.contrib.generic.functor)
   (:use [ConnjurRV.readcyana :only (make-protein-from-files)]))
-  (use '(incanter core stats charts io))
+
+(use '(incanter core stats charts io))
 
 (defn protein-to-num-atoms-per-residue
   "Protein -> Map index Integer
@@ -14,8 +15,11 @@
   (protein-to-num-atoms-per-residue 
    (make-protein-from-files "data/connjur.seq" "data/connjur.prot")))
 
-(defn hist (histogram (vals m)) m )
+(defn hist 
+  "test function"
+  [m]
+  (histogram (vals m)))
 
-(view (hist example-stats) )
+(view (hist example-stats))
   		
 
