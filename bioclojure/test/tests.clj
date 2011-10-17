@@ -19,7 +19,7 @@
 ;;Fixtures are a clojure construct for wrapping tests. 
 (use-fixtures :each myfixture) 
 
-;;A positive control.
+;;A negative control.
 (deftest testFailure [] 
 		(is (= true (callable? "ppppppppppppppppp") )) )
 
