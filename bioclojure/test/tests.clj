@@ -23,7 +23,7 @@
 
 ;;A negative control.  Tests that nonexistent methods do not exist)
 (deftest testFailure [] 
-		(is (= nil (callable? "ppppppppppppppppp") )) )
+		(is (= nil (callable? "pppppsdfsdfpppppppppppp") )) )
 
 ;;Tests that we can see matts code 
 (deftest testNmrReader [] 
