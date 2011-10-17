@@ -1,12 +1,7 @@
-(ns BioClojure.connjurRV
+(ns ConnjurRV.readcyana
   (:use [clojure.contrib.str-utils2 :only (split-lines trim)])
   (:use clojure.contrib.generic.functor))
 
-
-(defn parse-shift-file
-  "type :: Filepath (as a String) -> [Cyanaline]"
-  [filename]
-  (parse-string (slurp filename)))
 
 (defn parse-shifts
   "type :: String -> [Cyanaline]
@@ -18,24 +13,35 @@
          (split-lines string))))
 
 
+(defn parse-shift-file
+  "type :: Filepath (as a String) -> [Cyanaline]"
+  [filename]
+  (parse-shifts (slurp filename)))
+
+
+
+
+(defn make-empty-residue 
+  ""
+  [aatype]
+  {:aatype aatype :atoms {}})
+
 (defn parse-sequence
-  "type:  String -> Map index aatype
+  "type :: String -> Protein
+   where Protein :: Map index aatype
 
    input: cyana-formatted sequence string -- residues separted by newlines
    output: map -- key is index, value is amino acid type
      length is same as number of lines in input string"
   [string]
-  (zipmap (map #(str (+ % 1)) (range)) ; need indices to be 1-indexed
-          ;; should refactor to remove 'str' .... requires other changes, too
-          (split-lines (.trim string))))
+  (fmap make-empty-residue 
+        (zipmap (map #(+ % 1) (range)) ; need indices to be 1-indexed
+                (split-lines (.trim string)))))
 
 
-;; refactor this to seq-to-protein (need to add chain)
-(defn seq-to-residues
-  "Map index aatype -> Map index residue
-   
-   input: map of index to aatype
-   output: map of index to residue"
-  [seqmap]
-  (fmap (fn [aatype] {:aatype aatype :atoms {}}) 
-        seqmap)))
+(defn parse-sequence-file
+  "type :: Filepath (as a String) -> Protein"
+  [filename]
+   (parse-sequence
+    (slurp filename)))
+
