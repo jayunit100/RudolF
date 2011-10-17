@@ -5,8 +5,7 @@
 ;;There are two options "r" (for visualizint relaxation data ) and "c" for (venn NMR)
 (def options
   {"r"
-   "c"
-  })
+   "c"})
 
 ;;input 1 : a mode (options r or c) 
 ;;input 2 : a file (pdbFile) 
@@ -16,7 +15,6 @@
     :pre  [(contains? options mode) 
 	   (.exists (clojure.contrib.java-utils/file pdbFile))]
   }
-  (print "valid\n")
-)
+  (print "valid\n"))
 
 (run "r" "a.pdb")
