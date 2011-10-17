@@ -1,4 +1,5 @@
-(ns BioClojure.connjurRV)
+(ns ConnjurRV.bmrbstats
+  (:use [clojure.contrib.str-utils2 :only (split-lines trim)]))
 
 
 (defn parse-bmrb-stats
