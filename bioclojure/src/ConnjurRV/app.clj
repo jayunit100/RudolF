@@ -17,4 +17,4 @@
   }
   (print "valid\n"))
 
-(run "r" "a.pdb")
+(run "r" "data/sample15270.pdb")

@@ -1,8 +1,19 @@
 BioClojure-NMR
+--------------------------------------------------------
+(active, Oct 2011) Venn-NMR 
+Venn-NMR is an environment for integrative visualization of NMR protein data.
+It supports 
+
+- cyana data loading
+- relaxation data loading 
+- nmr viz on structure surface of chem shifts
+- nmr viz on structure surface of relaxation data
+- chart exampels
+
 
 --------------------------------------------------------
 
-NMR Library 1 :  Spin System Classification
+(uncoded) Spin System Classification
 
 OUTLINE of PROBLEM :
 
