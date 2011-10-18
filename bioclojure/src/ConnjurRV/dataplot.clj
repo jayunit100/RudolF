@@ -1,21 +1,27 @@
 (ns ConnjurRV.dataplot
-  (:use clojure.contrib.generic.functor)
-  (:use [ConnjurRV.readcyana :only (make-protein-from-files)])
-  (:use [ConnjurRV.statmapper :only (protein-to-num-atoms-per-residue)]);)
   (:use [incanter.charts :only (histogram)])
   (:use [incanter.core :only (view)]))
 
-(def example-stats 
-  (protein-to-num-atoms-per-residue 
-   (make-protein-from-files "data/connjur.seq" "data/connjur.prot")))
 
-(defn hist 
-  "test function -- displays histogram.  
-   todos:  figure out how to control the x-axis label
-	figure out how to change the x-values, or how they're generated"
-  []
-  (view
-   (histogram (vals example-stats))))
+;; code stubs for colbert to fill in
 
+(defn make-histogram
+  "[x] -> String -> HistogramPopup"
+  [values x-label]
+  (view                  ;; todo -- show x-label
+   (histogram values)))
 
+(defn make-bar-chart
+  "Map key value -> String -> String -> BarchartPopup"
+  [data x-label y-label]
+  'todo)
 
+(defn make-double-bar-chart
+  "Map key (lvalue, rvalue) -> String -> String -> DoublebarchartPopup"
+  [data x-label y-label]
+  'todo)
+
+(defn make-scatter-plot
+  "[(xvalue, yvalue)] -> String -> String -> ScatterPopup"
+  [data x-label y-label]
+  'todo)

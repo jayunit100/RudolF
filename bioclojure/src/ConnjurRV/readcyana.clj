@@ -6,8 +6,9 @@
 
 (defn parse-shifts
   "type :: String -> [Cyanaline]
-   
-   Cyanaline: map where keys are /id, shift, error, atom, resid/"
+   where Cyanaline: map where keys are /id, shift, error, atom, resid/
+
+   test:  "
   [string]
   (let [headers [:id :shift :error :atom :resid]]
    (map #(zipmap headers (.split (trim %) " +")) ; on whitespace??
@@ -35,9 +36,11 @@
   "type :: Sequence -> Protein
    where Protein :: Map index aatype"
   [seq]
-  (fmap make-empty-residue 
-        (zipmap (map #(+ % 1) (range)) ; need indices to be 1-indexed
-                seq)))
+  {:residues (fmap make-empty-residue 
+                   (zipmap (map #(+ % 1) (range)) ; need indices to be 1-indexed
+                           seq))
+   :name nil
+   :source nil})
 
 (defn place-shift
   "Protein -> Cyanaline -> Protein
@@ -48,7 +51,7 @@
         shift (shift-map :shift)
         atomid (shift-map :id)]
    (assoc-in prot 
-             [(Integer/parseInt resid) :atoms atomname] 
+             [:residues (Integer/parseInt resid) :atoms atomname] 
              {:shift (Float/parseFloat shift) :id (Integer/parseInt atomid)})))
 
 (defn merge-shifts
@@ -69,19 +72,3 @@
   [seqpath shiftpath]
   (make-protein (parse-sequence (slurp seqpath))
                 (parse-shifts (slurp shiftpath))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; the following are junk and should be removed
-
-(defn parse-shift-file
-  "type :: Filepath (as a String) -> [Cyanaline]"
-  [filename]
-  (parse-shifts (slurp filename)))
-
-
-(defn parse-sequence-file
-  "type :: Filepath (as a String) -> Protein"
-  [filename]
-   (parse-sequence
-    (slurp filename)))
-
