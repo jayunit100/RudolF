@@ -2,9 +2,8 @@
 (use 'ConnjurRV.readcyana 
      'ConnjurRV.dataplot  
      'ConnjurRV.structdisplay  
-     'ConnjurRV.statmapper  
-     'ConnjurRV.model
-     'ConnjurRV.color
+     'ConnjurRV.modelreducer
+     'ConnjurRV.statistics
      'clojure.contrib.generic.functor)
 
 

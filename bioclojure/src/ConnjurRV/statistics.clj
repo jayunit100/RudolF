@@ -1,4 +1,4 @@
-(ns ConnjurRV.color
+(ns ConnjurRV.statistics
   (:use clojure.contrib.generic.functor))
 
 
