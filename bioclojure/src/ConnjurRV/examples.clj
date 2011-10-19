@@ -1,9 +1,10 @@
 
 (use 'ConnjurRV.readcyana 
-     'ConnjurRV.dataplot  
+     'ConnjurRV.vizcharts  
      'ConnjurRV.structdisplay  
      'ConnjurRV.modelreducer
      'ConnjurRV.statistics
+     'ConnjurRV.bmrbstats
      'clojure.contrib.generic.functor)
 
 

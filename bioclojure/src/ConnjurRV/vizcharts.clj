@@ -1,6 +1,7 @@
-  (ns ConnjurRV.dataplot
-  (:use [incanter.charts :only (incanter histogram bar-chart scatter-plot)])  
-  (:use [incanter.core :only (view)]))
+(ns ConnjurRV.dataplot
+  (:use [incanter.charts :only (histogram bar-chart scatter-plot add-lines)])  
+  (:use [incanter.core :only (view)])
+  (:use [incanter.stats :only (pdf-normal)]))
 
 
 ;; code stubs for colbert to fill in
