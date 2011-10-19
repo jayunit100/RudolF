@@ -19,7 +19,7 @@
   (protein :residues))
 
 (defn protein-to-atoms
-  "Protein -> [Atom]"
+  "Protein -> [Map atomkey atomval]"
   [prot]
   (let [anon-atoms (map #(:atoms (second %)) (get-residues prot))]
    (for [[name data] (apply concat anon-atoms)]
@@ -40,4 +40,12 @@
   [prot]
   (let [pairs (for [dict (protein-to-atoms prot)]
                    [(dict :id) (dict :shift)])]
+   (into {} pairs)))
+
+(defn protein-to-atomid-map
+  "Protein -> Map atomid (Map atomkey atomval)"
+  [prot]
+  (let [pairs (for [dict (protein-to-atoms prot)]
+                   [(dict :id) {:shift (dict :shift)
+                                :avg (dict :avg)}])]
    (into {} pairs)))
