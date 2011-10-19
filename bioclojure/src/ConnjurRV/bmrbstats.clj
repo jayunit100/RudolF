@@ -44,14 +44,21 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn get-stats
-  "Map atomname (Map statskey statsval) -> atomname -> Either 'no-stats-for-atom Number"
+;; Private
+;; Input: a map of atom data , and an atomname
+;; Output: returns the avg / stdev for the atom in this residue.
+;; Map atomname (Map statskey statsval) -> atomname -> Either 'no-stats-for-atom Number"
+defn get-stats
+  "input: a map of atom data , and an atomname
+   output: returns the avg / stdev for the atom in this residue.
+  Map atomname (Map statskey statsval) -> atomname -> Either 'no-stats-for-atom Number"
   [stats atomname]
   (let [atomstats (stats atomname)]
    (if atomstats 
        (atomstats :avg)
-       'no-stats-for-atom)))
+       'no-stats-for-atom))
 
+;; Private
 (defn place-stats
   "Map atomname (Map key val) -> Map atomname (Map statskey statsval) -> Map atomname (Map key val)
    output includes new key of :avg"
@@ -62,9 +69,11 @@
   (into {} (for [[atomname atommap] atoms]
                 [atomname (assoc-in atommap [:avg] (get-stats stats atomname))]))) ;; but what does this do if (stats atomname) is nil????
 
-; test: input is a protein
-;	output is a protein with all of the input data ... but in addition, has a new key of :avg in each atom-data-map
-;	the value of :avg is either 'no-stats-for-atom or a number
+;;  Private 
+;;  input : A Proteinmap data structure .
+;;	output : A Proteinmap with all of the input data ... but in addition, has a new key of :avg in each atom-data-map
+;;	the value of :avg is either 'no-stats-for-atom or a number. (this is overkill, but it makes processing in the pipeline
+;;  easier at later stages, since each atom has all data required to normalize information.
 (defn merge-bmrb
   "Protein -> Protein
    protein's atoms now have avg shift stats"
