@@ -36,7 +36,7 @@
               :x-label xlabel :y-label ylabel
               :legend true)))	
 
-  'todo)
+ 
 
 (defn make-scatter-plot-two-lists
   "[xvalue] -> [yvalue]-> String -> String -> ScatterPopup"
