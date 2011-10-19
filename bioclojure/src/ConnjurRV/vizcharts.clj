@@ -12,7 +12,7 @@
   "[x] -> String -> HistogramPopup"
   [data xlabel]   
   {:pre [(list? data) (string? xlabel)]}
-  (let [hist (histogram data :x-label xlabel) norm (pdf-normal data) ]  	
+  (let [hist (histogram data :x-label xlabel) norm (pdf-normal data) ]	;; takes list and fits normal distribution to hitogram
    (view 
        (add-lines hist norm))))             
    
