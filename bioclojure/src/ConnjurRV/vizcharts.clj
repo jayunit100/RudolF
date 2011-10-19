@@ -1,4 +1,4 @@
-(ns ConnjurRV.dataplot
+(ns ConnjurRV.vizcharts
   (:use [incanter.charts :only (histogram bar-chart scatter-plot add-lines)])  
   (:use [incanter.core :only (view)])
   (:use [incanter.stats :only (pdf-normal)]))
