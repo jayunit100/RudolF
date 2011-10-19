@@ -11,18 +11,18 @@
 (defn make-histogram
   "[x] -> String -> HistogramPopup"
   [data xlabel]   
-  {:pre [(list? data) (string? xlabel)]}
+  ;{:pre [(list? data) (string? xlabel)]}
   (let [hist (histogram data :x-label xlabel) norm (pdf-normal data) ]	;; takes list and fits normal distribution to hitogram
-   (view 
-       (add-lines hist norm))))             
+   (view hist))) 
+       ;;(add-lines hist norm))))             
    
 
 (defn make-bar-chart
   "Map key value -> String -> String -> BarchartPopup"
   [map-data xlabel ylabel]
-  {:pre [(map? data) (string? xlabel) (string? ylabel)]}
+  ;{:pre [(map? map-data) (string? xlabel) (string? ylabel)]}
   (view
-   (bar-chart (keys map-data) (values map-data) 
+   (bar-chart (keys map-data) (vals map-data) 
               :x-label xlabel :y-label ylabel
               :legend true)))	
 
@@ -31,28 +31,28 @@
 (defn make-double-bar-chart
   "Map key (lvalue, rvalue) -> String -> String -> DoubleBarChartPopup"
   [map-tuple-data x-label y-label]
-  {:pre [(map? data) (vector? first (values data) ) (string? xlabel) (string? ylabel)]}
+  ;{:pre [(map? map-tuple-data) (vector? first (vals map-tuple-data) ) (string? x-label) (string? y-label)]}
   (view
-   (bar-chart (keys map-tuple-data) (values map-tuple-data) 
-              :x-label xlabel :y-label ylabel
+   (bar-chart (keys map-tuple-data) (vals map-tuple-data) 
+              :x-label x-label :y-label y-label
               :legend true)))	
 
  
 
-(defn make-scatter-plot-two-lists
+( comment (defn make-scatter-plot-two-lists
   "[xvalue] -> [yvalue]-> String -> String -> ScatterPopup"
-  [list-one list-two x-label y-label]
-  {:pre [(list? list-one) (list? list-one) (string? xlabel) (string? ylabel)]}
+  [list-one list-two xlabel ylabel]
+  ;{:pre [(list? list-one) (list? list-one) (string? xlabel) (string? ylabel)]}
   (let [lm (linear-model ($ list-one) ($ list-two ))]
    (doto 
            (view
             (scatter-plot list-one list-one
                          :x-label xlabel :y-label ylabel
-                         :legend true))) (add-lines list-one (:fitted lm)) ))	
+                         :legend true))) (add-lines list-one (:fitted lm)) ))	)
 
   
 
-(defn make-scatter-plot-list-of-tuples
+(comment (defn make-scatter-plot-list-of-tuples
   "[(xvalue, yvalue)] -> String -> String -> ScatterPopup"
   [tuple-list x-label y-label]
   {:pre [(list? tuple-list) (vector? (first tuple-list) ) (string? xlabel) (string? ylabel)]}
@@ -61,7 +61,7 @@
            (view
             (scatter-plot left right
                          :x-label xlabel :y-label ylabel
-                         :legend true))) (add-lines left (:fitted lm)))	
+                         :legend true))) (add-lines left (:fitted lm)))	))
 
   
 
