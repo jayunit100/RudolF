@@ -1,5 +1,5 @@
   (ns ConnjurRV.dataplot
-  (:use [incanter.charts :only (histogram bar-chart scatter-plot)])  
+  (:use [incanter.charts :only (incanter histogram bar-chart scatter-plot)])  
   (:use [incanter.core :only (view)]))
 
 
