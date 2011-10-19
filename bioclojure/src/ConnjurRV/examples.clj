@@ -1,6 +1,6 @@
 
 (use 'ConnjurRV.readcyana 
-;     'ConnjurRV.vizcharts  
+     'ConnjurRV.vizcharts  
      'ConnjurRV.structdisplay  
      'ConnjurRV.modelreducer
      'ConnjurRV.statistics
@@ -34,9 +34,14 @@
    (load-pdb-struct "1TXR")
    (color-map (normalized-shifts (protein-to-atomid-map stats-protein)))))
 
-(comment
+
 (defn shifts-on-histogram
   ""
   []
   (make-histogram (vals (protein-to-atomid-shifts my-protein)) "a"))
-)
+
+(defn norm-shifts-on-bar-chart 
+ ""
+ []
+ (make-bar-chart (normalized-shifts (protein-to-atomid-map stats-protein)) "atom-id" "normalized chemical shifts" ))
+ 
