@@ -34,7 +34,7 @@
   []
   (display-colored-struct
    (load-pdb-struct "1TXR")
-   (color-map (normalized-shifts (protein-to-atomid-map stats-protein)))))
+   (color-map (normalized-shifts (get-atoms-map stats-protein)))))
 
 
 (defn shifts-on-histogram
@@ -45,16 +45,17 @@
 (defn norm-shifts-on-bar-chart 
  ""
  []
- (make-bar-chart (normalized-shifts (protein-to-atomid-map stats-protein)) "atom-id" "normalized chemical shifts" ))
+ (make-bar-chart (normalized-shifts (get-atoms-map stats-protein)) "atom-id" "normalized chemical shifts" ))
 
 
 (defn number-of-shifts-avgs-on-double-bar-chart
   ""
   []
   (make-double-bar-chart 
-   (number-of-shifts (get-residues stats-protein))
+   (number-of-shifts (get-residues-map stats-protein))
    "residue id"
    ["number of shifts" "number of averages"]))
+
 
 (defn all-examples
   ""
