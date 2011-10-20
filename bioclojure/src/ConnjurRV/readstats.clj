@@ -1,4 +1,4 @@
-(ns ConnjurRV.bmrbstats
+(ns ConnjurRV.readstats
   (:use [clojure.contrib.str-utils2 :only (split-lines trim)])
   (:use clojure.contrib.generic.functor))
 

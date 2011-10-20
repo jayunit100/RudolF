@@ -15,8 +15,9 @@
                           (if (symbol? y) 
                               y 
                               (/ x y)))]
-   (filter #(not (symbol? (second %))) 
-           (fmap (fn [dict] (safe-division (dict :shift) (dict :avg))) data))))
+   (into {} 
+         (filter #(not (symbol? (second %))) 
+                 (fmap (fn [dict] (safe-division (dict :shift) (dict :avg))) data)))))
 
 
 (defn number-of-shifts

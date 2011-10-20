@@ -1,11 +1,13 @@
 
-(use 'ConnjurRV.readcyana 
-     'ConnjurRV.vizcharts  
-     'ConnjurRV.structdisplay  
+(use 'ConnjurRV.vizcharts  
+     'ConnjurRV.vizstruct  
      'ConnjurRV.modelreducer
      'ConnjurRV.statistics
-     'ConnjurRV.bmrbstats
-     'clojure.contrib.generic.functor)
+     'ConnjurRV.readstats
+     'ConnjurRV.readpdb
+     'ConnjurRV.readcyana 
+     'clojure.contrib.generic.functor
+     'clojure.stacktrace)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -53,5 +55,15 @@
    (number-of-shifts (get-residues stats-protein))
    "residue id"
    ["number of shifts" "number of averages"]))
+
+(defn all-examples
+  ""
+  []
+  (do
+   (shifts-on-structure)
+   (norm-shifts-on-struct)
+   (shifts-on-histogram)
+   (norm-shifts-on-bar-chart)
+   (number-of-shifts-avgs-on-double-bar-chart)))
 
  
