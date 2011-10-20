@@ -1,14 +1,14 @@
-(ns ConnjurRV.examples  
-  (:use ConnjurRV.readcyana) 
-  (:use ConnjurRV.vizcharts  )
-  (:use ConnjurRV.structdisplay)  
-  (:use ConnjurRV.modelreducer)
-  (:use ConnjurRV.statistics)
-  (:use ConnjurRV.bmrbstats)
-  (:use clojure.contrib.generic.functor))
+
+(use 'ConnjurRV.readcyana 
+     'ConnjurRV.vizcharts  
+     'ConnjurRV.structdisplay  
+     'ConnjurRV.modelreducer
+     'ConnjurRV.statistics
+     'ConnjurRV.bmrbstats
+     'clojure.contrib.generic.functor)
 
 
-;;;;; THIS CLASS IS SANDBOX CODE ;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def my-protein (make-protein-from-files "data/connjur.seq" "data/connjur.prot"))
 
@@ -38,10 +38,20 @@
 (defn shifts-on-histogram
   ""
   []
-  (make-histogram (vals (protein-to-atomid-shifts my-protein)) "a"))
+  (make-histogram (vals (protein-to-atomid-shifts my-protein)) "chemical shift"))
 
 (defn norm-shifts-on-bar-chart 
  ""
  []
  (make-bar-chart (normalized-shifts (protein-to-atomid-map stats-protein)) "atom-id" "normalized chemical shifts" ))
+
+
+(defn number-of-shifts-avgs-on-double-bar-chart
+  ""
+  []
+  (make-double-bar-chart 
+   (number-of-shifts (get-residues stats-protein))
+   "residue id"
+   ["number of shifts" "number of averages"]))
+
  

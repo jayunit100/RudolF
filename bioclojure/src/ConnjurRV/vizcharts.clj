@@ -30,7 +30,7 @@
 
 (defn make-double-bar-chart
   "Map key (lvalue, rvalue) -> String -> String -> DoubleBarChartPopup"
-  [map-tuple-data x-label y-label]
+  [map-tuple-data x-label [y-label1 y-label2]] ; using destructuring
   ;{:pre [(map? map-tuple-data) (vector? first (vals map-tuple-data) ) (string? x-label) (string? y-label)]}
   (view
    (bar-chart (keys map-tuple-data) (vals map-tuple-data) 
