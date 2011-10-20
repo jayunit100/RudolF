@@ -1,14 +1,14 @@
+(ns ConnjurRV.examples  
+  (:use ConnjurRV.readcyana) 
+  (:use ConnjurRV.vizcharts  )
+  (:use ConnjurRV.structdisplay)  
+  (:use ConnjurRV.modelreducer)
+  (:use ConnjurRV.statistics)
+  (:use ConnjurRV.bmrbstats)
+  (:use clojure.contrib.generic.functor))
 
-(use 'ConnjurRV.readcyana 
-     'ConnjurRV.vizcharts  
-     'ConnjurRV.structdisplay  
-     'ConnjurRV.modelreducer
-     'ConnjurRV.statistics
-     'ConnjurRV.bmrbstats
-     'clojure.contrib.generic.functor)
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;; THIS CLASS IS SANDBOX CODE ;;;;;;;;;;;;;;;;;;;
 
 (def my-protein (make-protein-from-files "data/connjur.seq" "data/connjur.prot"))
 
