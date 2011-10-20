@@ -43,8 +43,7 @@
 ; test: input: Sequence (output of parse-sequence)
 ;	output: Protein with as many residues as length of sequence
 (defn sequence-to-protein
-  "type :: Sequence -> Protein
-   where Protein :: Map index aatype"
+  "type :: Sequence -> Protein"
   [seq]
   {:residues (fmap make-empty-residue 
                    (zipmap (map #(+ % 1) (range)) ; need indices to be 1-indexed
@@ -64,6 +63,10 @@
              [:residues (Integer/parseInt resid) :atoms atomname] 
              {:shift (Float/parseFloat shift) :id (Integer/parseInt atomid)})))
 
+; test: as many atoms as cyanalines are added
+;	output is protein identical to input except for addition of atoms + atomdata
+;		no additional residues
+;		no midding residues
 (defn merge-shifts
   "type :: Protein -> [Cyanaline] -> Protein
    add chemical shift data to a protein (which has only residues)"

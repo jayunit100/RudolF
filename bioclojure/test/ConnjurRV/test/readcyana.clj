@@ -76,6 +76,9 @@ ARG")
 (deftest parse-sequence-aa-length
   (is (every? #(= 3 (count %)) (parse-sequence seq-data)) "need three-letter names"))
 
+(deftest parse-sequence-aa-length-no-check
+  (is (every? #(= 3 (count %)) (parse-sequence "1\n2\n3")) "need three-letter names"))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (deftest protein-from-sequence-is-map
@@ -94,4 +97,25 @@ ARG")
    (is (every? #(not (nil? %)) 
                (map residues (range 1 17))) 
        (str "has keys: " (vals residues)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deftest merge-shifts-num-res
+  (let [count-residues (fn [prot] (count (:residues prot)))
+        protein (sequence-to-protein (parse-sequence seq-data))
+        shifts (parse-shifts shift-data)]
+   (is (= (count-residues protein)
+          (count-residues (merge-shifts protein shifts)))
+       "number of residues the same")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(deftest make-protein-size
+  (let [seq (parse-sequence seq-data)
+        count-residues (fn [prot] (count (:residues prot)))
+        shifts (parse-shifts shift-data)]
+   (is (= (count-residues (make-protein seq shifts))
+          (count shifts))
+       "make-protein correct size (number of residues)")))
+
 
