@@ -11,5 +11,20 @@
 (defn normalized-shifts
   "Map atomid (Map atomkey atomval) -> Map atomid norm-shift"
   [data]
-  (let [division (fn [x y] (if (symbol? y) 1.99 (/ x y)))]
-   (fmap (fn [dict] (division (dict :shift) (dict :avg))) data)))
+  (let [safe-division (fn [x y] 
+                          (if (symbol? y) 
+                              y 
+                              (/ x y)))]
+   (filter #(not (symbol? (second %))) 
+           (fmap (fn [dict] (safe-division (dict :shift) (dict :avg))) data))))
+
+
+(defn number-of-shifts
+  "Map rindex Residue -> Map rindex (shifts, avgs)"
+  [data]
+  (let [f (fn [res]
+              (let [atomdict (res :atoms)
+                    atoms (count atomdict)
+                    avgs (count (filter #(not (symbol? (:avg (second %)))) atomdict))]
+                    [atoms avgs]))]
+   (fmap f data))) 
