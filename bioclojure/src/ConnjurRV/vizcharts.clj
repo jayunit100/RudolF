@@ -32,10 +32,11 @@
   "Map key (lvalue, rvalue) -> String -> String -> DoubleBarChartPopup"
   [map-tuple-data x-label [y-label1 y-label2]] ; using destructuring
   ;{:pre [(map? map-tuple-data) (vector? first (vals map-tuple-data) ) (string? x-label) (string? y-label)]}
-  (view
-   (bar-chart (keys map-tuple-data) (vals map-tuple-data) 
-              :x-label x-label :y-label y-label
-              :legend true)))	
+  'todo) 
+;  (view
+;   (bar-chart (keys map-tuple-data) (vals map-tuple-data) 
+;              :x-label x-label :y-label y-label1   ;; make sure to use y-label2 also
+;              :legend true)))	
 
  
 
