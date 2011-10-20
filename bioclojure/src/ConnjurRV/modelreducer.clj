@@ -1,6 +1,14 @@
 (ns ConnjurRV.modelreducer
   (:use clojure.contrib.generic.functor))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; module interface
+;	get-residues-map
+;	get-residues-list
+;	get-atoms-map
+;	get-atoms-list
+
+
 ; protein
 ; residue
 ; atom
@@ -49,17 +57,3 @@
         make-pair (fn [dict] [(dict :id) dict])]
    (into {} (map make-pair atom-infos))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; for getting data into specific data structures
-
-(defn protein-to-num-atoms-per-residue
-  "Protein -> Map index Integer
-  "
-  [prot]
-  (fmap (fn [res] (count (res :atoms))) 
-        (get-residues-map prot)))
-
-(defn protein-to-atomid-shifts
-  "Protein -> Map atomid shift"
-  [prot]
-  (fmap :shift (get-atoms-map prot)))

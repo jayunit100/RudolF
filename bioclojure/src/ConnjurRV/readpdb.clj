@@ -1,6 +1,11 @@
 (ns ConnjurRV.readpdb
   (import org.biojava.bio.structure.StructureTools))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; module interface
+;	load-local-struct
+;	load-pdb-struct
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn load-local-struct
   "Filepath -> Biojava.Structure"

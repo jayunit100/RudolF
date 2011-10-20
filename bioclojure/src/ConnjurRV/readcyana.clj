@@ -2,6 +2,15 @@
   (:use [clojure.contrib.str-utils2 :only (split-lines trim)])
   (:use clojure.contrib.generic.functor))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; module interface
+;	parse-shifts
+;	parse-sequence
+;	merge-shifts
+;	make-protein
+;	make-protein-from-files
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; test:  input is contents of cyana shift file

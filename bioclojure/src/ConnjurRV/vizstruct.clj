@@ -1,7 +1,12 @@
 (ns ConnjurRV.vizstruct
   (import org.biojava.bio.structure.StructureTools))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; module interface
+;	display-struct
+;	display-colored-struct
+;	??? color-atom ??? maybe this is private
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn display-struct
   "Biojava.Structure -> PopupDisplay

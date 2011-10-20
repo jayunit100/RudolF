@@ -18,7 +18,8 @@
   (merge-bmrb my-protein))
 
 (def example-stats 
-  (protein-to-num-atoms-per-residue my-protein))
+  (count-atoms-by-residue 
+   (get-residues-map my-protein)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -27,7 +28,9 @@
   []
   (display-colored-struct 
    (load-pdb-struct "1TXR") 
-   (color-map (protein-to-atomid-shifts my-protein))))
+   (color-map 
+    (get-atomid-shifts 
+     (get-atoms-map my-protein)))))
 
 (defn norm-shifts-on-struct
   ""
@@ -40,12 +43,17 @@
 (defn shifts-on-histogram
   ""
   []
-  (make-histogram (vals (protein-to-atomid-shifts my-protein)) "chemical shift"))
+  (make-histogram 
+   (vals (get-atomid-shifts (get-atoms-map my-protein))) 
+   "chemical shift"))
 
 (defn norm-shifts-on-bar-chart 
- ""
- []
- (make-bar-chart (normalized-shifts (get-atoms-map stats-protein)) "atom-id" "normalized chemical shifts" ))
+  ""
+  []
+  (make-bar-chart 
+   (normalized-shifts (get-atoms-map stats-protein)) 
+   "atom-id" 
+   "normalized chemical shifts" ))
 
 
 (defn number-of-shifts-avgs-on-double-bar-chart

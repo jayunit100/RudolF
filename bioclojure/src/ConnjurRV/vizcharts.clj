@@ -3,10 +3,14 @@
   (:use [incanter.core :only (view)])
   (:use [incanter.stats :only (pdf-normal)]))
 
-
-;; code stubs for colbert to fill in
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; module interface
+;	make-histogram
+;	make-bar-chart
+;	make-double-bar-chart
+;	make-scatter-plot
+;	????? what else ???????
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn make-histogram
   "[x] -> String -> HistogramPopup"
@@ -40,7 +44,11 @@
 
  
 
-( comment (defn make-scatter-plot-two-lists
+; we don't need to have both
+;	make-scatter-plot-two-lists and make-scatter-plot-list-of-tuples: 
+;	let's get rid of this one because it is easier to break
+( comment 
+(defn make-scatter-plot-two-lists
   "[xvalue] -> [yvalue]-> String -> String -> ScatterPopup"
   [list-one list-two xlabel ylabel]
   ;{:pre [(list? list-one) (list? list-one) (string? xlabel) (string? ylabel)]}
@@ -49,20 +57,25 @@
            (view
             (scatter-plot list-one list-one
                          :x-label xlabel :y-label ylabel
-                         :legend true))) (add-lines list-one (:fitted lm)) ))	)
+                         :legend true))) (add-lines list-one (:fitted lm)) ))	
+)
 
   
 
-(comment (defn make-scatter-plot-list-of-tuples
+; change (map last ..) to (map second ..)
+; could this be cleaned up so it's easier to read?
+(comment 
+(defn make-scatter-plot-list-of-tuples
   "[(xvalue, yvalue)] -> String -> String -> ScatterPopup"
   [tuple-list x-label y-label]
   {:pre [(list? tuple-list) (vector? (first tuple-list) ) (string? xlabel) (string? ylabel)]}
-  (let [ left (map first (tuple-list)) right (map last (tuple-list)) lm (linear-model ($ right) ($ left ))]
+  (let [left (map first (tuple-list)) right (map last (tuple-list)) lm (linear-model ($ right) ($ left ))]
    (doto 
            (view
             (scatter-plot left right
                          :x-label xlabel :y-label ylabel
-                         :legend true))) (add-lines left (:fitted lm)))	))
+                         :legend true))) (add-lines left (:fitted lm)))	)
+)
 
   
 
