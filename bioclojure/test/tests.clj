@@ -1,7 +1,7 @@
 ;;Tests for ConnjurRV 
 (ns tests
     (:use clojure.test) 
-    (:use ConnjurRV.bmrbstats) 
+    (:use ConnjurRV.readstats) 
     (:use ConnjurRV.readcyana)
     ) ;;not that use methods in ns declaration don't use colon.
     
@@ -15,7 +15,7 @@
 ;;A Fixture is a scaffold for each test.  these statements are executed before/after the tests.
 (defn myfixture [block] 
     (do 
-		    (use 'ConnjurRV.bmrbstats)
+		    (use 'ConnjurRV.readstats)
         (println (resolve (symbol "parse-bmrb-stats")))
         (block)
         (println "   ")))
