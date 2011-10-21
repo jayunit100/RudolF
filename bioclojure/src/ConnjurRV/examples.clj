@@ -56,14 +56,14 @@
    "normalized chemical shifts" ))
 
 
-(defn number-of-shifts-avgs-on-double-bar-chart
+( comment (defn number-of-shifts-avgs-on-double-bar-chart
   ""
   []
   (make-double-bar-chart 
    (number-of-shifts (get-residues-map stats-protein))
    "residue id"
    ["number of shifts" "number of averages"]))
-
+)
 
 (defn all-examples
   ""
@@ -72,7 +72,7 @@
    (shifts-on-structure)
    (norm-shifts-on-struct)
    (shifts-on-histogram)
-   (norm-shifts-on-bar-chart)
-   (number-of-shifts-avgs-on-double-bar-chart)))
+   (norm-shifts-on-bar-chart)))
+   ;;(number-of-shifts-avgs-on-double-bar-chart)))
 
  
