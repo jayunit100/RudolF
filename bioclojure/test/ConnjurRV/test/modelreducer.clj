@@ -24,7 +24,7 @@
    (is (= (count res-list)
           (count (test-protein :residues)))
        "number of residues in list")
-   (is (every? #(map? %) res-list)
+   (is (every? map? res-list)
        "each element is a map")
    (is (every? #(and (% :rindex) (% :aatype)) res-list)
        "each element has keys :rindex, :aatype at least")))
@@ -34,11 +34,10 @@
   (let [atom-map (get-atoms-map test-protein)]
    (is (every? #(and (integer? %) (> % 0))
                (keys atom-map))
-       "keys are integer")
-   (is nil "need more tests")))
+       "keys are integer")))
 
 
 (deftest test-get-atoms-list
   (let [atom-list (get-atoms-list test-protein)]
-   (is nil "haven't figured out how to test yet")))
-
+   (is (every? map? atom-list)
+       "all elements are maps")))

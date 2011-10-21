@@ -1,15 +1,14 @@
 (ns ConnjurRV.vizcharts
   (:use [incanter.charts :only (histogram bar-chart scatter-plot add-lines)])  
   (:use [incanter.core :only (view)])
-  (:use [incanter.stats :only (pdf-normal)]))
+  (:use [incanter.stats :only (pdf-normal linear-model)]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; module interface
-;	make-histogram
-;	make-bar-chart
-;	make-double-bar-chart
-;	make-scatter-plot
-;	????? what else ???????
+;	make-histogram        ::  [x] -> String -> HistogramPopup
+;	make-bar-chart        ::  Map key value -> String -> String -> BarchartPopup
+;	make-double-bar-chart ::  Map key (lvalue, rvalue) -> String -> String -> DoubleBarChartPopup
+;	make-scatter-plot     ::  [(xvalue, yvalue)] -> String -> String -> ScatterPopup
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn make-histogram
@@ -31,52 +30,27 @@
               :legend true)))	
 
 
-
-(comment (defn make-double-bar-chart
+;(comment 
+(defn make-double-bar-chart
   "Map key (lvalue, rvalue) -> String -> String -> DoubleBarChartPopup"
   [map-tuple-data x-label [y-label1 y-label2]] ; using destructuring
   ;{:pre [(map? map-tuple-data) (vector? first (vals map-tuple-data) ) (string? x-label) (string? y-label)]}
-  'todo) )
+  'todo) 
   ;;(view
    ;;(bar-chart (keys map-tuple-data) (vals map-tuple-data) 
 ;              :x-label x-label :y-label y-label1   ;; make sure to use y-label2 also
 ;              :legend true)))	
+;)
 
- 
 
-; we don't need to have both
-;	make-scatter-plot-two-lists and make-scatter-plot-list-of-tuples: 
-;	let's get rid of this one because it is easier to break
-( comment 
-(defn make-scatter-plot-two-lists
-  "[xvalue] -> [yvalue]-> String -> String -> ScatterPopup"
-  [list-one list-two xlabel ylabel]
-  ;{:pre [(list? list-one) (list? list-one) (string? xlabel) (string? ylabel)]}
-  (let [lm (linear-model ($ list-one) ($ list-two ))]
-   (doto 
-           (view
-            (scatter-plot list-one list-one
-                         :x-label xlabel :y-label ylabel
-                         :legend true))) (add-lines list-one (:fitted lm)) ))	;;use add lines outside doto
-)                                                                            ;; I will delete after I figure out why
-
-  
-
-; change (map last ..) to (map second ..)
-; could this be cleaned up so it's easier to read?
-
-(comment (defn make-scatter-plot-list-of-tuples
+(defn make-scatter-plot
   "[(xvalue, yvalue)] -> String -> String -> ScatterPopup"
   [tuple-list x-label y-label]
- ;; {:pre [(list? tuple-list) (vector? (first tuple-list) ) (string? xlabel) (string? ylabel)]}
- ;; Breaking the first element and last element of each tuple into lists
-  (let [left (map first (tuple-list)) right (map last (tuple-list)) lm (linear-model ($ right) ($ left ))]
-    (view
-            (scatter-plot left right
-                         :x-label xlabel :y-label ylabel
-                         :legend true))))	)
-
-
-  
-
+  (let [lefts (map first tuple-list) 
+        rights (map second tuple-list)]
+   (view
+    (scatter-plot lefts rights
+                  :x-label x-label 
+                  :y-label y-label
+                  :legend true))))	
 

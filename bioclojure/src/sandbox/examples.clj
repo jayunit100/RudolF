@@ -1,3 +1,4 @@
+(comment
 (ns ConnjurRV.examples  
  (use ConnjurRV.vizcharts  
      ConnjurRV.vizstruct  
@@ -8,10 +9,22 @@
      ConnjurRV.readcyana 
      clojure.contrib.generic.functor
      clojure.stacktrace))
+)
 ;;This class imports everything.  It is just a sandbox class.
 ;;Use at your own risk.  To use namespace to invoke and import all methods
 ;;Call this function : 
 ;;user=> (doto 'ConnjurRV.examples require in-ns)
+
+(use 'ConnjurRV.vizcharts  
+     'ConnjurRV.vizstruct  
+     'ConnjurRV.modelreducer
+     'ConnjurRV.statistics
+     'ConnjurRV.readstats
+     'ConnjurRV.readpdb
+     'ConnjurRV.readcyana 
+     'clojure.contrib.generic.functor
+     'clojure.stacktrace)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def my-protein (make-protein-from-files "data/connjur.seq" "data/connjur.prot"))
@@ -57,6 +70,17 @@
    "atom-id" 
    "normalized chemical shifts"))
 
+(defn shifts-scatter-plot
+  ""
+  []
+  (let [data (norm-shifts-avg-shifts (get-atoms-list stats-protein))]
+   (do
+    (make-scatter-plot
+     data
+     "assigned shift"
+     "average shift")
+    data)))
+
 
 (defn number-of-shifts-avgs-on-double-bar-chart
   ""
@@ -75,6 +99,7 @@
    (norm-shifts-on-struct)
    (shifts-on-histogram)
    (norm-shifts-on-bar-chart)
+   (shifts-scatter-plot)
    (number-of-shifts-avgs-on-double-bar-chart)))
 
  

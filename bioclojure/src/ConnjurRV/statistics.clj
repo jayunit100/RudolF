@@ -30,6 +30,13 @@
          (filter #(not (symbol? (second %))) 
                  (fmap (fn [dict] (safe-division (dict :shift) (dict :avg))) atom-map)))))
 
+(defn norm-shifts-avg-shifts
+  "[Map atomkey atomval] -> [(shift, avg-shift)]"
+  [atom-list]
+  (let [get-pair (fn [dict] [(dict :shift) (dict :avg)])]
+   (filter #(and (number? (first %)) (number? (second %))) ; filter out pairs with nil
+           (map get-pair atom-list))))
+
 
 (defn number-of-shifts
   "Map rindex Residue -> Map rindex (shifts, avgs)"
