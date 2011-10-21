@@ -1,9 +1,8 @@
 ;;Tests for ConnjurRV 
-(ns tests
+(ns ConnjurRV.test.app
     (:use clojure.test) 
     (:use ConnjurRV.readstats) 
-    (:use ConnjurRV.readcyana)
-    ) ;;not that use methods in ns declaration don't use colon.
+    (:use ConnjurRV.readcyana)) 
     
 ;;Utility method, that makes sure there are no namespace errors
 ;;It is used to test that the methods are named correctly and namespaces are working normally.
