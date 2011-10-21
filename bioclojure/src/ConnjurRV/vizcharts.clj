@@ -26,7 +26,7 @@
   [map-data xlabel ylabel]
   ;{:pre [(map? map-data) (string? xlabel) (string? ylabel)]}
   (view
-   (bar-chart (keys map-data) (vals map-data) 
+   (bar-chart (keys map-data) (vals map-data) ;; makes bar chart from keys and values of map
               :x-label xlabel :y-label ylabel
               :legend true)))	
 
@@ -36,9 +36,9 @@
   "Map key (lvalue, rvalue) -> String -> String -> DoubleBarChartPopup"
   [map-tuple-data x-label [y-label1 y-label2]] ; using destructuring
   ;{:pre [(map? map-tuple-data) (vector? first (vals map-tuple-data) ) (string? x-label) (string? y-label)]}
-  'todo) 
-;  (view
-;   (bar-chart (keys map-tuple-data) (vals map-tuple-data) 
+  ;;'todo) 
+  (view
+   (bar-chart (keys map-tuple-data) (vals map-tuple-data) 
 ;              :x-label x-label :y-label y-label1   ;; make sure to use y-label2 also
 ;              :legend true)))	
 
@@ -57,25 +57,25 @@
            (view
             (scatter-plot list-one list-one
                          :x-label xlabel :y-label ylabel
-                         :legend true))) (add-lines list-one (:fitted lm)) ))	
-)
+                         :legend true))) (add-lines list-one (:fitted lm)) ))	;;why is addlines fucked up?
+)                                                                            ;; I will delete after I figure out why
 
   
 
 ; change (map last ..) to (map second ..)
 ; could this be cleaned up so it's easier to read?
-(comment 
+
 (defn make-scatter-plot-list-of-tuples
   "[(xvalue, yvalue)] -> String -> String -> ScatterPopup"
   [tuple-list x-label y-label]
-  {:pre [(list? tuple-list) (vector? (first tuple-list) ) (string? xlabel) (string? ylabel)]}
+ ;; {:pre [(list? tuple-list) (vector? (first tuple-list) ) (string? xlabel) (string? ylabel)]}
+ ;; Breaking the first element and last element of each tuple into lists
   (let [left (map first (tuple-list)) right (map last (tuple-list)) lm (linear-model ($ right) ($ left ))]
-   (doto 
-           (view
+    (view
             (scatter-plot left right
                          :x-label xlabel :y-label ylabel
-                         :legend true))) (add-lines left (:fitted lm)))	)
-)
+                         :legend true))))	
+
 
   
 
