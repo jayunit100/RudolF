@@ -57,7 +57,7 @@
            (view
             (scatter-plot list-one list-one
                          :x-label xlabel :y-label ylabel
-                         :legend true))) (add-lines list-one (:fitted lm)) ))	;;why is addlines fucked up?
+                         :legend true))) (add-lines list-one (:fitted lm)) ))	;;use add lines outside doto
 )                                                                            ;; I will delete after I figure out why
 
   
@@ -65,7 +65,7 @@
 ; change (map last ..) to (map second ..)
 ; could this be cleaned up so it's easier to read?
 
-(defn make-scatter-plot-list-of-tuples
+(comment (defn make-scatter-plot-list-of-tuples
   "[(xvalue, yvalue)] -> String -> String -> ScatterPopup"
   [tuple-list x-label y-label]
  ;; {:pre [(list? tuple-list) (vector? (first tuple-list) ) (string? xlabel) (string? ylabel)]}
@@ -74,7 +74,7 @@
     (view
             (scatter-plot left right
                          :x-label xlabel :y-label ylabel
-                         :legend true))))	
+                         :legend true))))	)
 
 
   
