@@ -18,7 +18,8 @@
    (.setStructure structure)))
 
  
-; what if the panel doesn't have an atom with the given atomid??
+;; what if the panel doesn't have an atom with the given atomid??
+;; 
 (defn color-atom
   "gui.BiojavaJmol -> atomid -> color -> ()
    set color of an atom in a Jmol panel"
