@@ -1,4 +1,17 @@
+;;(ns ConnjurRV.examples  
+;; (use ConnjurRV.vizcharts  
+;;     ConnjurRV.vizstruct  
+;;     ConnjurRV.modelreducer
+;;     ConnjurRV.statistics
+;;     ConnjurRV.readstats
+;;     ConnjurRV.readpdb
+;;     ConnjurRV.readcyana 
+;;     clojure.contrib.generic.functor
+;;     clojure.stacktrace))
+;; Preferred method until we find a way to support matt's repl importation. 
 
+;;This class is not namespaced, because we don't know how to load namespaced files using the use command.
+;;however, we want to namespace it, so that there are not path dependent tasks in our development.
 (use 'ConnjurRV.vizcharts  
      'ConnjurRV.vizstruct  
      'ConnjurRV.modelreducer
