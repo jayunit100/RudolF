@@ -17,8 +17,8 @@
 ;	output is list of length equal to number of lines in file
 ;	and each element is a 5-key map
 ;	value of :id should be unique across the list
-;	:resid is be positive
-;	:atom is be an atomname
+;	:resid is positive
+;	:atom is an atomname
 ;	:shift and :error are numeric
 (defn parse-shifts
   "type :: String -> [Cyanaline]

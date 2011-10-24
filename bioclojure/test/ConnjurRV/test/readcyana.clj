@@ -56,17 +56,6 @@ ARG")
 (deftest parse-shifts-dict-size
   (is (every? #(= 5 (count %)) (parse-shifts shift-data)) "each line leads to a map with 5 pairs"))
 
-(deftest parse-shifts-atomids
-  (is (every? number? (map :id (parse-shifts shift-data))) "atomids must be numbers"))
-
-(deftest parse-shifts-shifts
-  (is (every? number? (map :shift (parse-shifts shift-data))) "shifts must be numbers"))
-
-(deftest parse-shifts-errors
-  (is (every? number? (map :error (parse-shifts shift-data))) "errors must be numbers"))
-
-(deftest parse-shifts-resids
-  (is (every? number? (map :resid (parse-shifts shift-data))) "resids must be numbers"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -76,8 +65,6 @@ ARG")
 (deftest parse-sequence-aa-length
   (is (every? #(= 3 (count %)) (parse-sequence seq-data)) "need three-letter names"))
 
-(deftest parse-sequence-aa-length-no-check
-  (is (every? #(= 3 (count %)) (parse-sequence "1\n2\n3")) "need three-letter names"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -100,22 +87,9 @@ ARG")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deftest merge-shifts-num-res
-  (let [count-residues (fn [prot] (count (:residues prot)))
-        protein (sequence-to-protein (parse-sequence seq-data))
-        shifts (parse-shifts shift-data)]
-   (is (= (count-residues protein)
-          (count-residues (merge-shifts protein shifts)))
-       "number of residues the same")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(deftest make-protein-size
-  (let [seq (parse-sequence seq-data)
-        count-residues (fn [prot] (count (:residues prot)))
-        shifts (parse-shifts shift-data)]
-   (is (= (count-residues (make-protein seq shifts))
-          (count shifts))
-       "make-protein correct size (number of residues)")))
+
 
 
