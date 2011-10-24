@@ -81,6 +81,28 @@
      "average shift")
     data)))
 
+(defn atom-shifts-on-bar-chart
+  "plot Map resid shift"
+  [atomname]
+  (let [func #(try (((% :atoms) atomname) :shift) (catch Exception e 0))
+        resid-shifts (fmap func (get-residues-map my-protein))]
+   (make-bar-chart 
+    resid-shifts
+    "residue number"
+    (str atomname " shift"))))
+
+(defn norm-shifts-on-bar-chart-by-atom
+  ""
+  [atomname]
+  (let [func #(try (/ (((% :atoms) atomname) :shift)
+                      (((% :atoms) atomname) :avg))
+                   (catch Exception e 0))
+        resid-shifts (fmap func (get-residues-map stats-protein))]
+   (make-bar-chart 
+    resid-shifts
+    "residue number"
+    (str "normalized " atomname " shift"))))
+
 
 (defn number-of-shifts-avgs-on-double-bar-chart
   ""
@@ -100,6 +122,7 @@
    (shifts-on-histogram)
    (norm-shifts-on-bar-chart)
    (shifts-scatter-plot)
+   (atom-shifts-on-bar-chart "HA")
    (number-of-shifts-avgs-on-double-bar-chart)))
 
  

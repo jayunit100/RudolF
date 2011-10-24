@@ -24,10 +24,15 @@
   "Map key value -> String -> String -> BarchartPopup"
   [map-data xlabel ylabel]
   ;{:pre [(map? map-data) (string? xlabel) (string? ylabel)]}
-  (view
-   (bar-chart (keys map-data) (vals map-data) ;; makes bar chart from keys and values of map
-              :x-label xlabel :y-label ylabel
-              :legend true)))	
+  (let [sorted-data (sort-by first map-data)
+        x-vals (map first sorted-data)
+        y-vals (map second sorted-data)]
+   (view
+    (bar-chart x-vals
+               y-vals
+               :x-label xlabel 
+               :y-label ylabel
+               :legend true))))
 
 
 ;(comment 
