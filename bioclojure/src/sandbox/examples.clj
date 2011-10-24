@@ -15,6 +15,9 @@
 ;;Call this function : 
 ;;user=> (doto 'ConnjurRV.examples require in-ns)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 (use 'ConnjurRV.vizcharts  
      'ConnjurRV.vizstruct  
      'ConnjurRV.modelreducer
@@ -103,6 +106,16 @@
     "residue number"
     (str "normalized " atomname " shift"))))
 
+(defn avg-shifts-on-bar-chart
+  ""
+  [atomname]
+  (let [func #(try (((% :atoms) atomname) :avg) (catch Exception e 0))
+        resid-shifts (fmap func (get-residues-map stats-protein))]
+   (make-bar-chart 
+    resid-shifts
+    "residue number"
+    (str "average residue-specific " atomname " shift"))))   
+
 
 (defn number-of-shifts-avgs-on-double-bar-chart
   ""
@@ -122,7 +135,23 @@
    (shifts-on-histogram)
    (norm-shifts-on-bar-chart)
    (shifts-scatter-plot)
+   (atom-shifts-on-bar-chart "CA")
+   (norm-shifts-on-bar-chart-by-atom "CA")
    (atom-shifts-on-bar-chart "HA")
+   (norm-shifts-on-bar-chart-by-atom "HA")
+   (avg-shifts-on-bar-chart "CA")
+   (avg-shifts-on-bar-chart "HA")
    (number-of-shifts-avgs-on-double-bar-chart)))
+
+(defn bar-charts
+  "this example generates plots which show assigned shifts, normalized shifts, and average shifts of specific nuclei per residue"
+  []
+  (do
+   (atom-shifts-on-bar-chart "CA")
+   (norm-shifts-on-bar-chart-by-atom "CA")
+   (atom-shifts-on-bar-chart "HA")
+   (norm-shifts-on-bar-chart-by-atom "HA")
+   (avg-shifts-on-bar-chart "CA")
+   (avg-shifts-on-bar-chart "HA")))
 
  

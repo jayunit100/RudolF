@@ -16,4 +16,8 @@ Major:
 Minor:
 	fix zoom options (could only zoom in one dimension)
 	colors -- especially for double/multi bar-charts
+	because the incanter stuff is macros
+		they can capture the names in the source code
+		and then these names show up in the charts as chart titles
+		how can we stop/override/control this?
 	
