@@ -7,7 +7,10 @@
   (:use [ConnjurRV.vizcharts        :only (make-bar-chart)])
   (:use [ConnjurRV.modelreducer     :only (get-atoms-map get-residues-map)])
   (:use [ConnjurRV.statistics       :only (color-map normalized-shifts)])
-  (:use [clojure.contrib.generic.functor :only (fmap)]))
+  (:use [clojure.contrib.generic.functor :only (fmap)])
+  (:gen-class :main true))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;A set of command line options.
 ;;There are two options "r" (for visualizing relaxation data ) and "c" for (venn NMR)
@@ -58,7 +61,7 @@
 (def run-options {"normalized-shifts" norm-shifts-on-struct
               "shift-plot" plot-atom-shifts})
 
-(defn main
+(defn -main
   ""
   []
   (let [option (first *command-line-args*)
@@ -68,7 +71,7 @@
     (apply func options)
     (str "error: <" option "> is not a valid option, please choose one of " (keys run-options)))))
 
-(main) ; how should I run this????
+;(main) ; how should I run this????
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
