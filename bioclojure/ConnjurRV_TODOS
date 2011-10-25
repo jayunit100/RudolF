@@ -1,0 +1,10 @@
+
+in no particular order:
+	decide on an algorithm to color the atoms on the structure in a better way (than just using the blue channel)
+	implement that algorithm
+	unit-testing
+	build a working application (i.e. we have the code, we just need to compile it into an executable)
+	determine future goals relaxation-wise and shiftx-wise
+	come up with new ways for plotting nmr data, i.e. pearson correlations for chemical shift assignments
+	see Icanter_TODOS for incanter goals
+	

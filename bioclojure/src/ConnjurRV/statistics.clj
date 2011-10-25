@@ -13,7 +13,7 @@
 (defn color-map
   "Map a Num -> Map a Color"
   [data]
-  (fmap (fn [n] [0 0 n]) data))
+  (fmap (fn [n] [0 n 0]) data))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -46,7 +46,8 @@
                     atoms (count atomdict)
                     avgs (count (filter #(not (symbol? (:avg (second %)))) atomdict))]
                     [atoms avgs]))]
-   (fmap f data))) 
+   (fmap f data)))
+
 (defn count-atoms-by-residue
   "Map rindex Residue -> Map rindex Integer"
   [res-map]

@@ -126,6 +126,30 @@
 ;   ["number of shifts" "number of averages"]))
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(defn norm-shifts-all-aatypes
+  ""
+  [atomname]
+  (let [get-shift #(try (((% :atoms) atomname) :shift) (catch Exception e 0))  ; get the shift of that atomtype for each residue (or 0 if nil)
+        get-std-shift #(try (% :avg) (catch Exception e 0))
+        atype-shifts (map (fn [[_ aadata]] (aadata atomname)) stats-data) ; all the standard shifts for the atomtype
+        resid-shifts (fmap get-shift (get-residues-map my-protein))
+        my-data (filter #(not (or (= 0 (first %)) (= 0 (second %))))
+                 (apply concat (for [[_ shift] resid-shifts] ; ignore resid
+                        (map (fn [std-shift] 
+                                 [shift (get-std-shift std-shift)]) 
+                             atype-shifts))))] ; pull out the chemical shifts as a (Map resid shift) -- for the atomtype
+    (do
+     (make-scatter-plot
+      my-data
+      "assigned shift"
+      "standard shift possibility")
+     [resid-shifts my-data])))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defn all-examples
   ""
   []
