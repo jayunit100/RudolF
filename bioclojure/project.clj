@@ -1,4 +1,4 @@
-(defproject BioClojure "0.0.1-SNAPSHOT"
+(defproject BioClojure "0.0.2-SNAPSHOT"
   :description "An application for visualizing NMR data on structures and plots"
   :dependencies [[org.clojure/clojure "1.2.1"]
                  [org.clojure/clojure-contrib "1.2.0"]

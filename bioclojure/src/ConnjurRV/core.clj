@@ -8,7 +8,6 @@
   (:use [ConnjurRV.modelreducer          :only (get-atoms-map get-residues-map)])
   (:use [ConnjurRV.statistics            :only (color-map normalized-shifts)])
   (:use [clojure.contrib.generic.functor :only (fmap)])
-  (:use [clojure.contrib.command-line    :only (with-command-line)])
   (:gen-class :main true))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -59,7 +58,7 @@
  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def run-options {"normalized-shifts" norm-shifts-on-struct
+(def run-options {"norm-shifts" norm-shifts-on-struct
               "shift-plot" plot-atom-shifts})
 
 (defn -main
@@ -68,11 +67,13 @@
   (let [option (first args)
         r-args (rest args)
         func   (run-options option)]
-   (println (str "your command-line args: " (apply str args) "  <>  " (apply str *command-line-args*) " :: " (count args)))
-   (if func
+   (println (str "your command-line args for BioClojure/ConnjurRV v0.0.2: " (apply str args)))
+   (if (and func (= 4 (count args)))
     (apply func r-args)
-    (str "error: <" option "> is not a valid option, please choose one of " (keys run-options)))))
-
+    (do
+     (println "error with command-line arguments")
+     (println "usage: <program> shift-plot <path to seq file> <path to shift file> <atomname>")
+     (println "alternate usage: <program> norm-shifts <path to seq file> <path to shift file> <PDBID>")))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
