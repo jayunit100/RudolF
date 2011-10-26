@@ -1,13 +1,14 @@
 (ns ConnjurRV.core
-  (:use [clojure.contrib.java-utils :only (file)])
-  (:use [ConnjurRV.readstats        :only (merge-bmrb)])
-  (:use [ConnjurRV.readpdb          :only (load-pdb-struct)])
-  (:use [ConnjurRV.readcyana        :only (make-protein-from-files)])
-  (:use [ConnjurRV.vizstruct        :only (display-colored-struct)])
-  (:use [ConnjurRV.vizcharts        :only (make-bar-chart)])
-  (:use [ConnjurRV.modelreducer     :only (get-atoms-map get-residues-map)])
-  (:use [ConnjurRV.statistics       :only (color-map normalized-shifts)])
+  (:use [clojure.contrib.java-utils      :only (file)])
+  (:use [ConnjurRV.readstats             :only (merge-bmrb)])
+  (:use [ConnjurRV.readpdb               :only (load-pdb-struct)])
+  (:use [ConnjurRV.readcyana             :only (make-protein-from-files)])
+  (:use [ConnjurRV.vizstruct             :only (display-colored-struct)])
+  (:use [ConnjurRV.vizcharts             :only (make-bar-chart)])
+  (:use [ConnjurRV.modelreducer          :only (get-atoms-map get-residues-map)])
+  (:use [ConnjurRV.statistics            :only (color-map normalized-shifts)])
   (:use [clojure.contrib.generic.functor :only (fmap)])
+  (:use [clojure.contrib.command-line    :only (with-command-line)])
   (:gen-class :main true))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -63,15 +64,16 @@
 
 (defn -main
   ""
-  []
-  (let [option (first *command-line-args*)
-        args   (rest *command-line-args*)
+  [& args]
+  (let [option (first args)
+        r-args (rest args)
         func   (run-options option)]
+   (println (str "your command-line args: " (apply str args) "  <>  " (apply str *command-line-args*) " :: " (count args)))
    (if func
-    (apply func options)
+    (apply func r-args)
     (str "error: <" option "> is not a valid option, please choose one of " (keys run-options)))))
 
-;(main) ; how should I run this????
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -1,4 +1,4 @@
-(defproject BioClojure "1.0.0-SNAPSHOT"
+(defproject BioClojure "0.0.1-SNAPSHOT"
   :description "An application for visualizing NMR data on structures and plots"
   :dependencies [[org.clojure/clojure "1.2.1"]
                  [org.clojure/clojure-contrib "1.2.0"]
@@ -10,4 +10,5 @@
 		             [org.biojava/biojava3-structure-gui "3.0"]
 		             [incanter "1.2.3-SNAPSHOT"]]
   :repositories [["biojava-maven-repo" "http://www.biojava.org/download/maven/"]]
-  :main ConnjurRV.core)
+  :main ConnjurRV.core
+  :uberjar-exclusions [#"META-INF/RCSB-PDB.SF" #"META-INF/SELFSIGN.SF"])
