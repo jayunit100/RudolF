@@ -39,12 +39,12 @@
   [dir-path end-dir]
   (do
    (str "trying: " dir-path "<>" end-dir)
-   (let [new-name-nr (str end-dir "/" (new-file-name (parse-path (.getName (File. dir-path))) 0))
-         new-name-r (str end-dir "/" (new-file-name (parse-path (.getName (File. dir-path))) 1))
-         nr-content (slurp (str dir-path "/connjur.prot"))
-         r-content (slurp (str dir-path "/rescue/connjur.prot"))]
-    (spit new-name-r r-content)
-    (spit new-name-nr nr-content))))
+   (let [new-name-nf (str end-dir "/" (new-file-name (parse-path (.getName (File. dir-path))) 0))
+         new-name-f (str end-dir "/" (new-file-name (parse-path (.getName (File. dir-path))) 1))
+         nf-content (slurp (str dir-path "/connjur.prot"))
+         f-content (slurp (str dir-path "/connjur-final.prot"))]
+    (spit new-name-f f-content)
+    (spit new-name-nf nf-content))))
 
 (defn extract-files
   "start directory -> ???"
@@ -54,9 +54,14 @@
     ; for each of the dir-paths:
     ;   parse the directory path 
     ;   read file ".../connjur.prot"
-    ;   read file ".../rescue/connjur.prot"
+    ;   read file ".../connjur-final.prot"
     ;   
    (map #(get-shifts % end-dir) dir-paths))) ; not done
+
+(defn example-usage
+  ""
+  []
+  (extract-files the-dir "shift_data"))
 
 
 
