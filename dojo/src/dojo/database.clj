@@ -1,4 +1,4 @@
-(ns sandbox.Database
+(ns dojo.database
   (:import (java.io InputStream InputStreamReader BufferedReader)
            (java.net URL HttpURLConnection)))
 

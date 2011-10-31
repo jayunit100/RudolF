@@ -1,13 +1,16 @@
-(ns logger (:import (java.io BufferedWriter FileWriter)))
+(ns dojo.agent 
+  (:import (java.io BufferedWriter FileWriter)))
 
 (let [wtr (agent (BufferedWriter. (FileWriter. "agent.log")))]
-    (defn log [msg]
-      (let [write (fn [out msg]
-              (.write out msg)
+  (defn log 
+    [msg]
+    (let [write (fn [out msg]
+                    (.write out msg)
                     out)]
-          (send wtr write msg)))
-      (defn close []
-            (send wtr #(.close %))))
+     (send wtr write msg)))
+  (defn close 
+    []
+    (send wtr #(.close %))))
 
 (log "test ccolber\n")
 (log "another line\n")

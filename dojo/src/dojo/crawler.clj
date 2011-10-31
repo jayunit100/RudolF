@@ -1,4 +1,4 @@
-(ns sandbox.Crawler
+(ns dojo.crawler
   (:import (java.io InputStream InputStreamReader BufferedReader)
            (java.net URL HttpURLConnection)))
 
@@ -8,7 +8,10 @@
     (.connect conn)                           
     (with-open [stream (BufferedReader.
                        (InputStreamReader. (.getInputStream conn)))] 
-      (.length (reduce #(.append %1 %2) (StringBuffer.) (line-seq stream)))))) ;; gets length of url
+      (.length 
+       (reduce #(.append %1 %2) 
+               (StringBuffer.) 
+               (line-seq stream)))))) ;; gets length of url
 
 (defn get-urls [urls] 
   (let [agents (doall (map #(agent %) urls))]       ;; binds "agents" to a list of agents for each url 
