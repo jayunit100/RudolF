@@ -10,9 +10,10 @@
 (def go(read-dataset "resources/macloplot.csv" :header true))
 
 (def chart (time-series-plot :pk :r3
-                             :a-label "pk"
-                             :y-label "r3"
-                             :title "plot"
+                             :a-label "peaks"
+                             :x-label "% completion"
+			     :y-label "r-3"
+                             :title "plot of r3"
                              :data go))
 
 (print go) ;; debug chart contents, you should see keys n the header

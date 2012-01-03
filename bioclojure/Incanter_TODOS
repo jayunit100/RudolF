@@ -1,0 +1,23 @@
+Major:
+	write function make-double-bar-chart
+		input:
+			Map key pair
+			x-label
+			y-label1, y-label2
+	generalize make-double-bar-chart
+		want to display many bars for each key
+		input
+			Map key list
+			x-label
+			y-labels
+	figure out how values are grouped when using histograms
+		incanter seems to have some default grouping methodology
+
+Minor:
+	fix zoom options (could only zoom in one dimension)
+	colors -- especially for double/multi bar-charts
+	because the incanter stuff is macros
+		they can capture the names in the source code
+		and then these names show up in the charts as chart titles
+		how can we stop/override/control this?
+	
