@@ -1,15 +1,38 @@
 Welcome to RudolF ! 
 
-This project is named after the Reindeer, whose red nose was an asset to Santa on Christmas.  This analogy is meant to reflect the notion that functional programming and dynamic languages CAN have a very meaningul role in the "real world" --- and project RudolF aims to realize this notion.  
+This project is named after the Reindeer, whose red nose was an asset to Santa on Christmas. 
 
-The aim of RudolF is to exemplify the power of functional and dynamic languages applied to a broad range of data mining problems. 
+This analogy is meant to reflect the notion that functional programming and dynamic languages CAN have a very
 
-1) BioClojure : This project demonstrates the ease of java-interop for sophisticated bioinformatics data integration and processing.  BioClojure intergrates jMol, BioJava, and a few algorithms/methods for NMR data normalization which allow for visualization and 3D analysis of proteins and their structures.  This is a very interesting project for anyone in the bioinformatics community who wants to get involved with functional programming.  Thanks to Lee Hinnman for helping us get this off the ground ! Contributors are Jay Vyas and Matt Fenwick. 
+meaningul role in the "real world" --- and project RudolF aims to realize this notion.  The aim of RudolF is to
 
-2) haskell (soon-to-be renamed) : Is a general source code repo for haskell data processing.  In particular, right now, it supports the computation of random sample schedules for collecting distributed points at different times in non-uniform NMR experiments. 
+exemplify the power of functional and dynamic languages applied to a broad range of data mining problems. 
 
-There will be more to come ! Currently, we are reaching out to people in the Erlang, Javascript, Scala, and OCaml communities for more contributions.  
 
-The end goal of RudolF is to demonstrate, in Sandbox fashion, a broad range of functional and dynamic programming paradigms applied to real world problems in data mining and analysis.  But of course, if you want to start out with a hello world just to get involved, you're MORE THAN WELCOME to join us !
+1) BioClojure : This project demonstrates the ease of java-interop for sophisticated bioinformatics data integration and
+
+processing. BioClojure intergrates jMol, BioJava, and a few algorithms/methods for NMR data normalization which allow 
+
+for visualization and 3D analysis of proteins and their structures.  This is a very interesting project for anyone in
+
+the bioinformatics community who wants to get involved with functional programming.  Thanks to Lee Hinnman for helping
+
+us get this off the ground ! Contributors are Jay Vyas, Matt Fenwick and Colbert Sesanker. 
+
+
+2) haskell (soon-to-be renamed) : Is a general source code repo for haskell data processing.  
+
+In particular, right now, it supports the computation of random sample schedules for collecting 
+
+distributed points at different times in non-uniform NMR experiments. There will be more to come ! 
+
+Currently, we are reaching out to people in the Erlang, Javascript, Scala, and OCaml communities for more contributions.  
+
+The end goal of RudolF is to demonstrate, in Sandbox fashion, a broad range of functional and dynamic programming 
+
+paradigms applied to real world problems in data mining and analysis.  But of course, if you want to start out with 
+
+a hello world just to get involved, you're MORE THAN WELCOME to join us !
+
 
 contact jayunit100@gmail.com mattfenwick100@gmail.com sesanker0@gmail.com
