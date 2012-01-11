@@ -1,4 +1,6 @@
-#A PYthon example of getting remote data.
+#A PYthon example of getting remote data from ncbi.
+#Request works for the whole web page, but doesn't get the sequence (gets the whole page). 
+#Will edit soon. 
 #TODO update for python 3.0
 
 import sys, urllib2
