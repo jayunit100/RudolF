@@ -16,10 +16,20 @@
 
 ;;goes to a url, gets contents, and returns the body only. 
 (defn getBod [url]
- ((read-json (:body url))))
+ ((read-json (:body (client/get url)))) )
 
 ;;goes to a url, gets contents, pasrses them as a json into a map, and gets the json keys only.
 (defn getJsonFieldNames [url]
  (keys (read-json (:body (client/get url))) )
  )
+
+;; (time1 #(client/get "http://www.sportsci.com/topics2/AVI_files/APASgait0003.avi")) 
+;; returns the time in seconds to run a function..
+;; to repeatedly benchmark a function : 
+;; (repeatedly 3 #(myFunction))
+(defn time1 [f] ""
+    (let [starttime (System/nanoTime)] 
+          (f) 
+          (/ (- (System/nanoTime) starttime) 1e9))) 
+
 
