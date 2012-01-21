@@ -1,4 +1,4 @@
-(ns clojure_crawl.core)
+(ns cljcrawl.core)
 (require '[clj-http.client :as client])
 (use 'clojure.contrib.json)
 
@@ -30,6 +30,5 @@
 (defn time1 [f] ""
     (let [starttime (System/nanoTime)] 
           (f) 
-          (/ (- (System/nanoTime) starttime) 1e9))) 
-
+          (/ (- (System/nanoTime) starttime) 1e9)))
 
