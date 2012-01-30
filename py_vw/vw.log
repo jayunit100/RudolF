@@ -1,0 +1,27 @@
+enabling conjugate gradient based optimization
+creating cache_file = ./vw.cache
+Reading from ./vw.data
+num sources = 1
+Num weight bits = 18
+learning rate = 10
+initial_t = 1
+power_t = 0.5
+decay_learning_rate = 1
+predictions = ./vw.preds
+learning_rate set to 10
+average    since       example  example    current  current  current
+loss       last        counter   weight      label  predict features
+0.230000   0.230000          3      3.0     0.2000   0.0000        5
+0.391667   0.553333          6      6.0     0.6000   0.0000        5
+0.458182   0.538000         11     11.0     0.2000   0.0000        5
+0.418907   0.379632         22     22.0     0.6000   0.7351        5
+0.254843   0.090780         44     44.0     0.7000   0.8458        5
+
+finished run
+number of examples = 80
+weighted example sum = 80
+weighted label sum = 55
+average loss = 0.1525
+best constant = 0.6835
+best constant's loss = 0.2163
+total feature number = 400
