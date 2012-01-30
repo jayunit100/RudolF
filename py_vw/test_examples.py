@@ -30,11 +30,11 @@ def test_predict_from_examples():
     for i in range(len(DATA)):
         (value, attribute_map) = DATA[i]
         print 'tuple created : \n1:' + str(value) + "\n2:" + str(attribute_map)
-	ex = VowpalExample(i, value)
-	#Extracting the features from all of the namespaces in the map. 
-	for (featureNamespace, features) in attribute_map.items():
-            #Each "section" is 
-            ex.add_section(featureNamespace, features)
+    ex = VowpalExample(i, value)
+    #Extracting the features from all of the namespaces in the map. 
+    for (featureNamespace, features) in attribute_map.items():
+        #Each "section" is 
+        ex.add_section(featureNamespace, features)
         examples.append(ex)
     train = examples[:-2]
     test = examples[-2:]

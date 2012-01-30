@@ -26,7 +26,7 @@ class VowpalExample:
         '''
         section[self.SECTION_NAME_KEY] = name
         self.sections.append(section)
-    #	
+    #    
     def __str__(self):
         '''Converts the example to Vowpal's input format.'''
         section_strs = []
@@ -44,9 +44,9 @@ class VowpalExample:
                 else:
                     tokens.append('%s:%s' % (key, value))
             section_strs.append(string.join(tokens))
-	a=string.join(section_strs, '|')
-	print "\t\tCreating a vowpal input string : " + a;
-	return a;
+    a = string.join(section_strs, '|')
+    print "\t\tCreating a vowpal input string : " + a
+    return a
 
 class ExampleStream:
     '''
@@ -101,8 +101,8 @@ class Vowpal:
         self.vowpal_args = vowpal_args
 
         for p in [self.path_cache, self.path_preds, self.path_data, self.path_log]: 
-                if os.path.isfile(p):
-                        os.remove(p)
+            if os.path.isfile(p):
+                os.remove(p)
 
     def predict_from_examples(self, training_examples, testing_examples):
         '''
