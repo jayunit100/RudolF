@@ -1,9 +1,7 @@
-import sys
-sys.path.append("/home/colbert/Desktop/Jark") # add path to file here
-import t_specific
+
 import csv
 import re
-import urllib.request
+import urllib2
 from string import whitespace
 from collections import Counter
 
@@ -11,12 +9,16 @@ from collections import Counter
 def source_urls():
     '''input : a csv file
        output :  returns a list of all urls'''
-    data = open('./file.csv','r') # enter the file name for file
+    data = open('./redmaopython.csv','r') # enter the file name for file
     spamReader = csv.reader(data , delimiter='\t') # take col
     myUrls = make_t_url_list(spamReader, 23) #
     normalizeAllUrls(myUrls)
     
-
+def write(path, text):    
+    f = open(path, 'w')
+    f.write(text) 
+    f.close()
+   
 def normalizeAllUrls(myUrls):
     '''input : A list of space/tab separated urls
     output : A map of normalized urls
@@ -24,17 +26,16 @@ def normalizeAllUrls(myUrls):
     c = Counter()
     for urlList in myUrls:
         for url in urlList.split(" "):
-            n = normalizeURL(url)
+            write("JarkData.txt", normalizeURL(url))
             c[n] += 1
-    return c
+    write("JarkDataCounter.txt", normalizeURL(url))
 
 def normalizeURL(url):
     '''input : a single URL
     output : a normalized URL'''
     call = "http://tldextract.appspot.com/api/extract?url=" + url    
-    normalizeUrl = urllib.request.urlopen(call).read()
-    print (normalizeUrl)
-    return normalizeUrl
+    newUrl = urllib2.urlopen(call).read() 
+    return newUrl
 
 def make_t_url_list(t_reader,n):
     '''input : A reader (presumabley of a large, multi column csv)
