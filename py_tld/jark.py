@@ -5,11 +5,14 @@ import urllib2
 from string import whitespace
 from collections import Counter
 
+
+infile='a.csv'
+
 #this is a function
 def source_urls(): 
     '''input : a csv file
        output :  returns a list of all urls'''
-    data = open('./redmaopython.csv','r') # enter the file name for file
+    data = open(infile,'r') # enter the file name for file
     spamReader = csv.reader(data , delimiter='\t') # take col
     myUrls = make_t_url_list(spamReader, 23) #
     normalizeAllUrls(myUrls)
