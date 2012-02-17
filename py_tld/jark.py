@@ -5,8 +5,8 @@ import urllib2
 from string import whitespace
 from collections import Counter
 
-
-def source_urls():
+#this is a function
+def source_urls(): 
     '''input : a csv file
        output :  returns a list of all urls'''
     data = open('./redmaopython.csv','r') # enter the file name for file
