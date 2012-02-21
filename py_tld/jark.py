@@ -1,8 +1,6 @@
 
 import csv
-import re
 import urllib2
-from string import whitespace
 from collections import Counter
 
 
