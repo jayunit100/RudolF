@@ -62,7 +62,6 @@ class TldTest(unittest.TestCase):
             self.assertTrue(e.has_key("domain"))
             self.assertEqual(3, len(e), "size of dictionary response")
 
-    
     def testBadTldUrl(self):
         pass
 
@@ -76,6 +75,6 @@ def runTestSuite():
 
 
 if __name__ == "__main__":
-    logging.debug("starting unit tests of jarkalyze")
+    logging.info("starting unit tests of jarkalyze")
     runTestSuite()
-    logging.debug("finished running jarkalyze unittests")
+    logging.info("finished running jarkalyze unittests")
