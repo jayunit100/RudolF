@@ -37,15 +37,25 @@ def makeTldUrl(baseUrl):
        output : a Url for Tld consumption'''
     # TODO: check whether "baseUrl" needs to be encoded/escaped
     fullUrl = "http://tldextract.appspot.com/api/extract?url=" + baseUrl   
+    print fullUrl;
     return fullUrl
+
+def validateURL(url):
+    if "http" in url:
+        return True;
+    else:
+        return False;
 
 
 def getWebPage(url):
     '''input: a url
        output: the contents found at that url'''
-    mylogger.debug("trying to grab url <%s>" % url)
-    openedurl = urllib2.urlopen(url)
-    mylogger.debug("response object: " + str(dir(openedurl)))
+    print "trying to grab url <%s>" % url 
+    if validateURL(url): 
+        openedurl = urllib2.urlopen(url)
+    else:
+        print "\n ERROR : ODD URL - skipping extraction <%s>  " % url ;
+    #print "response object: " + str(dir(openedurl))
     text = openedurl.read()
     return text
 
