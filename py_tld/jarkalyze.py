@@ -2,12 +2,14 @@ import csv
 import urllib2
 import json
 import logging
+import collections
 
 
 mylogger = logging.getLogger("jarkalyze")
 
 
 #####################################################################
+# jarkfiles
 
 def parseJark(path):
     '''in: path to a jarkfile
@@ -30,6 +32,7 @@ def extractBaseUrls(jarkModel, columnno):
 
 
 #####################################################################
+# url-munging and web access
 
 def makeTldUrl(baseUrl):
     '''input : a single base Url
@@ -68,3 +71,12 @@ def sendTldUrls(baseUrls):
             mylogger.error("tld url <%s> failed with message <%s>" % (tldUrl, e.msg))
     return tldResponses
 
+#####################################################################
+# result analysis 
+
+def countDomains(tldResults):
+    '''in: an iterable of tldResults
+       out: a dictionary of (key: domain) (value: number of times domain seen)'''
+    domains = [res["domain"] for res in tldResults]
+    ctr = collections.Counter(domains)
+    return dict(ctr)

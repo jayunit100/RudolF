@@ -66,11 +66,23 @@ class TldTest(unittest.TestCase):
         pass
 
 
-def runTestSuite():
-    suite1 = unittest.TestLoader().loadTestsFromTestCase(JarkfileTest)
-    suite2 = unittest.TestLoader().loadTestsFromTestCase(TldTest)
+class AnalysisTest(unittest.TestCase):
     
-    mySuite = unittest.TestSuite([suite1, suite2])
+    def setUp(self):
+        pass
+    
+    def testCountDomains(self):
+        tlds = [{"domain": "whatever"}, {"domain":"tld"}, {"domain":"whatever"}, {"domain":"whatever"}]
+        domainCounts = j.countDomains(tlds)
+        self.assertEqual(2, len(domainCounts), "number of distinct domains")
+        self.assertEqual(3, domainCounts["whatever"], "number of whatever domains")
+
+
+def runTestSuite():
+    testClasses = [JarkfileTest, TldTest, AnalysisTest]
+    suites = [unittest.TestLoader().loadTestsFromTestCase(c) for c in testClasses]
+    
+    mySuite = unittest.TestSuite(suites)
     unittest.TextTestRunner(verbosity=2).run(mySuite)
 
 
