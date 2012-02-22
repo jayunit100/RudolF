@@ -7,6 +7,7 @@ logging.basicConfig(filename = LOG_FILENAME, level = logging.DEBUG, filemode = '
 
 def readJark():
     '''this is a junk function; it should be placed in a separate file'''
+    #edit this variable to run on a real file
     testpath = 'samplecsv.txt'
     jarkModel = jk.parseJark(testpath)
     return jk.extractBaseUrls(jarkModel, 23)
