@@ -4,7 +4,7 @@ import logging
 import urllib2
 
 
-LOG_FILENAME = "testLogging.txt"
+LOG_FILENAME = "jarktestlog.txt"
 logging.basicConfig(filename = LOG_FILENAME, level = logging.DEBUG, filemode = 'w')
 
 

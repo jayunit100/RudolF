@@ -1,7 +1,7 @@
 import jarkalyze as jk
 import logging
 
-LOG_FILENAME = "logging.txt"
+LOG_FILENAME = "jarkmainlog.txt"
 logging.basicConfig(filename = LOG_FILENAME, level = logging.DEBUG, filemode = 'w')
 
 
