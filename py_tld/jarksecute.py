@@ -12,11 +12,12 @@ def readJark(filename):
     return jk.extractBaseUrls(jarkModel, 23)
 
 
-if __name__ == "__main__":
-    # TODO: put this junk somewhere else
+def runJark():
     logging.debug("reading jarkfile")
     urls = readJark("samplecsv.txt")
     logging.debug("sending urls to tld extractor")
     jk.sendTldUrls(urls)
-else:
-    raise Exception("this file should only be run as a top-level script")
+
+
+if __name__ == "__main__":
+    runJark()
