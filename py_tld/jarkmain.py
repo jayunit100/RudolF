@@ -1,6 +1,7 @@
 import jarkalyze as jk
 import logging
 import json
+import sys
 
 LOG_FILENAME = "jarkmainlog.txt"
 logging.basicConfig(filename = LOG_FILENAME, level = logging.DEBUG, filemode = 'w')
@@ -13,9 +14,9 @@ def readJark(filename):
     return jk.extractBaseUrls(jarkModel, 23)
 
 
-def runJark():
+def runJark(path):
     logging.info("reading jarkfile")
-    urls = readJark("samplecsv.txt")
+    urls = readJark(path)
     logging.info("sending urls to tld extractor")
     tldResults = jk.sendTldUrls(urls)
     logging.info("got tld results")
@@ -31,5 +32,24 @@ def runJark():
     logging.info("file closed")
 
 
+def printHelp():
+    print "usage: <this program> <path to jarkfile>"
+
+
+def jarkify():
+    if len(sys.argv) == 1:
+        printHelp()
+        return
+    arg = sys.argv[1]
+    if arg == "-h":
+        printHelp()
+    else:
+        try:
+            runJark(arg)
+        except Exception, e:
+            logging.error("encountered fatal error: %s" % str(e))
+            raise e
+
+
 if __name__ == "__main__":
-    runJark()
+    jarkify()
