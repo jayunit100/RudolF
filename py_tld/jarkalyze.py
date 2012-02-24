@@ -3,6 +3,7 @@ import urllib2
 import json
 import logging
 import collections
+import tldextract
 
 
 mylogger = logging.getLogger("jarkalyze")
@@ -32,43 +33,30 @@ def extractBaseUrls(jarkModel, columnno):
 
 
 #####################################################################
-# url-munging and web access
+# tld extraction
 
-def makeTldUrl(baseUrl):
-    '''input : a single base Url
-       output : a Url for Tld consumption'''
-    # TODO: check whether "baseUrl" needs to be encoded/escaped
-    fullUrl = "http://tldextract.appspot.com/api/extract?url=" + baseUrl
-    mylogger.debug("built tld url " + fullUrl) 
-    return fullUrl
-
-
-def getWebPage(url):
-    '''input: a url
-       output: the contents found at that url
-       or an exception if the server responds with an error'''
-    mylogger.debug("trying to grab url <%s>" % url)
-    openedurl = urllib2.urlopen(url)
-    text = openedurl.read()
-    mylogger.debug("successfully grabbed url and read response")
-    return text
+def makeTldDict(tldResult):
+    '''in:  a tld named tuple
+       out:  a dictionary with the tld tuple's attributes as keys'''
+    return {
+        'domain': tldResult.domain,
+        'subdomain': tldResult.subdomain,
+        'tld': tldResult.tld
+    }
 
 
-def parseTldResponse(string):
-    return json.loads(string)
-
-
-def sendTldUrls(baseUrls):
+def tldUrls(urls):
     '''input:  iterable of urls for tld consumption
        output: list of dictionaries of tld-ified urls
        if any of the tld urls cause an exception, that url is skipped and the error is simply logged'''
-    tldUrls = [makeTldUrl(baseUrl) for baseUrl in baseUrls]
     tldResponses = []
-    for tldUrl in tldUrls:
+    for url in urls:
+        mylogger.debug("attempting to tld <%s>" % url)
         try:
-            tldResponses.append(parseTldResponse(getWebPage(tldUrl)))
-        except urllib2.HTTPError, e:
-            mylogger.error("tld url <%s> failed with message <%s>" % (tldUrl, e.msg))
+            tldResponses.append(makeTldDict(tldextract.extract(url)))
+            mylogger.debug("successfully tld-ed url")
+        except Exception, e:
+            mylogger.error("tld url <%s> failed with message <%s>" % (url, str(e)))
     return tldResponses
 
 #####################################################################

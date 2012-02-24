@@ -18,7 +18,7 @@ def runJark(path):
     logging.info("reading jarkfile")
     urls = readJark(path)
     logging.info("sending urls to tld extractor")
-    tldResults = jk.sendTldUrls(urls)
+    tldResults = jk.tldUrls(urls)
     logging.info("got tld results")
     counts = jk.countDomains(tldResults)
     logging.info("got domain counts")
