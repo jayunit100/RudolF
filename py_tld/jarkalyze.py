@@ -28,15 +28,22 @@ def extractBaseUrls(jarkModel, columnno):
     '''in: jarkmodel
        out: a list of base urls from column number <columnno> of each row.  
             skips rows that are not long enough'''
-    possiblyNestedList = [row[columnno - 1].split(" ") for row in jarkModel if len(row) > columnno]
-    return reduce(lambda x,y: x + y, possiblyNestedList) # flatten the list
+    possiblyNestedList = []
+    coi = columnno - 1 # the column of interest
+    for row in jarkModel:
+        if len(row) > coi:
+            possiblyNestedList.append(row[coi].split(" "))
+            mylogger.debug("found row with %i columns" % len(row))
+        else:
+            mylogger.warning("found row with fewer columns (%i) than required (%i) ... skipping" % (len(row), columnno))
+    return reduce(lambda x,y: x + y, possiblyNestedList, []) # flatten the list
 
 
 #####################################################################
 # tld extraction
 
 def makeTldDict(tldResult):
-    '''in:  a tld named tuple
+    '''in:  a tld named-tuple
        out:  a dictionary with the tld tuple's attributes as keys'''
     return {
         'domain': tldResult.domain,

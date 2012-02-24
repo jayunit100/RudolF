@@ -14,15 +14,14 @@ def readJark(filename):
     return jk.extractBaseUrls(jarkModel, 23)
 
 
-def runJark(path):
+def runJark(inpath, outpath):
     logging.info("reading jarkfile")
-    urls = readJark(path)
+    urls = readJark(inpath)
     logging.info("sending urls to tld extractor")
     tldResults = jk.tldUrls(urls)
     logging.info("got tld results")
     counts = jk.countDomains(tldResults)
     logging.info("got domain counts")
-    outpath = "results.txt"
     logging.info("opening output file <%s>" % outpath)
     outfile = open(outpath, 'w')  # TODO -- use a context manager
     logging.info("writing domain counts to file")
@@ -33,7 +32,7 @@ def runJark(path):
 
 
 def printHelp():
-    print "usage: <this program> <path to jarkfile>"
+    print "usage: <this program> <path to jarkfile> <where to write output file>"
 
 
 def jarkify():
@@ -45,7 +44,8 @@ def jarkify():
         printHelp()
     else:
         try:
-            runJark(arg)
+            out = sys.argv[2]
+            runJark(arg, out)
         except Exception, e:
             logging.error("encountered fatal error: %s" % str(e))
             raise e

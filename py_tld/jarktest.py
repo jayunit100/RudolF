@@ -19,7 +19,9 @@ class JarkfileTest(unittest.TestCase):
         self.assertEqual(len(jm), 3, "number of lines in jarkfile")
         
     def testExtractBaseUrls(self):
-        pass
+        inData = [[1,2,3,"abc def ghi"], [], []]
+        extracted = j.extractBaseUrls(inData, 4)
+        self.assertEqual(len(extracted), 3, "number of extracted things (wanted %i, got %i)" % (3, len(extracted)))
    
     
 class TldTest(unittest.TestCase):
@@ -42,7 +44,7 @@ class TldTest(unittest.TestCase):
             self.assertEqual(3, len(e), "size of dictionary response")
 
     def testBadTldUrl(self):
-        pass
+        self.skipTest("not implemented")
 
 
 class AnalysisTest(unittest.TestCase):
