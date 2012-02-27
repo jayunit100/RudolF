@@ -15,4 +15,4 @@ Implementation:
 Dependencies:
 
  - python2.7 
- - tldextract (to install, do 'pip install tldextract' or 'pypm install extract')
+ - tldextract (to install, do 'pip install tldextract' or 'pypm install tldextract')
