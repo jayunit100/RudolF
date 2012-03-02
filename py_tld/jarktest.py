@@ -16,7 +16,7 @@ class JarkfileTest(unittest.TestCase):
         pass
     
     def testReadjarkfile(self):
-        jm = j.parseJark('samplecsv.txt')
+        jm = j.parseJark('sample2.csv')
         self.assertEqual(len(jm), 3, "number of lines in jarkfile")
         
     def testExtractBaseUrls(self):
@@ -75,6 +75,15 @@ class AnalysisTest(unittest.TestCase):
         domainCounts = j.countDomains(tlds)
         self.assertEqual(2, len(domainCounts), "number of distinct domains")
         self.assertEqual(3, domainCounts["whatever"], "number of whatever domains")
+        
+    def testBadCountDomainsInput(self):
+        tlds = [{"badkey": "junkvalue"}]
+        try:
+            dCs = j.countDomains(tlds)
+            self.assertTrue(False, "bad tld result")
+        except KeyError as e:
+            self.assertTrue(True, "good tld result")
+        
 
 
 def runTestSuite():

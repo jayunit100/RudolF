@@ -19,13 +19,15 @@ A2) it is supposed to loop through the myUrls list and normalize each url by cal
 
 Q3) why is there a counter in `normalizeAllUrls`?
 
-A3) counter is there to store and COunt relative frequency of each top level domain from file
+A3) we want to use the counter to keep track of the total number of times each domain was seen
 
 
 
 Q4) `23` in `source_urls` is a magic number that we need to get rid of -- what does it mean?
 
 A4) that (may) refer to the column number which indicates where the data is that we want to work with; the rest of the data in the file is extraneous
+
+
 
 Q5) We found that some of the URL inputs are invalid (i.e. they crash the tldextract server on appengine).  a) What are the 
 valid / invalid characters in a URL ?  b) Is it okay to have % signs ? -'s ? In any case, we need to refactor the test file
