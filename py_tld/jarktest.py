@@ -2,6 +2,7 @@ import unittest
 import jarkalyze as j
 import logging
 import urllib2
+import tldextract
 
 
 LOG_FILENAME = "jarktestlog.txt"
@@ -28,6 +29,23 @@ class TldTest(unittest.TestCase):
     
     def setUp(self):
         pass
+    
+    def testExtractUrl(self):
+        url = "http://tldextract.appspot.com/api/extract?url=sttw://svyttovtrmvs.owsourxv.xom/ovws/oytroo-worow/stmo98/yotyyyx_557998.stmo"
+        etd = tldextract.extract(url)
+        logging.info("tld result: " + str(etd))
+        self.assertEqual(etd.tld, "appspot.com", "extracted domain")
+        self.assertEqual(etd.domain, "tldextract", "extracted subdomain")
+        
+    def testMakeTldDict(self):
+        url = "http://tldextract.appspot.com/api/extract?url=sttw://svyttovtrmvs.owsourxv.xom/ovws/oytroo-worow/stmo98/yotyyyx_557998.stmo"
+        etd = tldextract.extract(url)
+        logging.info("tld result: " + str(etd))
+        tdict = j.makeTldDict(etd)
+        self.assertEqual(tdict["tld"], "appspot.com")
+        self.assertTrue(tdict.has_key("subdomain"))
+        self.assertTrue(tdict.has_key("domain"))
+        self.assertEqual(3, len(tdict), "size of dictionary response") 
         
     def testTldUrls(self):
         urls = ["http://tldextract.appspot.com/api/extract?url=sttw://svyttovtrmvs.owsourxv.xom/ovws/oytroo-worow/stmo98/yotyyyx_557998.stmo",
