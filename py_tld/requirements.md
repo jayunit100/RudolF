@@ -16,3 +16,10 @@ Requirements for py_tld:
  - data use
    - sort by multiple columns (in excel? in python?  in MySQL?)
    
+ - input size
+   - 1GB < file size < 3GB
+   
+ - time
+   - it's okay to take hours to process a file
+   
+   
