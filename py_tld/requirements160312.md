@@ -1,4 +1,3 @@
-
 Requirements for py_tld:
 
  - run on python2.7
@@ -25,13 +24,13 @@ Requirements for py_tld:
      - so that the domains would be actionable and ready to open/call
      - example:
      
-           google   [com, uk, de]
-           yahoo    [com, gov, edu]
+              google   [com, uk, de]
+              yahoo    [com, gov, edu]
          
        instead of
 
-           google    4
-           yahoo     22
+              google    4
+              yahoo     22
 
 
 
