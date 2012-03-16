@@ -2,22 +2,33 @@
 Requirements for py_tld:
 
  - run on python2.7
+ - need script fully commented 
 
- - input:  csv text files
-   - multiple urls in 23rd column are of interest
 
-   - input size is < 2GB
-   
- - output: text file format .txt
-   - counts of domains as defined by tldextract
+ - input:  csv text files (< 2GB ) 
+   - multiple urls in 23rd column (# need to be able to change to 26 column sometimes and see how i can just replace 23 with 26 in jarkmain.py in order to do so)
+ 
+   - URLS consist of subdomains, domains, top level domains
+  
      - example: in "http://www.google.com/?abc=def":
      - 'www' is the subdomain
      - 'google' is the domain
      - 'com' is the tld
+   
 
-     - the counts of domains should be counted and aggregated by file not by record/row
+  - output: list of ordered URLs as defined by tldextract by count
+    - format in .txt
+    - need count of domains
+    - the counts need be summed by file not by record/row
+    * ideally would have the top level domains (e.g., .gov.uk) in a corresponding column so that the domains would be actionable and ready to open/call
 
- - output results need to be importable to excel (i.e., text file) 
+
+
+
+
+
+    
+
 
 
  
