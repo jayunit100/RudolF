@@ -1,0 +1,26 @@
+
+Requirements for py_tld:
+
+ - run on python2.7
+
+ - input:  csv text files
+   - multiple urls in 23rd column are of interest
+
+   - input size is < 2GB
+   
+ - output: text file format .txt
+   - counts of domains as defined by tldextract
+     - example: in "http://www.google.com/?abc=def":
+     - 'www' is the subdomain
+     - 'google' is the domain
+     - 'com' is the tld
+
+     - the counts of domains should be counted and aggregated by file not by record/row
+
+ - output results need to be importable to excel (i.e., text file) 
+
+
+ 
+   
+
+   
