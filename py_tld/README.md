@@ -1,7 +1,8 @@
 ## Goal of this program:
 
- - extract data from a file to prepare it for analysis in Excel
-
+ - extract domain and top-level domain data from a file to prepare it for analysis in Excel
+ - see [the tldextract documentation](https://github.com/john-kurkowski/tldextract)
+     for more information on what a tld is
 
 
 ## Implementation:
@@ -22,7 +23,6 @@
  - "standard" libraries (should come bundled with python2.6 and above):
    - json
    - logging
-   - urllib2
    - collections
 
  - "non-standard" libraries -- can be downloaded from python package index:
@@ -37,6 +37,7 @@
         prompt> python jarktest.py
 
  - make sure they ALL pass
+
 
 
 ## Using the program:
@@ -61,9 +62,17 @@
      logging.basicConfig(filename = LOG_FILENAME, level = logging.INFO, filemode = 'w')
 
    - change "level" to something lower (logging.DEBUG) or higher (logging.WARNING)
-   - see logging docs for more information
+   - see [logging docs](http://docs.python.org/library/logging.html) for more information
 
  - changing the column number where it looks for urls in input csv files
    - in "jarkmain.py", look in function "readJark(filename)":
    - replace COLUMN_NUMBER in "return jk.extractBaseUrls(jarkModel, <COLUMN_NUMBER>)"
+   
+   
+## Known issues
+
+ - tldextract seems to have a problem where it fails the first time it is used, but
+    succeeds subsequently.
+    After setting up this project, run the unit tests.  If they fail, try them again,
+    noting whether they fail in the same way.
  

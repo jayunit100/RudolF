@@ -1,13 +1,11 @@
-Requirements for py_tld:
+## Run on python2.7
 
 
- - run on python2.7
+## Fully commented 
 
 
- - fully commented 
-
-
- - input:  csv text files (< 2GB ) 
+## Input
+   - csv text files (< 2GB ) 
    - multiple urls in 23rd column 
      - need to be able to change to 26 column sometimes
        - need comments showing how to replace 23 with 26
@@ -19,7 +17,8 @@ Requirements for py_tld:
      - 'com' is the tld or top-level domain
    
 
- - output: list of tld-extracted URLs as defined by the python tldextract module
+## Output
+   - list of tld-extracted URLs as defined by the python tldextract module
    - columns:  
      1. domain
      2. number of times domain seen
