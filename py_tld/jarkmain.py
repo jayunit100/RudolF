@@ -1,10 +1,10 @@
 import jarkalyze as jk
 import logging
-import json
 import sys
 
+
 LOG_FILENAME = "jarkmainlog.txt"
-logging.basicConfig(filename = LOG_FILENAME, level = logging.DEBUG, filemode = 'w')
+logging.basicConfig(filename = LOG_FILENAME, level = logging.INFO, filemode = 'w')
 
 
 def readJark(filename):
@@ -14,18 +14,28 @@ def readJark(filename):
     return jk.extractBaseUrls(jarkModel, 23)
 
 
+def formatLine(domainLine):
+    # format:  domain, count, list of tlds
+    return '\t'.join([domainLine[0], str(domainLine[1]), str(domainLine[2])])
+
+
 def runJark(inpath, outpath):
     logging.info("reading jarkfile")
     urls = readJark(inpath)
     logging.info("sending urls to tld extractor")
     tldResults = jk.tldUrls(urls)
-    logging.info("got tld results")
-    counts = jk.countDomains(tldResults)
-    logging.info("got domain counts")
+    logging.info("got <%d> tld results" % len(tldResults))
+    domains = jk.countDomainsAndAssociateTlds(tldResults)
+    logging.info("got <%d> domain counts and associated tlds" % len(domains))
+    domainLines = jk.makeDomainLines(domains)
+    logging.info("made <%d> domain lines" % len(domainLines))
+    sortedDomainLines = sorted(domainLines, key = lambda line: -line[1])
+    logging.info("sorted domain lines")
+    formattedLines = [formatLine(dline) for dline in sortedDomainLines]
     logging.info("opening output file <%s>" % outpath)
-    outfile = open(outpath, 'w')  # TODO -- use a context manager
-    logging.info("writing domain counts to file")
-    outfile.write(json.dumps(counts))
+    outfile = open(outpath, 'w')
+    logging.info("writing results to file")
+    outfile.write('\n'.join(formattedLines))
     logging.info("done writing")
     outfile.close()
     logging.info("file closed")
@@ -48,7 +58,7 @@ def jarkify():
             runJark(arg, out)
         except Exception, e:
             logging.error("encountered fatal error: %s" % str(e))
-            raise e
+            raise
 
 
 if __name__ == "__main__":

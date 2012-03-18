@@ -20,9 +20,14 @@ class JarkfileTest(unittest.TestCase):
         self.assertEqual(len(jm), 3, "number of lines in jarkfile")
         
     def testExtractBaseUrls(self):
-        inData = [[1,2,3,"abc def ghi"], [], []]
+        inData = [
+            [1,2,3,"abc def ghi"], 
+            ["hello"], 
+            ["col1", "col2", "column 3", "colum4 and there are 7 things here", "5col", "last"]
+        ]
         extracted = j.extractBaseUrls(inData, 4)
-        self.assertEqual(len(extracted), 3, "number of extracted things (wanted %i, got %i)" % (3, len(extracted)))
+        self.assertEqual(len(extracted), 10, 
+                         "number of extracted things (wanted %i, got %i)" % (10, len(extracted)))
    
     
 class TldTest(unittest.TestCase):
@@ -75,6 +80,16 @@ class AnalysisTest(unittest.TestCase):
         domainCounts = j.countDomains(tlds)
         self.assertEqual(2, len(domainCounts), "number of distinct domains")
         self.assertEqual(3, domainCounts["whatever"], "number of whatever domains")
+    
+    def testCountDomainsAndAssociateTlds(self):
+        tlds = [{"domain":"whatever", "tld": ".com"}, 
+                {"domain":"tld",      "tld": ".com"}, 
+                {"domain":"whatever", "tld": ".com"}, 
+                {"domain":"whatever", "tld": ".gov"}]
+        domains = j.countDomainsAndAssociateTlds(tlds)
+        self.assertEqual(2, len(domains), "number of distinct domains (got %d)" % len(domains))
+        self.assertEqual(3, domains["whatever"]['count'], "times domain 'whatever' seen")
+        self.assertEqual(set([".com", ".gov"]), domains["whatever"]['tlds'])
         
     def testBadCountDomainsInput(self):
         tlds = [{"badkey": "junkvalue"}]
