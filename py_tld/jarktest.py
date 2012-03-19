@@ -10,7 +10,8 @@ LOG_FILENAME = "jarktestlog.txt"
 logging.basicConfig(filename = LOG_FILENAME, level = logging.DEBUG, filemode = 'w')
 
 
-
+#TODO Add an optional unit test for a large csv file - does this work on CSV
+#files over over 10,000 lines?  100,000 ? 
 class JarkfileTest(unittest.TestCase):
     
     def setUp(self):

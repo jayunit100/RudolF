@@ -9,19 +9,20 @@ mylogger = logging.getLogger("jarkalyze")
 
 #####################################################################
 # read, parse, and extract data-of-interest from jarkfiles
-
+# this class serves as the model class for the application, it runs 
+# tldextract for inputs, 
 def parseJark(path):
     '''purpose: read a file on the filesystem, parse, 
           and return the parse result data structure
        in: path to a jarkfile, which is a tab-delimited file
        out: list of lines, where each line is a list of strings'''
-    mylogger.info("opening jarkfile " + str(path))
+    mylogger.info("opening file " + str(path))
     # assume file exists and we have read permissions for it
     data = open(path, 'r')
-    mylogger.info("reading jarkfile " + str(path))
+    mylogger.info("Now reading file " + str(path))
     spamReader = csv.reader(data, delimiter='\t')
     lines = [line for line in spamReader]
-    mylogger.info("found %d lines in jarkfile" % len(lines))
+    mylogger.info("found %d lines in file" % len(lines))
     data.close()
     return lines
 
@@ -60,7 +61,9 @@ def makeTldDict(tldResult):
         'tld':       tldResult.tld
     }
 
-
+#TODO : Test this on large file, I think
+#it should be done lazily otherwise, the list might
+#run out of memory.
 def tldUrls(urls):
     '''purpose: given a bunch of urls, run tldextract on each of them
        input:  iterable of urls for tld consumption
