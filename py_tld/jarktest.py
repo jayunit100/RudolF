@@ -3,6 +3,7 @@ import jarkalyze as j
 import logging
 import urllib2
 import tldextract
+import sys
 
 
 LOG_FILENAME = "jarktestlog.txt"
@@ -110,6 +111,9 @@ def runTestSuite():
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        logging.error("passed too many command-line args: " + str(sys.argv))
+        raise ValueError("no command line args accepted -- please don't pass any")
     logging.info("starting unit tests of jarkalyze")
     runTestSuite()
     logging.info("finished running jarkalyze unittests")
