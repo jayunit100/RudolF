@@ -19,6 +19,7 @@ class JarkfileTest(unittest.TestCase):
     
     def testReadjarkfile(self):
         jm = j.parseJark('sample2.csv')
+	print len(jm)
         self.assertEqual(len(jm), 3, "number of lines in jarkfile")
         
     def testExtractBaseUrls(self):

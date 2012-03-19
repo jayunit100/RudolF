@@ -6,6 +6,17 @@ import tldextract
 
 mylogger = logging.getLogger("jarkalyze")
 
+#read a full csv file and log every line read . 
+def preRead(path):
+    data = open(path,'r')
+    reader = csv.reader(data,delimiter='\t')
+    lines = list()
+    i=0;
+    for l in reader:
+        mylogger.info("Done reading line ---> %d "% i)
+        mylogger.info("length=%d " % len(l))
+        lines.append(l);
+        i=i+1
 
 #####################################################################
 # read, parse, and extract data-of-interest from jarkfiles
@@ -17,10 +28,16 @@ def parseJark(path):
        in: path to a jarkfile, which is a tab-delimited file
        out: list of lines, where each line is a list of strings'''
     mylogger.info("opening file " + str(path))
+    
+    #TODO someday remove this line, its just a helper
+    #to help debug large spreadsheets or data sets.
+    preRead(path)
+
     # assume file exists and we have read permissions for it
     data = open(path, 'r')
     mylogger.info("Now reading file " + str(path))
     spamReader = csv.reader(data, delimiter='\t')
+
     lines = [line for line in spamReader]
     mylogger.info("found %d lines in file" % len(lines))
     data.close()

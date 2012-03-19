@@ -75,4 +75,13 @@
     succeeds subsequently.
     After setting up this project, run the unit tests.  If they fail, try them again,
     noting whether they fail in the same way.
+
+## 3/19/2012 RUNNING ON REAL DATA 
+   Running on real data sets is expected to cause issues (memory, file formats w/ lots of columns or large columns,etc..) 
+   In particular, its not clear wether some special logic is required to read a large CSV in python.  
+   There is a debugging statement which preReads the file, and logs to "logging.txt" that will 
+   output what line has been read. If a file is bad, you can trace these logs to see 
+   where the output stops, and the bad line will be around that area.  
+
+
  
