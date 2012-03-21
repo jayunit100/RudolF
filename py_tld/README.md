@@ -3,6 +3,13 @@
  - extract domain and top-level domain data from a file to prepare it for analysis in Excel
  - see [the tldextract documentation](https://github.com/john-kurkowski/tldextract)
      for more information on what a tld is
+ 
+     
+     
+## Todos
+
+ - see file `todos.md`
+ 
 
 
 ## Implementation:
