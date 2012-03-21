@@ -7,7 +7,7 @@ LOG_FILENAME = "jarkmainlog.txt"
 logging.basicConfig(filename = LOG_FILENAME, level = logging.INFO, filemode = 'w')
 
 
-#TODO this method is untested - add unit test that verifies the column number input is valid. 
+
 def readJark(filename):
     '''in: path to jark file
        out: list of extracted base urls from the 23rd columns'''

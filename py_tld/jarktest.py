@@ -10,8 +10,7 @@ LOG_FILENAME = "jarktestlog.txt"
 logging.basicConfig(filename = LOG_FILENAME, level = logging.DEBUG, filemode = 'w')
 
 
-#TODO Add an optional unit test for a large csv file - does this work on CSV
-#files over over 10,000 lines?  100,000 ? 
+
 class JarkfileTest(unittest.TestCase):
     
     def setUp(self):
@@ -19,7 +18,7 @@ class JarkfileTest(unittest.TestCase):
     
     def testReadjarkfile(self):
         jm = j.parseJark('sample2.csv')
-	logging.info("length of jarkfile: %d" % len(jm))
+        logging.info("length of jarkfile: %d" % len(jm))
         self.assertEqual(len(jm), 3, "number of lines in jarkfile")
         
     def testExtractBaseUrls(self):

@@ -6,22 +6,25 @@ import tldextract
 
 mylogger = logging.getLogger("jarkalyze")
 
-#read a full csv file and log every line read . 
+
+#####################################################################
+# precautions for dealing with large data sets
+
 def preRead(path):
-    data = open(path,'r')
-    reader = csv.reader(data,delimiter='\t')
-    lines = list()
-    i=0;
+    '''read a full csv file and log every line read'''
+    data = open(path, 'r')
+    reader = csv.reader(data, delimiter='\t')
+    lines = []
+    i = 0
     for l in reader:
-        mylogger.info("Done reading line ---> %d "% i)
+        mylogger.info("Done reading line ---> %d " % i)
         mylogger.info("length=%d " % len(l))
-        lines.append(l);
-        i=i+1
+        lines.append(l)
+        i += 1
 
 #####################################################################
 # read, parse, and extract data-of-interest from jarkfiles
-# this class serves as the model class for the application, it runs 
-# tldextract for inputs, 
+
 def parseJark(path):
     '''purpose: read a file on the filesystem, parse, 
           and return the parse result data structure
@@ -29,8 +32,6 @@ def parseJark(path):
        out: list of lines, where each line is a list of strings'''
     mylogger.info("opening file " + str(path))
     
-    #TODO someday remove this line, its just a helper
-    #to help debug large spreadsheets or data sets.
     preRead(path)
 
     # assume file exists and we have read permissions for it
@@ -78,9 +79,7 @@ def makeTldDict(tldResult):
         'tld':       tldResult.tld
     }
 
-#TODO : Test this on large file, I think
-#it should be done lazily otherwise, the list might
-#run out of memory.
+
 def tldUrls(urls):
     '''purpose: given a bunch of urls, run tldextract on each of them
        input:  iterable of urls for tld consumption
