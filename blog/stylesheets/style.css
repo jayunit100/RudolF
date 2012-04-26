@@ -1,0 +1,26 @@
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+.code {
+    background-color: gray;
+	color: blue;
+	overflow: auto;
+	padding: 15px;
+}
+
+th {
+    size: 150%;
+	color: purple;
+	border: 2px solid purple;
+}
+
+table {
+    margin: 20px;
+}
+
+table, td {
+    border: 2px solid black;
+}

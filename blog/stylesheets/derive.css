@@ -1,0 +1,29 @@
+
+.code {
+  color: blue;
+  background-color: #efefef;
+}
+
+.section {
+  padding: 5px;
+  border: 2px solid black;
+  width: 800px;
+}
+
+td {
+  padding: 5px;
+}
+
+#chartdiv {
+  width: 750px;
+  height: 550px;
+}
+
+#calculate {
+  border: 2px solid orange;
+  color: green;
+  font-size: 125%;
+  height: 30px;
+  width: 100%;
+  background-color: #efefef; /*#cdcdcd;*/
+}
