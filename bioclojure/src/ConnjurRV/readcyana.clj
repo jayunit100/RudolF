@@ -54,6 +54,7 @@
 (defn sequence-to-protein
   "type :: Sequence -> Protein"
   [seq]
+  ^{:type 'Protein}
   {:residues (fmap make-empty-residue 
                    (zipmap (map #(+ % 1) (range)) ; need indices to be 1-indexed
                            seq))
@@ -93,6 +94,7 @@
 (defn make-protein
   "Sequence -> [Cyanaline] -> Protein"
   [seq clines]
+  {:post [(= (type %) 'Protein)]}
   (merge-shifts (sequence-to-protein seq) clines))
 
 ; test: input is path to sequence file, path to shift file
@@ -101,5 +103,6 @@
 (defn make-protein-from-files
   "Filepath -> Filepath -> Protein"
   [seqpath shiftpath]
+  {:post [(= (type %) 'Protein)]}
   (make-protein (parse-sequence (slurp seqpath))
                 (parse-shifts (slurp shiftpath))))

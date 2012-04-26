@@ -1,22 +1,3 @@
-(comment
-(ns ConnjurRV.examples  
- (use ConnjurRV.vizcharts  
-     ConnjurRV.vizstruct  
-     ConnjurRV.modelreducer
-     ConnjurRV.statistics
-     ConnjurRV.readstats
-     ConnjurRV.readpdb
-     ConnjurRV.readcyana 
-     clojure.contrib.generic.functor
-     clojure.stacktrace))
-)
-;;This class imports everything.  It is just a sandbox class.
-;;Use at your own risk.  To use namespace to invoke and import all methods
-;;Call this function : 
-;;user=> (doto 'ConnjurRV.examples require in-ns)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (use 'ConnjurRV.vizcharts  
      'ConnjurRV.vizstruct  
