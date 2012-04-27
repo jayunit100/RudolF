@@ -1,8 +1,9 @@
-<link rel="stylesheet" type="text/css" href="stylesheets/mdextra.css" />
-
 ---
 title: markdown example for rudolf blog
 ---
+
+<link rel="stylesheet" type="text/css" href="stylesheets/mdextra.css" />
+
 
 [How-to source for creating markdown pages](http://xlson.com/2010/11/09/getting-started-with-github-pages.html)
 
