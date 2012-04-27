@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="stylesheets/mdextra.css" />
+
 ---
 title: markdown example for rudolf blog
 ---
