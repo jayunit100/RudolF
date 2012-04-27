@@ -1,10 +1,12 @@
 ---
 title: markdown example for rudolf blog
 ---
+<!doctype html>
+<header>
+ <link rel="stylesheet" type="text/css" href="stylesheets/mdextra.css" />
+</header>
 
-<link rel="stylesheet" type="text/css" href="stylesheets/mdextra.css" />
-
-
+<body>
 [How-to source for creating markdown pages](http://xlson.com/2010/11/09/getting-started-with-github-pages.html)
 
 Some issues:
@@ -40,3 +42,6 @@ Would you like to see some code?
         (/ (- (f (+ x h))
               (f x))
            h)))
+
+</body>
+</html>
