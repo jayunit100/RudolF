@@ -49,6 +49,50 @@
       equal(yseries[1][2], 24, JSON.stringify(yseries));
     });
     
+
+
+    test("validate if all functions and deriviatives defined on domains", function() {
+        function d(x) {
+          return {"function": x[0],
+                   xmin:      x[1] + .01, // so its no defined on end points
+                   xmax:      x[2] - .01,
+                   xsteps:    150,
+                   h:        .001};
+        };       
+
+        function sum(x) {
+          return x.reduce(function(a, b) { return a + b; }, 0);
+        }
+        
+        function checkFinite(x) {
+          if (! isFinite(sum(x["f"]) + sum(x["f''"]) + sum(x["f'''"])) ) {
+               throw new Error("bad domain");
+          }      
+        };               
+        
+        var funcRngs = [["square",     -10, 10],  // need not be defined on endpoints
+                        ["double",     -10, 10],
+                        ["cube",       -10, 10],
+                        ["exp",        -10, 10],
+                        ["fourth",     -10, 10],
+                        ["sine",       -10, 10], 
+                        ["cosine",     -10, 10],
+                        ["tangent",    -1.5, 1.5],
+                        ["arcsine",    -1, 1],
+                        ["arccosine",  -1, 1],                        
+                        ["arctangent", -10, 10]];
+        
+        equal(Object.keys(funcs), funcRngs.map(function(x) {return x[0]; }), 
+          "make sure funcRngs includes all functions in funcs");  
+                
+        var testFuncs = funcRngs.map(d);   
+        try {testFuncs.map(runDerivatives).map(checkFinite);
+              ok(1, "no invalid points for all functions and deriviatives"); 
+        } catch (e) {
+          ok(0, e);
+        } 
+    })
+
     test("calculate derivatives", function() {
       var data = {
         xmin:      "5",

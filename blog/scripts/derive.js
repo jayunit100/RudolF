@@ -27,7 +27,7 @@ function validate(data) {
   // check that they're all (except for function) numbers
   [cleaned.h, cleaned.xmin, cleaned.xmax, 
     cleaned.xsteps].map(function(v) {
-      if(isNaN(v)) {
+      if(! isFinite(v)) {
         throw new Error("bad number");
       }
     }
@@ -98,15 +98,15 @@ var funcs = {
 				     throw new Error("implementation's domain of tangent is -1.5 < x < 1.5");
 				 } else {
 				     return Math.tan(x);
-				 }
-			 },
-  "arcsin": function(x) {
-                if(x >= 1 || x <= -1) {
-				    throw new Error("domain of arcsin is -1 < x < 1");
+				 } 
+			 }, 
+  "arcsine": function(x) { 
+               if(x >= 1 || x <= -1) {
+				    throw new Error("domain of arcsine is -1 < x < 1");
 				} else {
 				    return Math.asin(x);
 				}
-			},
+			}, 
   "arccosine": function(x) {
                    if(x >= 1 || x <= -1) {
 				       throw new Error("domain of arccosine is -1 < x < 1");
