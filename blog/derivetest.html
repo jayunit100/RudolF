@@ -52,9 +52,9 @@
 
 
     test("validate if all functions and deriviatives defined on domains", function() {
-        function d(x) {
+        function makeData(x) {
           return {"function": x[0],
-                   xmin:      x[1] + .01, // so its no defined on end points
+                   xmin:      x[1] + .01, // prevents blowup if undefined on endpoints
                    xmax:      x[2] - .01,
                    xsteps:    150,
                    h:        .001};
@@ -85,7 +85,7 @@
         equal(Object.keys(funcs), funcRngs.map(function(x) {return x[0]; }), 
           "make sure funcRngs includes all functions in funcs");  
                 
-        var testFuncs = funcRngs.map(d);   
+        var testFuncs = funcRngs.map(makeData);   
         try {testFuncs.map(runDerivatives).map(checkFinite);
               ok(1, "no invalid points for all functions and deriviatives"); 
         } catch (e) {
