@@ -71,7 +71,7 @@
         };               
         
         var funcRngs = [["square",     -10, 10],  // need not be defined on endpoints
-                        ["double",     -10, 10],
+                        ["double",     -10, 10],  // function names need to be in the same order as funcs
                         ["cube",       -10, 10],
                         ["exp",        -10, 10],
                         ["fourth",     -10, 10],
@@ -82,8 +82,18 @@
                         ["arccosine",  -1, 1],                        
                         ["arctangent", -10, 10]];
         
-        equal(Object.keys(funcs), funcRngs.map(function(x) {return x[0]; }), 
-          "make sure funcRngs includes all functions in funcs");  
+        var funcKeys  =  Object.keys(funcs);
+        var rangeKeys =  funcRngs.map(function(x) {return x[0]; });         
+        
+           if (funcKeys.length != rangeKeys.length) {
+             ok(0, "function ranges not up-to-date");
+           }            
+             else { 
+               for (var i = 0; i < funcKeys.length; i++) {
+                  equal(funcKeys[i], rangeKeys[i], 
+                    "range " + funcKeys[i] + " is up-to-date");
+               }
+             }              
                 
         var testFuncs = funcRngs.map(makeData);   
         try {testFuncs.map(runDerivatives).map(checkFinite);
