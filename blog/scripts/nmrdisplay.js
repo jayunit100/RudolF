@@ -67,7 +67,7 @@ Display.prototype.displayPlot = function() {
 //  alert("y values: " + JSON.stringify(ys));
   // map over the range
   // put em in the chart
-  makeChart("chartdiv", {'xs': xs, 'ys': ys});
+  makeChart("chartdiv", {'xmax': xs[xs.length - 1], 'ys': ys, 'title': $("#function").val()});
 }
 
 
@@ -79,7 +79,7 @@ function makeChart(elemid, data) {
             zoomType : 'xy'
         },
         title : {
-            text : "NMR functions"
+            text : data.title
         },
         xAxis : {
             title : {
@@ -89,7 +89,8 @@ function makeChart(elemid, data) {
             startOnTick   : false,
             endOnTick     : false,
             showLastLabel : true,
-            categories    : data.xs  
+            min: 0,
+            max: data.xmax
         },
 		//// whoa bad indentation !!!!
             yAxis : {
