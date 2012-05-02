@@ -1,0 +1,27 @@
+<html>
+
+<body>
+<script>
+// also need sin (to the nth)
+
+function gmb(sw, tSize, lb, gb, i) {
+  var a, b, t, aq;
+  a = Math.PI * lb;
+  aq = tSize / sw;
+  t = i / sw;
+  b = -a / (2 * gb * aq);
+  return Math.exp(-a * t - b * t * t);
+}
+
+var xs = [];
+for(var abcd = 1; abcd < 128; abcd++) {
+  xs.push(abcd);
+}
+
+xs.map(function(x) {
+  return gmb(.1, 32, 0.1, 2, x);
+});
+
+</script>
+</body>
+</html>

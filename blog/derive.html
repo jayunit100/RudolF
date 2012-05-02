@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+  <title>Javascript Derivatives</title>
+  <meta name="description" content="blog" />
+  <meta name="keywords" content="programming" />
+  <meta name="author" content="Matt Fenwick" />
+    
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/derive.css" />
+  <script type="text/javascript" src="scripts/jquery.1.6.1.min.js"></script>
+  <script type="text/javascript" src="scripts/derive.js"></script>
+  <script type="text/javascript" src="scripts/highcharts.js"></script>
+</head>
+
+<body>
+
+<p><h1>Functional programming with javascript</h1>
+It's no secret:  javascript offers many built-in constructs that make functional programming (or FP)
+easy and fun.  I'll apply some of these to calculate derivatives of mathematical functions!
+</p>
+
+
+<p><h2>Derivatives</h2>
+As we learned in calculus class many years ago, the definition of a derivative is
+<pre class="code">
+(f(x+h) - f(x)) / h
+</pre>
+as h approaches 0, for the function f evaluated at x.
+
+In javascript, we can write this as
+<pre class="code">
+function derive(f, h) {
+  function fprime(x) {
+    return (f(x + h) - f(x)) / h;
+  }
+  return fprime;
+}
+</pre>
+where `fprime(x)` is the derivative of `f`.  This demonstrates three aspects of FP:
+<ol>
+ <li>higher-order functions.  `derive` takes a function `f` as input, and returns a function `fprime` as output</li>
+ <li>closures.  The definition of `fprime` uses, or "closes over", the values of `f` and `h`</li>
+ <li>first-class functions.  Within the body of `derive`, we are able to define a new function (`fprime`).  Javascript allows us to treat functions as first-class citizens.</li>
+</ol>
+</p>
+
+
+<div class="section">
+ Here's an application of FP to calculate numeric approximations of derivatives.  You pick a function,
+ and it will calculate the y-values of the function and its 1st, 2nd, and 3rd derivatives over a
+ series of x-values.  Enjoy!
+ <table>
+  <tr>
+   <td>function</td>
+   <td>
+    <select id="function">
+     <option value="cube">Cube</option>
+     <option value="square">Square</option>
+     <option value="double">Double</option>
+     <option value="fourth">Fourth power</option>
+     <option value="exp">Exponential</option>
+     <option value="sine">Sine</option>
+     <option value="cosine">Cosine</option>
+     <option value="tangent">Tangent</option>
+     <option value="arcsine">Arc sine</option>
+     <option value="arccosine">Arc cosine</option>
+     <option value="arctangent">Arc tangent</option>
+    </select>
+   </td>
+  </tr>
+  <tr><td>h</td><td><input id="h"></input></td></tr>
+  <tr><td>x min</td><td><input id="xmin"></input></td></tr>
+  <tr><td>x max</td><td><input id="xmax"></input></td></tr>
+  <tr><td>number of data points</td><td><input id="xsteps"></input></td></tr>
+  <tr><td>refresh data</td><td><button id="calculate">Try me!</button></td></tr>
+ </table>
+
+ <div id="chartdiv"></div>
+
+ <div id="results"></div>
+</div>
+
+<p>
+
+</p>
+
+</body>
+
+<script>
+
+$(document).ready(function() {
+  $("#h").val(0.0001);
+  $("#xmin").val(-3);
+  $("#xmax").val(4);
+  $("#xsteps").val(28);
+
+  $("#calculate").click(function() {
+    try {
+      var data = runDerivatives({
+        'function': $("#function").val(),
+        xmin: $("#xmin").val(),
+        xmax: $("#xmax").val(),
+        xsteps: $("#xsteps").val(),
+        h: $("#h").val(),
+      });
+//      $("#results").text(JSON.stringify(data));
+      makeChart('chartdiv', data);
+    } catch(e) {
+      alert("error: " + e);
+    }
+  }).click();
+});
+
+        function makeChart(elemid, data) {
+          var myChart = new Highcharts.Chart({
+                chart: {
+                    renderTo: elemid,
+                    defaultSeriesType : 'line',
+                    zoomType : 'xy'
+                },
+                title : {
+                    text : "Derivatives"
+                },
+                xAxis : {
+                    title : {
+                        enabled : true,
+                        text : "x"
+                    },
+                    startOnTick   : false,
+                    endOnTick     : false,
+                    showLastLabel : true,
+                    categories    : data.x  
+                },
+                yAxis : {
+                    title : {
+                        text : 'y'
+                    }
+                },
+                tooltip : {
+                    formatter : function() {
+                        return "x: " + this.x + "<br/>y: " + this.y;
+                    }
+                },
+                legend : {
+                    layout : 'vertical',
+                    align : 'left',
+                    verticalAlign : 'top',
+                    x : 5,
+                    y : 5,
+                    floating : false,
+                    backgroundColor : '#FFFFFF',
+                    borderWidth : 1
+                },
+                plotOptions : {
+                    scatter : {
+                        marker : {
+                            radius : 5,
+                            states : {
+                                hover : {
+                                    enabled : true,
+                                    lineColor : 'rgb(100,100,100)'
+                                }
+                            }
+                        },
+                        states : {
+                            hover : {
+                                marker : {
+                                    enabled : false
+                                }
+                            }
+                        }
+                    }
+                }, 
+                series: [
+                    {'data': data["f"   ], name: "f(x)"},
+                    {'data': data["f'"  ], name: "f'(x)"},
+                    {'data': data["f''" ], name: "f''(x)"},
+                    {'data': data["f'''"], name: "f'''(x)"}
+                ]
+            });
+            return myChart;
+        }
+
+
+</script>
+
+</html>
