@@ -1,6 +1,7 @@
 
 function Display() {
-  var self = this;
+  this.chart = null;
+  this.fInfo = null;
 }
 
 Display.prototype.setFunction = function(fInfo) {
@@ -43,6 +44,10 @@ function makeRange(low, high, steps) {
 }
 
 Display.prototype.displayPlot = function() {
+  if(this.chart) {
+    this.chart.destroy();
+  }
+  
   var vals, val, fInfo, vfunc;
   fInfo = this.fInfo;
   // blow the chart away if it exists ... is this necessary?
@@ -67,7 +72,7 @@ Display.prototype.displayPlot = function() {
 //  alert("y values: " + JSON.stringify(ys));
   // map over the range
   // put em in the chart
-  makeChart("chartdiv", {'xmax': xs[xs.length - 1], 'ys': ys, 'title': $("#function").val()});
+  this.chart = makeChart("chartdiv", {'xmax': xs[xs.length - 1], 'ys': ys, 'title': $("#function").val()});
 }
 
 
