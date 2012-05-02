@@ -31,6 +31,12 @@ function gmb(data, i) {
    return product;
  }
  
+function exponentialMultiply(data, i) {
+  var lb = data.lb;
+  var sw = data.sw;
+  return Math.exp(-Math.PI * i * lb / sw);
+}
+ 
  
  // contract:  validation functions have to throw an
  //   exception if they find a problem
@@ -100,6 +106,32 @@ function gmb(data, i) {
 				 100]
 	},
 	'function': sin_n
+  },
+  em: {
+    parameters: {
+	  'lb':  ['exponential line broadening', function(x) {
+	                                           var i = parseFloat(x);
+									           if(i != x) {
+				          					    throw {'parameter': 'lb'};
+									           }
+						            		 },
+               0.9],
+	  'sw':  ['sweep width', function(x) {
+	                            var i = parseFloat(x);
+								if(i != x) {
+				          		   throw {'parameter': 'gb'};
+								}
+						     },
+               100],
+	  'tSize':  ['number of points', function(x) {
+                                       var i = parseInt(x, 10);
+ 							           if(i != x) {
+  		          					    throw {'parameter': 'gb'};
+							           }
+				            		 },
+               64],
+	},
+	'function': exponentialMultiply
   }
 }
 
