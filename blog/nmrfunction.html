@@ -1,47 +1,27 @@
 <!doctype html>
 <html>
 <head>
-  <title>Javascript Derivatives</title>
+  <title>NMR functions</title>
   <meta name="description" content="blog" />
   <meta name="keywords" content="programming" />
   <meta name="author" content="Matt Fenwick" />
     
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/derive.css" />
   <script type="text/javascript" src="scripts/jquery1.7.2.js"></script>
-  <script type="text/javascript" src="scripts/derive.js"></script>
+  <script type="text/javascript" src="scripts/nmr.js"></script>
+  <script type="text/javascript" src="scripts/nmrdisplay.js"></script>
   <script type="text/javascript" src="scripts/highcharts.js"></script>
 </head>
 
 <body>
 
+<select id="function">
+ <option value="gmb">gmb</option>
+ <option value="sine">sine</option>
+</select>
+
 <div id="gmb">
- <table>
-  <tr>
-   <th>parameter name</th>
-   <th>description</th>
-   <th>value</th>
-  </tr>
-  <tr>
-   <td>sw</td>
-   <td>sweep width</td>
-   <td><input id="sw"></input></td>
-  </tr>
-  <tr>
-   <td>tSize</td>
-   <td>number of points</td>
-   <td><input id="tSize"></input></td>
-  </tr>
-  <tr>
-   <td>lb</td>
-   <td>exponential term</td>
-   <td><input id="lb"></input></td>
-  </tr>
-  <tr>
-   <td>gb</td>
-   <td>gaussian term</td>
-   <td><input id="gb"></input></td>
-  </tr>
+ <table id="params">
  </table>
 </div>
 
@@ -53,102 +33,22 @@
 
 $(document).ready(function() {
 
- function gmb(sw, tSize, lb, gb, i) {
-   var a, b, t, aq;
-   a = Math.PI * lb;
-   aq = tSize / sw;
-   t = i / sw;
-   b = -a / (2 * gb * aq);
-   return Math.exp(-a * t - b * t * t);
- }
-
- function sin_n(n, offset, end, tSize, i) { 
-   var product = 1;
-   for(var j = 0; j < n; j++) {
-     product *= Math.sin(Math.PI * off + Math.PI * (end - off) * i / (tSize - 1));
-   }
-   return product;
- }
-
+ var fdisplay = new Display();
+ 
+ $("#function").change(function() {
+   var val = $("#function").val();
+   var fInfo = getFunction(val);
+   fdisplay.setFunction(fInfo);
+ }).change();
+ 
  $("#plot").click(function() {
-   var sw = $("#sw").val();
-   var tSize = $("#tSize").val();
-   var lb = $("#lb").val();
-   var gb = $("#gb").val();
-   function f(x) {
-     return gmb(sw, tSize, lb, gb, x);
+   try {
+     fdisplay.displayPlot();
+   } catch(e) {
+     alert(JSON.stringify(e));
+     throw e;
    }
-   var xs = makeRange(1, tSize, tSize - 1);
-   var ys = xs.map(f);
-   makeChart("chartdiv", {x: xs, y: ys});
  });
-
-    function makeChart(elemid, data) {
-      var myChart = new Highcharts.Chart({
-            chart: {
-                renderTo: elemid,
-                defaultSeriesType : 'line',
-                zoomType : 'xy'
-            },
-            title : {
-                text : "NMR functions"
-            },
-            xAxis : {
-                title : {
-                    enabled : true,
-                    text : "x"
-                },
-                startOnTick   : false,
-                endOnTick     : false,
-                showLastLabel : true,
-                categories    : data.x  
-            },
-            yAxis : {
-                title : {
-                    text : 'y'
-                }
-            },
-            tooltip : {
-                formatter : function() {
-                    return "x: " + this.x + "<br/>y: " + this.y;
-                }
-            },
-            legend : {
-                layout : 'vertical',
-                align : 'left',
-                verticalAlign : 'top',
-                x : 5,
-                y : 5,
-                floating : false,
-                backgroundColor : '#FFFFFF',
-                borderWidth : 1
-            },
-            plotOptions : {
-                scatter : {
-                    marker : {
-                        radius : 5,
-                        states : {
-                            hover : {
-                                enabled : true,
-                                lineColor : 'rgb(100,100,100)'
-                            }
-                        }
-                    },
-                    states : {
-                        hover : {
-                            marker : {
-                                enabled : false
-                            }
-                        }
-                    }
-                }
-            }, 
-            series: [
-                {'data': data["y"], name: "f(x)"},
-            ]
-        });
-        return myChart;
-    }
 
 });
 
