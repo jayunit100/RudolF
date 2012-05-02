@@ -4,8 +4,9 @@ function Display() {
   this.fInfo = null;
 }
 
-Display.prototype.setFunction = function(fInfo) {
+Display.prototype.setFunction = function(fInfo, name) {
   this.fInfo = fInfo;
+  this.fName = name;
   this.displayParameters();
 }
 
@@ -44,9 +45,6 @@ function makeRange(low, high, steps) {
 }
 
 Display.prototype.displayPlot = function() {
-  if(this.chart) {
-    this.chart.destroy();
-  }
   
   var vals, val, fInfo, vfunc;
   fInfo = this.fInfo;
@@ -72,7 +70,10 @@ Display.prototype.displayPlot = function() {
 //  alert("y values: " + JSON.stringify(ys));
   // map over the range
   // put em in the chart
-  this.chart = makeChart("chartdiv", {'xmax': xs[xs.length - 1], 'ys': ys, 'title': $("#function").val()});
+  if(this.chart) {
+    this.chart.destroy();
+  }
+  this.chart = makeChart("chartdiv", {'xmax': xs[xs.length - 1], 'ys': ys, 'title': this.fName});
 }
 
 
@@ -81,7 +82,9 @@ function makeChart(elemid, data) {
         chart: {
             renderTo: elemid,
             defaultSeriesType : 'line',
-            zoomType : 'xy'
+            zoomType : 'xy',
+            height: 600,
+            width: 1000
         },
         title : {
             text : data.title

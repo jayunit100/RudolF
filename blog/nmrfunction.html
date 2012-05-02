@@ -16,7 +16,8 @@
 <body>
 
 <select id="function">
- <option value="gmb">gmb</option>
+ <option value="gm">gm (lorentz to gauss)</option>
+ <option value="gmb">gmb (gaussian window)</option>
  <option value="sine">sine</option>
  <option value="em">exponential multiply</option>
 </select>
@@ -37,9 +38,9 @@ $(document).ready(function() {
  var fdisplay = new Display();
  
  $("#function").change(function() {
-   var val = $("#function").val();
-   var fInfo = getFunction(val);
-   fdisplay.setFunction(fInfo);
+   var name = $("#function").val();
+   var fInfo = getFunction(name);
+   fdisplay.setFunction(fInfo, name);
  }).change();
  
  $("#plot").click(function() {
