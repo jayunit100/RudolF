@@ -1,1 +1,10 @@
 lib
+bioclojure/.lein-failures
+bioclojure/.project
+bioclojure/bin
+*.class
+*.jar
+*.pydevproject
+*.project
+dojo/bin
+dojo/shift_data
