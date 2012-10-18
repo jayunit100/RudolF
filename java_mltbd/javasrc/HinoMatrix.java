@@ -6,9 +6,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Hino matrix builder.
- * @author Jpeerindex
- */
+ * This is a stub class 
+ * @author J
+ * */
 public class HinoMatrix 
 {
 	public static void main(String[] args) throws Exception
