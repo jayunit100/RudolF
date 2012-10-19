@@ -11,6 +11,6 @@ To research optimizing the mongo and jdbc object heavy  loop,
 
 an  initial tool for profiling, tracing and obtaining  stack traces is
 
-"jvisualvm" a standard tool in the java SDK bin directory 
+"Java VisualVM" a standard tool in the java SDK bin directory 
 
 
