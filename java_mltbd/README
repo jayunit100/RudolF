@@ -4,9 +4,13 @@ The main class JvmResearch has a Mongo Database connection to supply test data
 
 It spawns worker threads that populate an embedded Derby database with test data
 
-At the moment the simple idea is to generate a heap "out of memory: error by
+At the moment the simple idea is to generate a heap "out of memory" error by
 generating many threads
 
-To research optimizing the mongo and jdbc object heavy  loop   
+To research optimizing the mongo and jdbc object heavy  loop,  
+
+an  initial tool for profiling, tracing and obtaining  stack traces is
+
+"jvisualvm" a standard tool in the java SDK bin directory 
 
 

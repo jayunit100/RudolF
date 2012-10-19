@@ -57,9 +57,10 @@ public class JvmResearch   {
 		DBCursor cursor =  fileredColl.find();
 		
 		 /* this will be a resource intensive loop for investigation by profiling tools
-		  *  will look at hot code optimization here , will extend to spawn threads in loop
-		  *  so each derby update will be a unique thread, hopefully this will be where i can 
+		  *  will look at hot code optimization here , this loop spawns threads :
+		  *  so each derby update will be in unique thread, hopefully this will be where i can 
 		  *  generate a "out of mem error" in a controllable repeatable testable process
+		  *  at the moment I can generate 100 threads with no error on my 4 Gb memory intel box
 		  */
 		
 		k=1;
