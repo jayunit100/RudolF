@@ -18,17 +18,17 @@ import dev.derbyutils.DerbyWorkerThread;
  */
 public class JvmResearch   {
 	
-	/* at the moment this class is just java boiler plate 
-	 * ideas is to set up a resource intensive process to test JVM
+	/* 
+	 * idea is to set up a resource intensive process to test JVM
 	 * 
 	 * Mongo is a fast data source to generate test data
 	 * Apache derby is a pure java embedded object that will be main targert of profiling, as hopefully it will 
 	 * consume lots of memory on the heap
 	 * 
-	 * The java boiler plate JDBC loop that takes the jason and maps to SQL will also be a bottle neck to be 
-	 * investigated for the stack memory and loop optimisation
+	 * The java mongo boiler plate  loop sets up the worker thread that takes the mongo jason and maps to SQL 
+	 * this loop will also be a bottle neck to be investigated for the stack memory and loop optimisation
 	 * 
-	 * By making the  java boiler plate JDBC loop spawn a thread for each derby update I can generate an out 
+	 * By making the  java mongo boiler plate loop spawn a thread for each JDBC  derby update I can generate an out 
 	 * of memory error in a controlled fashion by setting the number of loops, andor changing the data through put for each 
 	 * iteration
 	 * 
