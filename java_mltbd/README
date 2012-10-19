@@ -1,5 +1,3 @@
-This is a source tree for JVM research
-
 The main class JvmResearch.java  uses  a Mongo Database to supply test data
 
 It spawns worker threads that populate an embedded Derby database with the  test data
@@ -10,10 +8,17 @@ many threads and to research optimizing the mongo and jdbc object heavy  loop fo
 an  initial tool for profiling, tracing and obtaining  stack traces is "Java VisualVM" 
 a standard tool in the java SDK bin directory
 
-in the SDK bin directory or anywhere else if your path is set a shell cmd "jvisualvm" 
+In the SDK bin directory or anywhere else if your path is set a shell cmd "jvisualvm" 
 will run the VisualVM tool. For the first run the tool calibrates performance so for 
 best results run the tool for the first time as the only process running on your machine.
 
 
+For example profiling the heap with VisualVM for this code showed a memory map of 
 
+63% of memory in method stacks and the heap
+15% of memory in constant pool
+21% in the Pernament Generation
+1% in the JIT cache
+
+conclusion this code is not optimized for the JIT.
 
