@@ -1,16 +1,20 @@
-The main class JvmResearch.java  uses  a Mongo Database to supply test data
+The main class JvmResearch.java  uses  a Mongo Database to supply test 
+data
 
-It spawns worker threads that populate an embedded Derby database with the  test data
+It spawns worker threads that populate an embedded Derby database with 
+the  test data
 
-At the moment the simple idea is to generate a heap "out of memory" error by generating 
-many threads and to research optimizing the mongo and jdbc object heavy  loop for the JIT,  
+At the moment the simple idea is to generate a heap "out of memory" error 
+by generating many threads and to research optimizing the mongo and jdbc 
+object heavy  loop for the JIT,  
 
-an  initial tool for profiling, tracing and obtaining  stack traces is "Java VisualVM" 
-a standard tool in the java SDK bin directory
+an  initial tool for profiling, tracing and obtaining  stack traces is 
+"Java VisualVM"  a standard tool from 1.6.07 in the java SDK bin directory
 
-In the SDK bin directory or anywhere else if your path is set a shell cmd "jvisualvm" 
-will run the VisualVM tool. For the first run the tool calibrates performance so for 
-best results run the tool for the first time as the only process running on your machine.
+In the SDK bin directory or anywhere else if your path is set a shell cmd 
+"jvisualvm"  will run the VisualVM tool. For the first run the tool calibrates 
+performance so for best results run the tool for the first time as the only 
+process running on your machine.
 
 
 For example profiling the heap with VisualVM for this code showed a memory map of 
