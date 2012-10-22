@@ -10,22 +10,22 @@ import java.util.Properties;
 
 import java.sql.PreparedStatement;
 
+
+/** 
+ * Just a set of utility methods for the Derby database 
+ * Taken from the Apache demo class and some boiler plate mongo
+ * */
 public class DerbyUtils {
 
 	    private static final  String framework = "embedded";
 	    private static final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
 	    private static final String protocol = "jdbc:derby:";   
-	    
-	    /* Just a set of utility methods for the Derby database 
-	     * Taken from the Apache demo class and some boiler plate mongo
-	     * 
-	     * */
-	    
-	    
-	    
-	    
-	    // creates database   
-	public static void makeDerby(String dbName) {
+
+	 /**
+	  * Creates the database.   
+	  * @param dbName
+	  */
+	 public static void makeDerby(String dbName) {
 		loadDriver();
 		Connection conn = null;
 		Properties props = new Properties();// embedded no need, for server apps will contain auth data
