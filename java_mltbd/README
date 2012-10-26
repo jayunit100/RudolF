@@ -1,12 +1,12 @@
-The main class JvmResearch.java  uses  a Mongo Database to supply test 
-data
+The main class JvmResearch.java  uses  sun.misc.Unsafe.class to obtain the 
+allocated memory size in bytes for a range of data structures.
 
-It spawns worker threads that populate an embedded Derby database with 
-the  test data
+It implements the process in a loop and the results are stored in a Bench Mark
+SQL database this object heavy  loop will be optimized for the JIT,  
 
-At the moment the simple idea is to generate a heap "out of memory" error 
-by generating many threads and to research optimizing the mongo and jdbc 
-object heavy  loop for the JIT,  
+The main class JvmResearchDMA.java uses  sun.misc.Unsafe.class to create
+an off heap  object by copying the memory address of an object on the JVM
+heap to a native buffer output address
 
 an  initial tool for profiling, tracing and obtaining  stack traces is 
 "Java VisualVM"  a standard tool from 1.6.07 in the java SDK bin directory
@@ -17,12 +17,5 @@ performance so for best results run the tool for the first time as the only
 process running on your machine.
 
 
-For example profiling the heap with VisualVM for this code showed a memory map of 
 
-63% of memory in method stacks and the heap
-15% of memory in constant pool
-21% in the Permanent Generation
-1% in the JIT cache
-
-conclusion this code is not optimized for the JIT.
 
