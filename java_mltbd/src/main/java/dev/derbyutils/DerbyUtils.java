@@ -34,9 +34,7 @@ public class DerbyUtils {
 		conn.setAutoCommit(false);
 		s = conn.createStatement();
 		//this is just a  table of  test data
-		s.execute("create table collectorData(num int, catalog_link varchar(140)," +
-				"catalog_name varchar(80), catalog_id varchar(40), category_link varchar(140)," +
-				"category_name  varchar(200), manufacturer varchar(40), myear varchar(40), dimensions varchar(40) )");
+		s.execute("create table frankenData( id int, size int , object_name varchar(80) )");
 		
 		 conn.commit();
 		 conn.close();
@@ -65,14 +63,10 @@ public class DerbyUtils {
 	    Integer intObj = Integer.parseInt(preparedStatements.get(1));
 	    int id = intObj.intValue(); 
 		psInsert.setInt(1, id );
-	    psInsert.setString(2, preparedStatements.get(2));
+		Integer intObj2 = Integer.parseInt(preparedStatements.get(2));
+		int id2 = intObj2.intValue(); 		
+	    psInsert.setInt(2, id2);// size of object
 		psInsert.setString(3, preparedStatements.get(3));
-	    psInsert.setString(4, preparedStatements.get(4));
-		psInsert.setString(5, preparedStatements.get(5));
-	    psInsert.setString(6, preparedStatements.get(6));
-		psInsert.setString(7, preparedStatements.get(7));
-	    psInsert.setString(8, preparedStatements.get(8));
-	    psInsert.setString(9, preparedStatements.get(9));
         psInsert.executeUpdate();
 
         conn.commit();
@@ -85,7 +79,7 @@ public class DerbyUtils {
 	
 	// check data and clean up, drop table as just test data
 	public static void dropDerby(String dbName) {
-		 System.out.println("dropDerby method");
+		System.out.println("report and dropDerby");
 		loadDriver();
 		Connection conn = null;
 		Properties props = new Properties();// embedded no need, for server apps will contain auth data
@@ -95,26 +89,22 @@ public class DerbyUtils {
 		
 		ResultSet rs = null;
 		s = conn.createStatement();
-		 System.out.println("dropDerby.createStatement()");
-		rs = s.executeQuery("SELECT * FROM collectorData");
+		System.out.println("dropDerby method select all Statement()");
+		rs = s.executeQuery("SELECT * FROM frankenData");
 
 		   while(rs.next()) {
 		       
 		        System.out.println("Id: "+rs.getInt(1));
-		        System.out.println("catalog_link: "+rs.getString(2));
-		        System.out.println("catalog_name: "+rs.getString(3));
-		        System.out.println("catalog_id: "+rs.getString(4));
-		        System.out.println("category_link: "+rs.getString(5));
-		        System.out.println("category_name: "+rs.getString(6));
-		        System.out.println("manufacturer: "+rs.getString(7));
-		        System.out.println("year: "+rs.getString(8));
-		        System.out.println("dimensions: "+rs.getString(9));      
+		        System.out.println("object size: "+rs.getInt(2));
+		        System.out.println("object_name: "+rs.getString(3));
+     
 
 		        }
 
-		
-		s.execute("drop table collectorData");
+		System.out.println("dropDerby Statement()");
+		s.execute("drop table frankenData");
 		conn.commit();
+		conn.close();
 		DriverManager.getConnection("jdbc:derby:;shutdown=true");
 		 } catch (SQLException e) {}
 	}
@@ -128,7 +118,7 @@ public class DerbyUtils {
 
 	        try {
 	            Class.forName(driver).newInstance();
-	            System.out.println("Setting up datbase insert");
+	            System.out.println("load driver");
 	        } catch (ClassNotFoundException cnfe) {
 	            System.err.println("\nUnable to load the JDBC driver " + driver);
 	            System.err.println("Please check your CLASSPATH.");

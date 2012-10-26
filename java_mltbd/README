@@ -21,7 +21,7 @@ For example profiling the heap with VisualVM for this code showed a memory map o
 
 63% of memory in method stacks and the heap
 15% of memory in constant pool
-21% in the Pernament Generation
+21% in the Permanent Generation
 1% in the JIT cache
 
 conclusion this code is not optimized for the JIT.
