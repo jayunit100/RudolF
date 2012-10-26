@@ -9,8 +9,7 @@ import dev.unsafe.FrankenClass;
 
 
 /* this is a worker thread that updates the embedded derby database
- * the objects of this type have a secondary function to create 
- * "out of memory" errors on the heap
+ * now has unsafe function
  * 
  */
 

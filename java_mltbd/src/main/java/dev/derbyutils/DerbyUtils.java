@@ -17,7 +17,6 @@ public class DerbyUtils {
 	    private static final String protocol = "jdbc:derby:";   
 	    
 	    /* Just a set of utility methods for the Derby database 
-	     * Taken from the Apache demo class and some boiler plate mongo
 	     * 
 	     * */
 	    
