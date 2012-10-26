@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 import sun.misc.Unsafe;
 
 
-/* wrapper for the unsafe class now works */
+/* wrapper for the unsafe class */
 
 public class FrankenClass {
 	

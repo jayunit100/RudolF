@@ -3,6 +3,8 @@ package dev.derbyutils;
 import java.io.File;
 import java.util.HashMap;
 
+import dev.unsafe.FrankenClass;
+
 /**
  * This is a worker thread that updates the embedded derby database
  * the objects of this type have a secondary function to create 
@@ -22,14 +24,23 @@ public class DerbyWorkerThread implements Runnable {
 	}
 
 	public void run() {
+		FrankenClass unsafeObject = new FrankenClass(testObj);
+		   
 		preparedStatements.put(0, "insert into frankenData values (?, ?, ?  )");
 		preparedStatements.put(1,"1");
 		Long longObj = null;
+		try {
+			longObj = unsafeObject.sizeOf();} catch (SecurityException e1) {e1.printStackTrace();} catch (NoSuchFieldException e1) {
+			e1.printStackTrace();} catch (IllegalArgumentException e1) {e1.printStackTrace();} catch (IllegalAccessException e1) {
+			e1.printStackTrace(); } /* */
+		
+		 System.out.println(longObj.toString());
+		preparedStatements.put(2,longObj.toString());// this will be size of object
 	
-	//	preparedStatements.put(2,longObj.toString());// this will be size of object
-	//	preparedStatements.put(2,"4");// this will be size of object
 		preparedStatements.put(3,testObj.toString());
 
+		
+		// pause for a while as derby is slow
 
 		try {
 			Thread.sleep(1600);
