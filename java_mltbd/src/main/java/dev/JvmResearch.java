@@ -23,23 +23,24 @@ import dev.testobjects.StructureWrapper;
 public class JvmResearch   {
 	
 
-	// this code may be helpful for java learners as shows a few things, here is for initial testing for Unsafe behaviour
+	// initial testing for Unsafe behaviour
 	private static final List<Object> structList;
 	 
+	// static initialiser
 	static {  structList = Arrays.asList( new StructureWrapper(). new MyStructureEmpty(), 
 			new StructureWrapper().new MyStructureOneInt(),  new StructureWrapper().new MyStructureTwoInt() );
 	}
-
+	// for derby sys independent path
 	private static String sep = File.separator;
+	// derby object id
 	private static Integer k ;
 	
 	public static void main(String[] args) throws Exception{		
 		
 
-		/* results database */
-		
+		/* results database */		
 		DerbyUtils.makeDerby("benchMarkResults");
-		
+		//thread container
 		ExecutorService threadExecutor = Executors.newCachedThreadPool();
 		
 		k=1;// count the loops if needed
