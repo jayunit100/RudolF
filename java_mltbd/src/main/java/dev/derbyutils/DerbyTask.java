@@ -18,11 +18,11 @@ public class DerbyTask   implements Runnable {
 	private static String sep = File.separator;
 	private final HashMap < Integer, String> preparedStatements  = new HashMap < Integer, String>();
 	private static Object testObj;
+	private static Integer id;
 	
-	
-	   public DerbyTask (final Object o) {
+	   public DerbyTask (final Object o, int k) {
 		   this.testObj = o;
-		   
+		   this.id = k;
 	}
 	   
 	   public void run() {
@@ -30,7 +30,7 @@ public class DerbyTask   implements Runnable {
 		FrankenClass unsafeObject = new FrankenClass(testObj);
    
 		preparedStatements.put(0, "insert into frankenData values (?, ?, ?  )");
-		preparedStatements.put(1,"1");
+		preparedStatements.put(1,id.toString());
 		Long longObj = null;
 		try {
 			longObj = unsafeObject.sizeOf();} catch (SecurityException e1) {e1.printStackTrace();} catch (NoSuchFieldException e1) {

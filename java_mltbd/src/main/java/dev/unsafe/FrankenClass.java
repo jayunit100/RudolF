@@ -19,9 +19,15 @@ public class FrankenClass {
 	}
 		
 	// initial utility method to return size of object, more to come
+	// C-like sizeof() function, returns shallow object size in bytes
 	public long sizeOf() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
 		Unsafe unsafe = getUnsafeInstance();
-	
+		
+	//getInt(testObj, 4L) --> 4L  gets the class address for the testObj, from its look up table, 4L means go up 4 bytes in table
+	// unsafe.getAddress(x + 12L )	gets the class capture_layout_helper field which is instance size in bytes
+	//	normalize() gets absolute value
+	// This function will not work for array objects _layout_helper field has another meaning in array context	
+		
 		   return unsafe.getAddress( normalize( unsafe.getInt(testObj, 4L) ) + 12L );
 		}
 	
