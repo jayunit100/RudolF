@@ -9,8 +9,18 @@ import dev.derbyutils.DerbyUtils;
 
 
 /**
- * Main class JVM research
+ * A resource intensive process to test JVM
  * 
+ * Mongo is a fast data source to generate test data
+ * Apache derby is a pure java embedded object that will be main targert of profiling, as hopefully it will 
+ * consume lots of memory on the heap
+ * 
+ * The java mongo boiler plate  loop sets up the worker thread that takes the mongo jason and maps to SQL 
+ * this loop will also be a bottle neck to be investigated for the stack memory and loop optimisation
+ * 
+ * By making the  java mongo boiler plate loop spawn a thread for each JDBC  derby update I can generate an out 
+ * of memory error in a controlled fashion by setting the number of loops, andor changing the data through put for each 
+ * iteration
  */
 public class JvmResearch   {
 	
@@ -44,9 +54,10 @@ public class JvmResearch   {
 
 		
 		 /* this will be a resource intensive loop for investigation by profiling tools
-		  * now has new concurrency and unsafe implementation
-		  *  
-		  *  
+		  *  will look at hot code optimization here , this loop spawns threads :
+		  *  so each derby update will be in unique thread, hopefully this will be where i can 
+		  *  generate a "out of mem error" in a controllable repeatable testable process
+		  *  at the moment I can generate 100 threads with no error on my 4 Gb memory intel box
 		  */
 		
 		DerbyUtils.makeDerby("benchMarkResults");
