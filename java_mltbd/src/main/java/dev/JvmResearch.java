@@ -8,43 +8,20 @@ import dev.derbyutils.DerbyTask;
 import dev.derbyutils.DerbyUtils;
 
 /* 
- * idea is to set up a resource intensive process to test JVM
+ * ideas
+ * 1 set up a resource intensive process to test JVM
+ * 2 investigate Direct Memory Access (DMA) in Java
  * 
  * 
- * Apache derby is a pure java embedded object that will be main targert of profiling, as hopefully it will 
- * consume lots of memory on the heap
+ * derby is a pure java embedded object that can be  target of profiling and obvious store bench mark results
  * 
+ * main loop  to be investigated for the stack memory and loop optimization
  * 
- * this loop will also be a bottle neck to be investigated for the stack memory and loop optimisation
- * 
- * By making the boiler plate loop spawn a thread for each JDBC  derby update I can generate an out 
- * of memory error in a controlled fashion by setting the number of loops, and/or changing the data through put for each 
- * iteration
- * 
+ * Franken class is sun.misc.Unsafe.class wrapper for objects to be investigated and manipulated with DMA
  * 
  * 
  */
 public class JvmResearch   {
-	
-	/* 
-	 * idea is to set up a resource intensive process to test JVM
-	 * 
-	 * \
-	 * Apache derby is a pure java embedded object that will be main targert of profiling, as hopefully it will 
-	 * consume lots of memory on the heap
-	 * 
-	 * 
-	 * this loop will also be a bottle neck to be investigated for the stack memory and loop optimisation
-	 * 
-	 * By making the boiler plate loop spawn a thread for each JDBC  derby update I can generate an out 
-	 * of memory error in a controlled fashion by setting the number of loops, and/or changing the data through put for each 
-	 * iteration
-	 * 
-	 * 
-	 * 
-	 */
-	
-	
 
 	private static String sep = File.separator;
 	private static int k ;;
@@ -52,24 +29,16 @@ public class JvmResearch   {
 	public static void main(String[] args) throws Exception{
 		
 
-		
-
-		
-		 /* this will be a resource intensive loop for investigation by profiling tools
-		  *  will look at hot code optimization here , this loop spawns threads :
-		  *  so each derby update will be in unique thread, hopefully this will be where i can 
-		  *  generate a "out of mem error" in a controllable repeatable testable process
-		  *  at the moment I can generate 100 threads with no error on my 4 Gb memory intel box
-		  */
+		/* results database */
 		
 		DerbyUtils.makeDerby("benchMarkResults");
 		
 		ExecutorService threadExecutor = Executors.newCachedThreadPool();
 		
-		k=1;
+		k=1;// count the loops if needed
 		  try {
 	       //     while(true) { 
-	            	       	
+	            	// pass thread an object to be investigated or manipulated       	
 	            	DerbyTask derbyTask = new DerbyTask(new Date());
 	            	// pause for a while as derby is slow
 	            	threadExecutor.execute(derbyTask ); 
@@ -85,7 +54,7 @@ public class JvmResearch   {
 
 	        } finally {
 	         
-	         // all done drop the database as is just junk test data
+	         // all done drop the database as is just junk test data for now
 	        	System.out.println("report Derby");
 	            System.out.println("dropDerby");
 	            threadExecutor.shutdown();

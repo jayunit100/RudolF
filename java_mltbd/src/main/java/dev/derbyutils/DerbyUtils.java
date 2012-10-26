@@ -13,20 +13,14 @@ import java.sql.PreparedStatement;
 
 /** 
  * Just a set of utility methods for the Derby database 
- * Taken from the Apache demo class and some boiler plate mongo
+ * Taken from the Apache demo class 
+ * standard boiler plate
  * */
 public class DerbyUtils {
 	private static final  String framework = "embedded";
     private static final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
     private static final String protocol = "jdbc:derby:";   
-    
-    /* Just a set of utility methods for the Derby database 
-     * Taken from the Apache demo class and some boiler plate mongo
-     * 
-     * */
-    
-    
-    
+
     
     // creates database   
 public static void makeDerby(String dbName) {

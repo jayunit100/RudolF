@@ -8,14 +8,13 @@ import com.mongodb.DBObject;
 import dev.unsafe.FrankenClass;
 
 
-/* this is a worker thread that updates the embedded derby database
- * now has unsafe function
- * 
+/**
+ * This is a worker thread that updates the embedded derby database
+ * the objects of this type have a secondary function to create 
+ * "out of memory" errors on the heap
  */
 
 public class DerbyTask   implements Runnable {
-
-	Thread t;
 	private static String sep = File.separator;
 	private final HashMap < Integer, String> preparedStatements  = new HashMap < Integer, String>();
 	private static Object testObj;
@@ -38,9 +37,7 @@ public class DerbyTask   implements Runnable {
 			e1.printStackTrace();} catch (IllegalArgumentException e1) {e1.printStackTrace();} catch (IllegalAccessException e1) {
 			e1.printStackTrace(); } /* */
 		
-		 System.out.println(longObj.toString());
 		preparedStatements.put(2,longObj.toString());// this will be size of object
-	//	preparedStatements.put(2,"4");// this will be size of object
 		preparedStatements.put(3,testObj.toString());
 
 		
