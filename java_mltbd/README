@@ -9,11 +9,10 @@ critical parameters for the underlying C structs for the Java Class and Object
 definitions used by the JVM. Principally the the markers that can be exploited
 to:
 
-1) create objects off  the heap, by copying the memory address of an object on the JVM
-heap to a native buffer output address
+1) create objects off  the heap, by copying the memory address of an object on 
+the JVM heap to a native buffer output address
 
-2) hijack supercalss memory address to perform illegal object casts
-
+2) hijack superclass memory address to perform illegal object casts
 
 
 An  initial tool for profiling, tracing and obtaining  stack traces is 

@@ -23,10 +23,13 @@ public class HostileJavaString {
 		 String hostCarrier = "kiss me";
 		 // use unsafe to infect host
 		try {
-			long carrierClassAddress = frankenObj.normalize( frankenObj.getUnsafeInstance().getInt(worm, 4L) );
+			// get the Worms classes C struct mem address
+			long wormClassAddress = frankenObj.normalize( frankenObj.getUnsafeInstance().getInt(worm, 4L) );
 			// insert pointer to String
-			long stringClassAddress =frankenObj. normalize( frankenObj.getUnsafeInstance().getInt("", 4L) );				
-				frankenObj.getUnsafeInstance().putAddress(carrierClassAddress + 36, stringClassAddress);
+			long stringClassAddress =frankenObj. normalize( frankenObj.getUnsafeInstance().getInt("", 4L) );
+			// here we go to the worms class's C struct definition then shift 36 bytes to change the memory address of the SuperClass
+			// and change it to the java.lang.String classes Superclass
+				frankenObj.getUnsafeInstance().putAddress(wormClassAddress+ 36, stringClassAddress);
 			} catch (SecurityException e) {	e.printStackTrace();} catch (NoSuchFieldException e) {
 				e.printStackTrace();} catch (IllegalArgumentException e) {e.printStackTrace(); } catch (IllegalAccessException e) {e.printStackTrace();}
 		System.out.println("this is the host string");
@@ -36,7 +39,12 @@ public class HostileJavaString {
 		
 	void exposePathogen(String message) {
 		System.out.println("this is the  embedded hostile  object in host string");  
+		
+		//normally this class would be illegal but we have hijacked  the address of the java.lang.String superclass
+		// so we can be a String even though we are a worm as well
 		System.out.println( ((Worm)(Object)message).pathogen );	}
+	
+	
 	// virus object
 	class Worm  {
 	   String pathogen; }
