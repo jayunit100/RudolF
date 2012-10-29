@@ -32,8 +32,11 @@ public class JvmResearchDMA {
 		 System.out.println("process hostile java string code"+"\n");
 		 // create mutated string wrapper object
 		 HostileJavaString virus = new HostileJavaString();
-		 
+		 System.out.println("this is host string:  "+virus.getHostCarrier());
+		 System.out.println("make hostile java string");
 		 virus.infectHost();
+		 System.out.println("Show embedded object in infected String");
+		 virus.exposePathogen();
 		 
 		 
 		 

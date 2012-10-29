@@ -6,11 +6,11 @@ SQL database this object heavy  loop will be optimized for the JIT,
 
 The main class JvmResearchDMA.java uses  sun.misc.Unsafe.class to illustrate
 critical parameters for the underlying C structs for the Java Class and Object 
-definitions used by the JVM. Principally the the markers that can be exploited
+definitions used by the JVM. Principally the markers that can be exploited
 to:
 
-1) create objects off  the heap, by copying the memory address of an object on 
-the JVM heap to a native buffer output address
+1) create java objects off the heap, by copying the memory address and memory bytes 
+of an object on  the heap to a native buffer output address
 
 2) hijack superclass memory address to perform illegal object casts
 
