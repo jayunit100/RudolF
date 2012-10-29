@@ -30,6 +30,9 @@ public class DirectMemAccess {
 		structure.x = value;
 		try {
 			size = frankenObj.sizeOf(structure);
+			
+			// allocate memory is off the heap in the sense that it is not available to the garbage collector
+			// and not limited to JVM heap sizs restrictions
 			offheapPointer = frankenObj.getUnsafeInstance().allocateMemory(size);			
 			
 		} catch (SecurityException e) {e.printStackTrace();} catch (NoSuchFieldException e) {e.printStackTrace();
@@ -66,7 +69,11 @@ public class DirectMemAccess {
 			 p = new Pointer();
 			 try {
 			 long pointerOffset = frankenObj.getUnsafeInstance().objectFieldOffset(Pointer.class.getDeclaredField("pointer"));
-			 frankenObj.getUnsafeInstance().putLong(p, pointerOffset, offheapPointer); // set pointer to off-heap copy of the test object
+			 
+			// set pointer to off-heap copy of the test object
+			 // putLong is directly accessing the underlying c struct that represents a java object
+			 frankenObj.getUnsafeInstance().putLong(p, pointerOffset, offheapPointer); 
+			 
 				} catch (SecurityException e) {e.printStackTrace();} catch (NoSuchFieldException e) {e.printStackTrace();
 				} catch (IllegalArgumentException e) {e.printStackTrace();} catch (IllegalAccessException e) {e.printStackTrace();
 				}
@@ -82,7 +89,7 @@ public class DirectMemAccess {
 		
 		
 	public void getOffHeapMemoryValue() {
-		
+		// here are pointer is an address to the off heap memeory
 		int y = ((MyStructureOneInt)p.pointer).x;
 			
 		System.out.println("structure.x has off heap value: "+y );
