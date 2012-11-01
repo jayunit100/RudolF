@@ -1,3 +1,14 @@
+Build Instructions
+
+mvn install
+
+this creates a jar file in r1/target/JvmResearch.jar
+
+change to this directory "cd target"
+
+and type "java -jar JvmResearch.jar"
+
+
 The main class JvmResearch.java  uses  sun.misc.Unsafe.class to obtain the 
 allocated memory size in bytes for a range of data structures.
 
@@ -23,13 +34,6 @@ In the SDK bin directory or anywhere else if your path is set a shell cmd
 performance so for best results run the tool for the first time as the only 
 process running on your machine.
 
-Build Instructions
-
-mvn install
-
-this creates a jar file in r1/target/JvmResearch.jar
-
-change to this directory and type dev.JvmResearch
 
 
 
