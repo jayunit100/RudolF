@@ -1,0 +1,36 @@
+The main class JvmResearch.java  uses  sun.misc.Unsafe.class to obtain the 
+allocated memory size in bytes for a range of data structures.
+
+It implements the process in a loop and the results are stored in a Bench Mark
+SQL database this object heavy  loop will be optimized for the JIT,  
+
+The main class JvmResearchDMA.java uses  sun.misc.Unsafe.class to illustrate
+critical parameters for the underlying C structs for the Java Class and Object 
+definitions used by the JVM. Principally the markers that can be exploited
+to:
+
+1) create java objects off the heap, by copying the memory address and memory bytes 
+of an object on  the heap to a native buffer output address
+
+2) hijack superclass memory address to perform illegal object casts
+
+
+An  initial tool for profiling, tracing and obtaining  stack traces is 
+"Java VisualVM"  a standard tool from 1.6.07 in the java SDK bin directory
+
+In the SDK bin directory or anywhere else if your path is set a shell cmd 
+"jvisualvm"  will run the VisualVM tool. For the first run the tool calibrates 
+performance so for best results run the tool for the first time as the only 
+process running on your machine.
+
+Build Instructions
+
+mvn install
+
+this creates a jar file in r1/target/JvmResearch.jar
+
+change to this directory and type dev.JvmResearch
+
+
+
+
