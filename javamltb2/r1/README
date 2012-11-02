@@ -1,12 +1,10 @@
 Build Instructions
 
-mvn install
+"mvn install"
 
-this creates a jar file in r1/target/JvmResearch.jar
+or
 
-change to this directory "cd target"
-
-and type "java -jar JvmResearch.jar"
+"mvn test"
 
 
 The main class JvmResearch.java  uses  sun.misc.Unsafe.class to obtain the 
