@@ -9,17 +9,14 @@ import dev.derbyutils.DerbyTask;
 import dev.derbyutils.DerbyUtils;
 import dev.testobjects.StructureWrapper;
 
-/* 
- * ideas
- * 1 set up a resource intensive process to test JVM
- * 2 investigate Direct Memory Access (DMA) in Java
- * derby is a pure java embedded object that can be  target of profiling and obvious store bench mark results
+/*  This class is the entry point for the benchmarking and optimization code
+ * 	results will be stored in an embedded Derby database.
  * 
- * main loop  to be investigated for the stack memory and loop optimization
+ *  @ structList an array of simple structures use for memory tests by sun.misc.Unsafe.class
  * 
- * Franken class is sun.misc.Unsafe.class wrapper for objects to be investigated and manipulated with DMA
+ *  @ Franken class is a wrapper class to obtain an instance of sun.misc.Unsafe.class 
  * 
- * struct list is just a wrapper for some structures for testing Unsafe
+ * 
  */
 public class JvmResearch {
 
