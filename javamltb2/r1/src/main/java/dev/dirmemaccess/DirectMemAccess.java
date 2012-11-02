@@ -7,6 +7,20 @@ import dev.testobjects.StructureWrapper;
 import dev.testobjects.StructureWrapper.MyStructureOneInt;
 import dev.unsafe.FrankenClass;
 
+
+/*  This class demonstrates a technique to copy 
+ * 	an object to an off heap memory address
+ * 
+ *  @ structure test object for memory tests by sun.misc.Unsafe.class
+ * 
+ *  @ FrankenClass is a wrapper class to obtain an instance of sun.misc.Unsafe.class 
+ *  @ Pointer p is just a memory address for am object on the heap
+ *  @ offheapPointeris is just a memory address for am object off the heap 
+ * 
+ */
+
+
+
 public class DirectMemAccess {
 
 	private static final MyStructureOneInt structure;
@@ -22,8 +36,9 @@ public class DirectMemAccess {
 		frankenObj = new FrankenClass();
 	}
 
+	@SuppressWarnings("restriction")
 	public DirectMemAccess(int value) {
-
+		// give the test object a value for testing
 		structure.x = value;
 		try {
 			size = frankenObj.sizeOf(structure);
@@ -44,7 +59,7 @@ public class DirectMemAccess {
 			e.printStackTrace();
 		}
 	}
-
+	// just prints memory address
 	public HashMap<String, Long> printAddressAllocation() {
 		HashMap<String, Long> malloc = new HashMap<String, Long>();
 		malloc.put("size", size);
@@ -52,8 +67,9 @@ public class DirectMemAccess {
 		return malloc;
 	}
 
+	@SuppressWarnings("restriction")
 	public void copyMemory() {
-
+		// copy memory contents from one address to another
 		try {
 			frankenObj.getUnsafeInstance().copyMemory(structure, // source
 																	// object
@@ -76,6 +92,7 @@ public class DirectMemAccess {
 	}
 
 	// set pointer to off-heap copy of the test object
+	@SuppressWarnings("restriction")
 	public void getOffHeapAdressMemory() {
 		p = new Pointer();
 		try {
@@ -101,6 +118,8 @@ public class DirectMemAccess {
 		System.out.println(" pointer to off heap memory now set");
 
 	}
+	
+	// get set methods
 
 	public void setNewHeapMemoryValue(int x) {
 
