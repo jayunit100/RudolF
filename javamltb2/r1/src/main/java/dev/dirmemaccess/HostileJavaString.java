@@ -2,6 +2,20 @@ package dev.dirmemaccess;
 
 import dev.unsafe.FrankenClass;
 
+/*  This class is an example of a worm or virus
+ * 	it demonstrates how an object can steal a system super class
+ *  type and then perform illegal casts
+ *  @ structure test object for memory tests by sun.misc.Unsafe.class
+ * 
+ *  @ FrankenClass is a wrapper class to obtain an instance of sun.misc.Unsafe.class 
+ *  @ hostCarrier is just a string , we will steal its superclass address
+ *  @ Worm is just a simple object with a field  that can hold values, it will pretend to be
+ *  of type String.
+ * 
+ */
+
+
+
 public class HostileJavaString {
 
 	private static final FrankenClass frankenObj;
