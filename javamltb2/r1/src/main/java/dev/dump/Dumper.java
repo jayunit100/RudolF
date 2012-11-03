@@ -3,6 +3,14 @@ package dev.dump;
 import java.io.StringWriter;
 import java.util.concurrent.Callable;
 
+
+/*  This class dumps status on all threads at a specified time in the program 
+ *    using  java.util.concurrent.Future
+ * 
+ *  @ runProcess the name of the process running in the jvm at the time of the dump
+ * 
+ */
+
 public class Dumper implements Callable<String> {
 	
 	final StringWriter sw;
@@ -17,6 +25,7 @@ public class Dumper implements Callable<String> {
 	@Override
 	public String call() {
 		
+		// find the top thread group
 		ThreadGroup topThreadGroup = Thread.currentThread().getThreadGroup();
 		
 		while(topThreadGroup.getParent()!=null) topThreadGroup=topThreadGroup.getParent();
@@ -33,6 +42,7 @@ public class Dumper implements Callable<String> {
 		
 		sw.append("JVM Info Top Thread Group All Threads Report \n");
 		
+		// dump info o all its threads
 		for( Thread th :allThreads) {
 			
 			if(th==null) continue;
@@ -45,7 +55,7 @@ public class Dumper implements Callable<String> {
 
 				}
 		
-		
+		// find all the child gtoups
 			ThreadGroup[] allGroups = new ThreadGroup[1000];
 		
 			int numThreadGroups = topThreadGroup.enumerate(allGroups,true);
@@ -56,6 +66,8 @@ public class Dumper implements Callable<String> {
 		
 				for (ThreadGroup tg: allGroups ) {
 					if(tg==null) continue;
+					
+					// dump info on all its threads
 					dumpThreadGroupInfo(tg);
 				
 				}
@@ -67,7 +79,7 @@ public class Dumper implements Callable<String> {
 		    
 	}
 	
-	
+	// method to report info on child group threads
 	public void dumpThreadGroupInfo(ThreadGroup tg){  
 		
 		
