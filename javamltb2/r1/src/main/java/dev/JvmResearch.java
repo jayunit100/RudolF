@@ -19,6 +19,8 @@ import dev.testobjects.StructureWrapper;
  * 
  *  @ Franken class is a wrapper class to obtain an instance of sun.misc.Unsafe.class 
  * 
+ *  @ dumpTask class dumps ststus on all threads at a specified time in the program 
+ *    using  java.util.concurrent.Future
  * 
  */
 public class JvmResearch {
