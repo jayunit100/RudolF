@@ -5,8 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import dev.derbyutils.DerbyTask;
 import dev.derbyutils.DerbyUtils;
+import dev.dump.Dumper;
 import dev.testobjects.StructureWrapper;
 
 /*  This class is the entry point for the benchmarking and optimization code
@@ -41,6 +44,7 @@ public class JvmResearch {
 		DerbyUtils.makeDerby("benchMarkResults");
 		// thread container
 		ExecutorService threadExecutor = Executors.newCachedThreadPool();
+		Future<String> dumpTask;
 
 		k = 1;// count the loops if needed
 		try {
@@ -49,15 +53,24 @@ public class JvmResearch {
 				DerbyTask derbyTask = new DerbyTask(obj, k);
 				// pause for a while as derby is slow
 				threadExecutor.execute(derbyTask);
+				
+				dumpTask = threadExecutor.submit (new  Dumper("structList memory task "+k));
+				
+				System.out.println(dumpTask.get());
+				
 
 				try {
-					Thread.sleep(400);
+					Thread.sleep(600);
 				} catch (InterruptedException e) {
 				}
 				;
 				System.out.println("insert: " + (k++) + ", completed");
 
 			}// end loop
+			
+			
+			
+			
 
 		} finally {
 
