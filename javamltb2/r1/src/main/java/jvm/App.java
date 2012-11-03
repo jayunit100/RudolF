@@ -5,9 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import dev.derbyutils.DerbyTask;
 import dev.derbyutils.DerbyUtils;
+import dev.dump.Dumper;
 import dev.testobjects.StructureWrapper;
 import dev.testobjects.StructureWrapper.MyStructureEmpty;
 import dev.testobjects.StructureWrapper.MyStructureOneInt;
@@ -34,7 +36,7 @@ public class App {
 	// derby object id
 	private static Integer k;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		System.out
 				.println("Hello RudolF.  This package consists of JVM experiments that will further your understanding of the internals and optimizations which drive advanced Java development.");
@@ -43,7 +45,7 @@ public class App {
 		DerbyUtils.makeDerby("benchMarkResults");
 		// thread container
 		ExecutorService threadExecutor = Executors.newCachedThreadPool();
-
+		Future<String> dumpTask;
 		k = 1;// count the loops if needed
 		try {
 			for (Object obj : structList) {
@@ -51,6 +53,10 @@ public class App {
 				DerbyTask derbyTask = new DerbyTask(obj, k);
 				// pause for a while as derby is slow
 				threadExecutor.execute(derbyTask);
+				
+				dumpTask = threadExecutor.submit (new  Dumper("structList memory task "+k));
+				
+				System.out.println(dumpTask.get());
 
 				try {
 					Thread.sleep(400);
