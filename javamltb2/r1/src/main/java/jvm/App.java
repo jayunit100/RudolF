@@ -11,9 +11,6 @@ import dev.derbyutils.DerbyTask;
 import dev.derbyutils.DerbyUtils;
 import dev.dump.Dumper;
 import dev.testobjects.StructureWrapper;
-import dev.testobjects.StructureWrapper.MyStructureEmpty;
-import dev.testobjects.StructureWrapper.MyStructureOneInt;
-import dev.testobjects.StructureWrapper.MyStructureTwoInt;
 
 /**
  * Hello world!
