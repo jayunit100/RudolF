@@ -27,8 +27,9 @@ public class AppTest extends TestCase {
 
 	/**
 	 * Rigourous Test :-)
+	 * @throws Exception 
 	 */
-	public void testApp() {
+	public void testApp() throws Exception {
 
 		App.main(new String[] { "arg1" });
 
