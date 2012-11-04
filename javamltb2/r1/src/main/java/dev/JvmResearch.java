@@ -38,7 +38,7 @@ public class JvmResearch {
 	// for derby sys independent path
 	private static String sep = File.separator;
 	// derby object id
-	private static Integer k;
+	private static int k;
 
 	public static void main(String[] args) throws Exception {
 
@@ -56,13 +56,13 @@ public class JvmResearch {
 				// pause for a while as derby is slow
 				threadExecutor.execute(derbyTask);
 				
-				dumpTask = threadExecutor.submit (new  Dumper("structList memory task "+k));
+				dumpTask = threadExecutor.submit(new Dumper("structList memory task "+k, k ));
 				
 				System.out.println(dumpTask.get());
 				
 
 				try {
-					Thread.sleep(600);
+					Thread.sleep(800);
 				} catch (InterruptedException e) {
 				}
 				;
@@ -76,9 +76,7 @@ public class JvmResearch {
 
 		} finally {
 
-			// all done drop the database as is just junk test data for now
-			System.out.println("report Derby");
-			System.out.println("dropDerby");
+			// all done drop the database as is just system  test data for now
 			threadExecutor.shutdown();
 
 			DerbyUtils.dropDerby("benchMarkResults");
