@@ -31,7 +31,7 @@ public class App {
 	// for derby sys independent path
 	private static String sep = File.separator;
 	// derby object id
-	private static Integer k;
+	private static int k;
 
 	public static void main(String[] args) throws Exception {
 
@@ -51,7 +51,7 @@ public class App {
 				// pause for a while as derby is slow
 				threadExecutor.execute(derbyTask);
 				
-				dumpTask = threadExecutor.submit (new  Dumper("structList memory task "+k));
+				dumpTask = threadExecutor.submit (new  Dumper("structList memory task "+k, k));
 				
 				System.out.println(dumpTask.get());
 
@@ -67,8 +67,6 @@ public class App {
 		} finally {
 
 			// all done drop the database as is just junk test data for now
-			System.out.println("report Derby");
-			System.out.println("dropDerby");
 			threadExecutor.shutdown();
 
 			DerbyUtils.dropDerby("benchMarkResults");
