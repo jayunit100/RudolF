@@ -1,24 +1,32 @@
 package dev.dump;
 
+import gen.ProtoThreadSerDump;
+import gen.ProtoThreadSerDump.ThreadSerDump;
+
+import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.util.concurrent.Callable;
+
+import dev.derbyutils.DerbyUtils;
 
 
 /*  This class dumps status on all threads at a specified time in the program 
  *    using  java.util.concurrent.Future
  * 
  *  @ runProcess the name of the process running in the jvm at the time of the dump
- * 
+ * 	A daemon thread in Java is one that doesn't prevent the JVM from exiting
  */
 
 public class Dumper implements Callable<String> {
 	
 	final StringWriter sw;
 	final String runProcess;
+	final int id;
 	
-	public Dumper(final String runProcess) {
+	public Dumper(final String runProcess, final int id) {
 		sw = new StringWriter();
 		this.runProcess = runProcess;
+		this.id = id;
 	}
 	
 	
@@ -30,28 +38,21 @@ public class Dumper implements Callable<String> {
 		
 		while(topThreadGroup.getParent()!=null) topThreadGroup=topThreadGroup.getParent();
 		
-		sw.append("JVM Info for process "+runProcess+"\n");
-		
-		sw.append("JVM Info Top Thread Group: "+topThreadGroup.getName()+"\n");
+		sw.append("JVM Thread Info run for process "+runProcess+"\n");
 		
 		Thread[] allThreads = new Thread[1000];
 		
 		int threadCount = topThreadGroup.enumerate(allThreads,true);
 		
-		sw.append("JVM Info Top Thread Group Size = "+threadCount+"\n");
-		
-		sw.append("JVM Info Top Thread Group All Threads Report \n");
+		sw.append("JVM Info Aggregrating Thread Groups All Threads Report serialize(protoBuff) to Derby \n");
 		
 		// dump info o all its threads
 		for( Thread th :allThreads) {
 			
 			if(th==null) continue;
-
-			sw.append("TOPGROUP Thread NAME: "+th.getName()
-
-							+(th.isDaemon()?" DAEMON":" NOT DAEMON ")
-
-							+(th.isAlive()?" ALIVE":" DEAD ")+"\n");
+							
+			dumpToDerby("Top Group Thread"+th.getName(),(th.isDaemon()?"daemon":"not daemon "),
+					(th.isAlive()?"alive":"dead "), "to group NA", "no stack", runProcess, id, topThreadGroup.getName());
 
 				}
 		
@@ -69,7 +70,10 @@ public class Dumper implements Callable<String> {
 					
 					// dump info on all its threads
 					dumpThreadGroupInfo(tg);
-				
+					try {// derby needs time to update
+						Thread.sleep(800);
+					} catch (InterruptedException e) {
+					}
 				}
 		}
 		
@@ -79,23 +83,34 @@ public class Dumper implements Callable<String> {
 		    
 	}
 	
+	private void dumpToDerby(String name, String daemon, String alive, String destroyed, String Stack, 
+																	String process, int id2, String group) {
+		
+		int uniqueID = id2*100 +id2;
+		
+		ThreadSerDump serDump = ProtoThreadSerDump.ThreadSerDump.newBuilder() 
+				  .setId(uniqueID)
+				  .setAlive(alive)
+				  .setDaemon(daemon)
+				  .setName(name)
+				  .setGroup(group)          
+				  .setProces(process)
+				  .setStackdump(Stack)
+				  .build();
+				   byte[] store = serDump.toByteArray();
+				   int fileLength =  store.length;
+				   DerbyUtils.setDumpData(uniqueID, fileLength, store);
+	
+	}
+
+
 	// method to report info on child group threads
 	public void dumpThreadGroupInfo(ThreadGroup tg){  
 		
 		
-		String parentName = (tg.getParent() == null ? "NO PARENT" :tg.getName());
+		String parentName = (tg.getParent() == null ? "No Parent" :tg.getName());
 		
 		//Dump thread group info.
-		sw.append("Child Thread Group:  "+tg.getName()+"\n");
-
-		sw.append("Parent:"+parentName
-
-				+(tg.isDaemon()?"DAEMON":"NOT DAEMON ")
-
-				+(tg.isDestroyed()?"DESTROYED":"NOT DESTROYED")+"\n");
-
-		
-			
 
 		Thread[] allThreads = new Thread[1000];
 	
@@ -103,14 +118,10 @@ public class Dumper implements Callable<String> {
 		
 		for( Thread th :allThreads) {
 			if(th==null)continue;
-			sw.append( parentName+" Thread:"+th.getName()+"\n");
-
-			sw.append((th.isDaemon()?"DAEMON":"NOT DAEMON ")
-
-					+(th.isAlive()?"ALIVE":"DEAD ")+"\n");
-
-				}
-
+				
+		dumpToDerby("Child Group Thread"+th.getName(),(th.isDaemon()?"daemon":"not daemon "),
+				(th.isAlive()?"alive":"dead "), "to group NA", "no stack", runProcess, id, tg.getName());
+				}	
 			}
 		}
 	
