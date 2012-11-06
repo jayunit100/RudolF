@@ -18,8 +18,10 @@ import dev.testobjects.StructureWrapper;
  *  @ structList an array of simple structures use for memory tests by sun.misc.Unsafe.class
  * 
  *  @ Franken class is a wrapper class to obtain an instance of sun.misc.Unsafe.class 
+ *  
+ *  @ DerbyTask is a wrapper class to obtain an instance of sun.misc.Unsafe.class 
  * 
- *  @ dumpTask class dumps ststus on all threads at a specified time in the program 
+ *  @ dumpTask class dumps status on all threads at a specified time in the program 
  *    using  java.util.concurrent.Future
  * 
  */
@@ -48,7 +50,7 @@ public class JvmResearch {
 		ExecutorService threadExecutor = Executors.newCachedThreadPool();
 		Future<String> dumpTask;
 
-		k = 1;// count the loops if needed
+		k = 1;// count the loops if needed and unique id for derby entries
 		try {
 			for (Object obj : structList) {
 				// pass thread an object to be investigated or manipulated
