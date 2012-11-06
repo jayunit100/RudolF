@@ -3,7 +3,31 @@ package dev.unsafe;
 import java.lang.reflect.Field;
 import sun.misc.Unsafe;
 
-/* wrapper for the unsafe class */
+/*  
+ * This class demonstrates a technique to obtain via reflection an instance of
+ * sun.misc.unsafe
+ *
+ *  
+ *  Methods
+ *  
+ *  getUnsafeInstance::  utility method to obtain via reflectioan instance of sun.misc.unsafe
+ *  
+ *  this class demonstrate use of the markers in the underlying C structs for java Class and objects
+ *  to perform direct memory operations
+ *  
+ *  inspect the structs in the code for more info on java objects
+ *  http://hg.openjdk.java.net/jdk7/hotspot/hotspot/file/9b0ca45cd756/src/share/vm/oops/oop.hpp
+ *  inspect the structs in the code for more info on java class
+ *  http://hg.openjdk.java.net/jdk7/hotspot/hotspot/file/9b0ca45cd756/src/share/vm/oops/klass.hpp
+ *  
+ *  this class demonstrate the underlying address and memory structure architecture of the JVM
+ *  
+ * 
+ */
+
+
+
+
 
 public class FrankenClass {
 	// object to investigate or manipulate
