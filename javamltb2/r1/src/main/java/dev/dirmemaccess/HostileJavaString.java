@@ -11,11 +11,26 @@ import dev.unsafe.FrankenClass;
  *  @ hostCarrier is just a string , we will steal its superclass address
  *  @ Worm is just a simple object with a field  that can hold values, it will pretend to be
  *  of type String.
+ *  
+ *  Methods
+ *  
+ *  infectHost:: uses sun.misc.unsafe to obtain memory address of a marker in the underlying 
+ *  class C struct, this marker is the memory address of the super class, the java.system.String 
+ *  superclass is then hijacked by the Wirm class and used to appear to the JVM as String type
+ *  
+ *  exposePathogen:: shows how the result of the infectHost method can be used to perform an illegal 
+ *  cast from type worm to type java.lang.String  "hostCarrier = (String) (Object) worm;"
+ *  
+ *  this class demonstrates the use of the underlying C struct markers for Java classes and objects, 
+ *  and making low level system calls to deceive the JVM
+ *  
+ *  
+ *  
  * 
  */
 
 
-
+@SuppressWarnings("restriction")
 public class HostileJavaString {
 
 	private static final FrankenClass frankenObj;
@@ -38,6 +53,7 @@ public class HostileJavaString {
 		// use unsafe to infect host
 		try {
 			// get the Worms classes C struct mem address
+			
 			long wormClassAddress = frankenObj.normalize(frankenObj
 					.getUnsafeInstance().getInt(worm, 4L));
 			// insert pointer to String
