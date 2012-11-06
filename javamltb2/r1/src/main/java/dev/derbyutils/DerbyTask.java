@@ -5,10 +5,18 @@ import java.util.HashMap;
 
 import dev.unsafe.FrankenClass;
 
-/**
- * This is a worker thread that updates the embedded derby database the objects
- * of this type have a secondary function to create "out of memory" errors on
- * the heap
+/*  This class updates the embedded Derby database.
+ * 	 
+ * 
+ *  @ testObj an object where its memory footprint in bytes is measured by sun.misc.Unsafe.class
+ * 
+ *  @ Franken class is a wrapper class to obtain an instance of sun.misc.Unsafe.class 
+ *  
+ *  demonstrate important technique of obtaining the size of an object on bytes important for
+ *  direct memory copy analogous to array.length in array copy
+ *  
+ *  
+ * 
  */
 
 public class DerbyTask implements Runnable {
