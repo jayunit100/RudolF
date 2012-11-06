@@ -20,6 +20,18 @@ import com.google.protobuf.InvalidProtocolBufferException;
 /**
  * Just a set of utility methods for the Derby database Taken from the Apache
  * demo class standard boiler plate
+ * 
+ * make derby creates the database
+ * 
+ * setDumpData stores an array of binary data from a serialize method call
+ * 
+ * goDerby stores the direct memory calculations performed by the DerbyTask worker threads
+ * 
+ * deSerialiseThreadDumpData is just a prtobuff utility method to de-serialize objects stored in derby
+ * 
+ * dropderby reports the database then drops the database for now as only test data
+ * 
+ * 
  * */
 public class DerbyUtils {
 	private static final String framework = "embedded";
@@ -156,7 +168,7 @@ public class DerbyUtils {
 		}
 	}
 
-	// utility methods below
+	// utility methods below, this is just protobuff boiler plate
 	
 	private static void deSerialiseThreadDumpData() {
 		System.out.println("Deserialize threadump data");
