@@ -80,10 +80,13 @@ public class JvmResearch {
 				System.out.println("insert: " + (k++) + ", completed");
 
 			}// end loop
-			System.out.println("Please wait while running Java C0llection Benchmarks");
+			System.out.println("");
+			System.out.println("Please wait while running Java Collection Benchmarks may take a minute");
 			// run collection benchmarks
 			BenchMarkRunner.getResults();
-			
+			System.out.println("");
+			System.out.println("End  Java Collection Benchmarks");
+			System.out.println("");
 
 		} finally {
 
