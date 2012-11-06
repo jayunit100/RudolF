@@ -17,7 +17,9 @@ import dev.dirmemaccess.HostileJavaString;
  * It demonstrates how you can bypass the standard java 
  * security model using reflection to perform illegal code operations
  * 
- * this class opens up a can of worms */
+ * this class demonstrates how easy it is to write a worm that will steal your system memory 
+ * 
+ * */
 
 public class JvmResearchDMA {
 
