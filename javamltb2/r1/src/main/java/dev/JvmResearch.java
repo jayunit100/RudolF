@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import dev.benchmarks.BenchMarkRunner;
 import dev.derbyutils.DerbyTask;
 import dev.derbyutils.DerbyUtils;
 import dev.dump.Dumper;
@@ -23,6 +24,14 @@ import dev.testobjects.StructureWrapper;
  * 
  *  @ dumpTask class dumps status on all threads at a specified time in the program 
  *    using  java.util.concurrent.Future
+ * 
+ *  @ BenchMarkRunner.getResults();  Bench Marks for Java Collection Data Structures
+ *  shows memory footprint for concurrent implementations of 
+ * 			java.util.concurrent.ConcurrentHashMap; 
+ * 			java.util.concurrent.CopyOnWriteArrayList;
+ * 
+ * 
+ * 
  * 
  */
 public class JvmResearch {
@@ -71,9 +80,9 @@ public class JvmResearch {
 				System.out.println("insert: " + (k++) + ", completed");
 
 			}// end loop
-			
-			
-			
+			System.out.println("Please wait while running Java C0llection Benchmarks");
+			// run collection benchmarks
+			BenchMarkRunner.getResults();
 			
 
 		} finally {
