@@ -16,6 +16,17 @@ import dev.unsafe.FrankenClass;
  *  @ FrankenClass is a wrapper class to obtain an instance of sun.misc.Unsafe.class 
  *  @ Pointer p is just a memory address for am object on the heap
  *  @ offheapPointeris is just a memory address for am object off the heap 
+ *  
+ *  Methods
+ *  
+ *  printAddressAllocation::  utility method stores address locations in a hash map so can be displayed
+ *  copyMemory::  use sun.misc.unsafe to directly copy memory from java heap to native buffers
+ *  getOffHeapAdressMemory::  uses reflection and sun.misc.unsafe to obtain memory address of 
+ *  object copied to native buffers
+ *  
+ *  this class demonstrate use of the markers in the underlying C structs for java Class and objects
+ *  to perform direct memory operations
+ *  
  * 
  */
 
