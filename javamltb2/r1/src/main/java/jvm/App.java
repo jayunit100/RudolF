@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import dev.benchmarks.BenchMarkRunner;
 import dev.derbyutils.DerbyTask;
 import dev.derbyutils.DerbyUtils;
 import dev.dump.Dumper;
@@ -63,6 +64,12 @@ public class App {
 				System.out.println("insert: " + (k++) + ", completed");
 
 			}// end loop
+			
+			System.out.println("Please wait while running Java C0llection Benchmarks");
+			// run collection benchmarks
+			BenchMarkRunner.getResults();
+			
+			
 
 		} finally {
 
