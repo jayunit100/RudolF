@@ -15,6 +15,17 @@ import dev.derbyutils.DerbyUtils;
  * 
  *  @ runProcess the name of the process running in the jvm at the time of the dump
  * 	A daemon thread in Java is one that doesn't prevent the JVM from exiting
+ * 
+ * Methods
+ * call:: this interface method aggregates all the system and instance threads to
+ * construct a thread dump report 
+ * 
+ * dumpToDerby:: utility method, serializes data to embedded Derby database
+ * 
+ * dumpThreadGroupInfo:: aggregates information for child threads of the parent thread groups
+ * 
+ * this class can be called at any time in the program to get a snap shot of the running processes
+ * 
  */
 
 public class Dumper implements Callable<String> {
