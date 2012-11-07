@@ -69,8 +69,7 @@ public class JvmResearch {
 				
 				dumpTask = threadExecutor.submit(new Dumper("structList memory task "+k, k ));
 				
-				System.out.println(dumpTask.get());
-				
+				System.out.println("result:"+dumpTask.get());
 
 				try {
 					Thread.sleep(800);
