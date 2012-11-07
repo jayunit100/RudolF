@@ -8,9 +8,8 @@ import java.util.concurrent.Future;
 
 
 
-/*  This class is the entry point for the benchmarking and optimization code
- * 	results will be stored in an embedded Derby database.
- * 
+/*  This class is the entry point for the benchmarking 
+ * 	
  *  @ mapTask  benchmark for concurrent map
  * 
  *  @ listTask benchmark for concurrent list
