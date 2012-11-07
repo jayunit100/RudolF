@@ -1,13 +1,15 @@
 package dev.unsafe;
 
 import java.lang.reflect.Field;
+
 import sun.misc.Unsafe;
 
-/*  
+/**
+ * 
+ *  NOTE WE SHOULDNT USE THIS IN UNIT TESTS BECAUSE IT CAN BREAK THE BUILD
  * This class demonstrates a technique to obtain via reflection an instance of
  * sun.misc.unsafe
- *
- *  
+
  *  Methods
  *  
  *  getUnsafeInstance::  utility method to obtain via reflectioan instance of sun.misc.unsafe
@@ -22,13 +24,7 @@ import sun.misc.Unsafe;
  *  
  *  this class demonstrate the underlying address and memory structure architecture of the JVM
  *  
- * 
  */
-
-
-
-
-
 public class FrankenClass {
 	// object to investigate or manipulate
 	private static Object testObj;
