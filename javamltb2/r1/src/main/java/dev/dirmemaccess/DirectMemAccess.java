@@ -7,8 +7,8 @@ import dev.testobjects.StructureWrapper;
 import dev.testobjects.StructureWrapper.MyStructureOneInt;
 import dev.unsafe.FrankenClass;
 
-
-/*  This class demonstrates a technique to copy 
+/**  
+ *  This class demonstrates a technique to copy 
  * 	an object to an off heap memory address
  * 
  *  @ structure test object for memory tests by sun.misc.Unsafe.class
@@ -26,12 +26,7 @@ import dev.unsafe.FrankenClass;
  *  
  *  this class demonstrate use of the markers in the underlying C structs for java Class and objects
  *  to perform direct memory operations
- *  
- * 
  */
-
-
-
 public class DirectMemAccess {
 
 	private static final MyStructureOneInt structure;
