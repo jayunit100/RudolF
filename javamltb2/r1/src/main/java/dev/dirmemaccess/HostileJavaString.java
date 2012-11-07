@@ -2,7 +2,8 @@ package dev.dirmemaccess;
 
 import dev.unsafe.FrankenClass;
 
-/*  This class is an example of a worm or virus
+/**  
+ *   This class is an example of a worm or virus
  * 	it demonstrates how an object can steal a system super class
  *  type and then perform illegal casts
  *  @ structure test object for memory tests by sun.misc.Unsafe.class
@@ -23,13 +24,7 @@ import dev.unsafe.FrankenClass;
  *  
  *  this class demonstrates the use of the underlying C struct markers for Java classes and objects, 
  *  and making low level system calls to deceive the JVM
- *  
- *  
- *  
- * 
  */
-
-
 @SuppressWarnings("restriction")
 public class HostileJavaString {
 
@@ -89,7 +84,11 @@ public class HostileJavaString {
 		System.out.println(((Worm) (Object) hostCarrier).pathogen);
 	}
 
-	// virus object
+	/**
+	 * Virus object
+	 * @author jayunit100
+	 *
+	 */
 	class Worm {
 		String pathogen;
 	}
