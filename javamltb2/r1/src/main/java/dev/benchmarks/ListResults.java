@@ -8,8 +8,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
-/*  This class is the entry point for the benchmarking and optimization code
- * 	results will be stored in an embedded Derby database.
+/*  This class obtains the List Benchmark Results
  * 
  *  @ resultsMap  container for list results stats
  * 
