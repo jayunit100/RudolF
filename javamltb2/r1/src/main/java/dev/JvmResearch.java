@@ -13,7 +13,8 @@ import dev.derbyutils.DerbyUtils;
 import dev.dump.Dumper;
 import dev.testobjects.StructureWrapper;
 
-/*  This class is the entry point for the benchmarking and optimization code
+/**  
+ *  This class is the entry point for the benchmarking and optimization code
  * 	results will be stored in an embedded Derby database.
  * 
  *  @ structList an array of simple structures use for memory tests by sun.misc.Unsafe.class
@@ -29,10 +30,6 @@ import dev.testobjects.StructureWrapper;
  *  shows memory footprint for concurrent implementations of 
  * 			java.util.concurrent.ConcurrentHashMap; 
  * 			java.util.concurrent.CopyOnWriteArrayList;
- * 
- * 
- * 
- * 
  */
 public class JvmResearch {
 
@@ -61,7 +58,10 @@ public class JvmResearch {
 
 		k = 1;// count the loops if needed and unique id for derby entries
 		try {
+		
+			System.out.println("Starting...");
 			for (Object obj : structList) {
+				System.out.println("Object:"+obj);
 				// pass thread an object to be investigated or manipulated
 				DerbyTask derbyTask = new DerbyTask(obj, k);
 				// pause for a while as derby is slow
@@ -88,13 +88,11 @@ public class JvmResearch {
 			System.out.println("End  Java Collection Benchmarks");
 			System.out.println("");
 
-		} finally {
-
+		} 
+		finally {
 			// all done drop the database as is just system  test data for now
 			threadExecutor.shutdown();
-
 			DerbyUtils.dropDerby("benchMarkResults");
 		}
-
 	}
 }
