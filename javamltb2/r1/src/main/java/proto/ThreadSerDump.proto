@@ -1,0 +1,15 @@
+syntax = "proto2";
+option java_outer_classname="ProtoThreadSerDump";
+option java_package = "gen";
+message ThreadSerDump {
+
+	required int32  id = 1;  // DB record ID
+   	optional string name = 2;
+   	optional string proces = 3;
+   	optional string group = 4;
+   	optional string daemon= 5;
+   	optional string alive = 6;
+   	optional string stackdump = 7;
+
+
+}
