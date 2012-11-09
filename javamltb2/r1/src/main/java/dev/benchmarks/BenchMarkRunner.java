@@ -1,10 +1,14 @@
 package dev.benchmarks;
 
+import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
+import dev.dump.Dumper;
 
 
 
@@ -21,49 +25,69 @@ import java.util.concurrent.Future;
  * 
  */
 
+public class BenchMarkRunner implements Callable<String> {
 
+	private  ExecutorService threadExecutor = Executors.newCachedThreadPool();
+	private  Future<HashMap<String, HashMap<String, String>>> mapTask;
+	private  Future<HashMap<String, HashMap<String, String>>> listTask;
+	
+	private  HashMap<String, HashMap<String, String>> mapBenchMarks;
+	private  HashMap<String, HashMap<String, String>> listBenchMarks;
+	
+	private StringWriter output = new StringWriter();
+	
+	
+	
+	
 
-public class BenchMarkRunner {
+	@Override
+		public String call() {
 
-	static ExecutorService threadExecutor = Executors.newCachedThreadPool();
-	static Future<HashMap<String, HashMap<String, Long>>> mapTask;
-	static Future<HashMap<String, HashMap<String, Long>>> listTask;
-	static HashMap<String, HashMap<String, Long>> mapBenchMarks;
-	static HashMap<String, HashMap<String, Long>> listBenchMarks;
-
-	public static void getResults() {
-
-		mapTask = threadExecutor.submit(new MapResults());
-		listTask = threadExecutor.submit(new ListResults());
+		mapTask = threadExecutor.submit(new MapResults( new Dumper("Map BenchMarks")));
+		
+		//  java concurrency Future tasks to run collection benchmarks
+				
+		listTask = threadExecutor.submit(new ListResults(new Dumper("List BenchMarks")));
 
 		try {
+						
 			mapBenchMarks = mapTask.get();
+			
 			listBenchMarks = listTask.get();
-
+	
+		
+		HashMap<String, String> hashMapResult = mapBenchMarks.get("hashMap");
+		HashMap<String, String> concurrentMapResult = mapBenchMarks.get("concurrentMap");
+		HashMap<String, String> hashtableResult = mapBenchMarks.get("hashTable");
+		HashMap<String, String> copyOnWriteArrayResult = listBenchMarks.get("copyOnWriteArray");		
+		HashMap<String, String> synchronizedListResult = listBenchMarks.get("synchronizedList");
+		
+		output.append("Java Collection Map Benchmark memory stats: "+"\n");
+		output.append(""+"\n");
+		output.append("hashMap memory: " + hashMapResult.get("memStat"+"\n"));
+		output.append("concurrentMap memory: "+ concurrentMapResult.get("memStat")+"\n");
+		output.append("hashtable memory: " + hashtableResult.get("memStat")+"\n");
+		output.append(""+"\n");
+		output.append("Map Benchmark Thread dump task result:"+"\n"+mapBenchMarks.get("dumpReport"));
+		output.append(""+"\n");
+		
+		
+		output.append("Java Collectiond List Benchmark memory stats: "+"\n");
+		output.append("");
+		output.append("copyOnWriteArray memory: "+ copyOnWriteArrayResult.get("memStat")+"\n");
+		output.append("synchronizedList memory: "+ synchronizedListResult.get("memStat")+"\n"+"\n");
+		output.append("Map Benchmark Thread dump task result:"+"\n"+listBenchMarks.get("dumpReport"));
+		threadExecutor.shutdown();
+		
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
 		
-		HashMap<String, Long> hashMapResult = mapBenchMarks.get("hashMap");
-		HashMap<String, Long> concurrentMapResult = mapBenchMarks.get("concurrentMap");
-		HashMap<String, Long> hashtableResult = mapBenchMarks.get("hashTable");
-		HashMap<String, Long> copyOnWriteArrayResult = listBenchMarks.get("copyOnWriteArray");		
-		HashMap<String, Long> synchronizedListResult = listBenchMarks.get("synchronizedList");
+		return output.toString();
 		
-		System.out.println("Java Collectiond Map Benchmark memory stats: ");
-		System.out.println("");
-		System.out.println("hashMap memory: " + hashMapResult.get("memStat"));
-		System.out.println("concurrentMap memory: "+ concurrentMapResult.get("memStat"));
-		System.out.println( "hashtable memory: " + hashtableResult.get("memStat"));
-		System.out.println("");
-		System.out.println("Java Collectiond List Benchmark memory stats: ");
-		System.out.println("");
-		System.out.println("copyOnWriteArray memory: "+ copyOnWriteArrayResult.get("memStat"));
-		System.out.println("synchronizedList memory: "+ synchronizedListResult.get("memStat"));
-
-		threadExecutor.shutdown();
+		
 
 	}
 
