@@ -10,6 +10,8 @@
  (defn impl-run [array]
    0)
 
+ ;next - create inner mapper/reducer classes. 
+ 
  ;public static void main(String[] args)
  ;ToolRunner.run(new SecondarySort(), args);
  (defn -main [args] (ToolRunner/run(. rudolf.pangool.topicwordcount args)))
