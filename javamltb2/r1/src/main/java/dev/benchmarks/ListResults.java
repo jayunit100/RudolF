@@ -6,6 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+import dev.dump.Dumper;
 
 
 /*  This class obtains the List Benchmark Results
@@ -22,29 +28,47 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 
 
-public class ListResults implements Callable<HashMap<String, HashMap<String, Long>>> {
+public class ListResults implements Callable<HashMap<String, HashMap<String, String>>> {
 	
-	final HashMap<String, HashMap<String, Long>> resultsMap = new HashMap<String, HashMap<String, Long>>();
+	final HashMap<String, HashMap<String, String>> resultsMap = new HashMap<String, HashMap<String, String>>();
+	private final  ExecutorService threadExecutor = Executors.newCachedThreadPool();
+	private final HashMap<String, String> dumpResults = new  HashMap<String, String>();
+	private  Future<String> listDumpTask;
+	
+	public final Dumper dumpTask;
+	
+	public ListResults(final Dumper dumpTask) {
+		super();
+		this.dumpTask = dumpTask;
+	}
 
 	@Override
-	public HashMap<String, HashMap<String, Long>> call() {
-		
+	public HashMap<String, HashMap<String, String>> call() {
+
 		resultsMap.put("copyOnWriteArray", copyOnWriteArrayListResult() );
 		
 		resultsMap.put("synchronizedList", copyOnWriteArrayListResult() );
-	
 		
+		try {
+			dumpResults.put("single" ,listDumpTask.get());
+			
+		} catch (InterruptedException e) {e.printStackTrace();
+		} catch (ExecutionException e) {e.printStackTrace();
+		}
+		resultsMap.put("dumpReport", dumpResults);
+	
+	threadExecutor.shutdown();	
 	return resultsMap;
 	}
 	
 	
-	public HashMap<String, Long> copyOnWriteArrayListResult() {
+	public HashMap<String,String> copyOnWriteArrayListResult() {
 		
-	final HashMap<String, Long> results = new HashMap<String, Long>();
+	final HashMap<String,String> results = new HashMap<String, String>();
 	final CopyOnWriteArrayList<Object> syncList = new CopyOnWriteArrayList<Object>();
 	long mem = 0;
   	int k =1;
-	
+  	listDumpTask = threadExecutor.submit(dumpTask);
   	 for(int i = 0; i< 100; i++) {
   		 
 
@@ -53,16 +77,17 @@ public class ListResults implements Callable<HashMap<String, HashMap<String, Lon
          mem =  mem +  displayMemory();
   		 
   	 }
-	 	results.put("memStat",mem/k);	
-	 	results.put("instStat",(long) k);
+		mem =mem/k;
+	 	results.put("memStat",""+mem/k);	
+	 	results.put("instStat",""+ k);
 	
 	  return results;	
 
 			}
 	
 	
-	public HashMap<String, Long> synchronizedListResult() {
-	final HashMap<String, Long> results = new HashMap<String, Long>();
+	public HashMap<String, String> synchronizedListResult() {
+	final HashMap<String, String> results = new HashMap<String, String>();
 	List<Object> syncList = Collections.synchronizedList(new ArrayList<Object>());
 	long mem = 0;
   	int k =1;
@@ -75,8 +100,9 @@ public class ListResults implements Callable<HashMap<String, HashMap<String, Lon
          mem =  mem +  displayMemory();
   		 
   	 }
-	 	results.put("memStat",mem/k);	
-	 	results.put("instStat",(long) k);
+		mem =mem/k;
+	 	results.put("memStat",""+mem/k);	
+	 	results.put("instStat",""+ k);
 	
 	  return results;	
 
@@ -89,6 +115,5 @@ public class ListResults implements Callable<HashMap<String, HashMap<String, Lon
 	    r.gc(); // gc sweep one is not enough
 	   return r.totalMemory()-r.freeMemory();
 	}
-
 
 }
