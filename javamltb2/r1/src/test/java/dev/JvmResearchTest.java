@@ -45,8 +45,7 @@ public class JvmResearchTest {
 		System.out.println("Running Test 2 Java Collection Benchmarks with Thread Dump:"+"\n");
 		System.out.println("Please wait while running Java Collection Benchmarks may take a minute"+"\n");
 		// run collection benchmarks
-		benchMarkTask = threadExecutor.submit(new BenchMarkRunner());
-		System.out.println("Java Collection Benchmarks results:"+"\n");	
+		benchMarkTask = threadExecutor.submit(new BenchMarkRunner());	
 		System.out.println(benchMarkTask.get());
 		System.out.println("");
 		System.out.println("End  Java Collection Benchmarks with Thread Dump");
