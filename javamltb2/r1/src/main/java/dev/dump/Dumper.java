@@ -1,13 +1,8 @@
 package dev.dump;
 
-import gen.ProtoThreadSerDump;
-import gen.ProtoThreadSerDump.ThreadSerDump;
-
-import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.util.concurrent.Callable;
 
-import dev.derbyutils.DerbyUtils;
 
 /*  This class dumps status on all threads at a specified time in the program 
  *    using  java.util.concurrent.Future
@@ -31,12 +26,12 @@ public class Dumper implements Callable<String> {
 
 	final StringWriter sw;
 	final String runProcess;
-	final int id;
+	
 
-	public Dumper(final String runProcess, final int id) {
+	public Dumper(final String runProcess) {
 		sw = new StringWriter();
 		this.runProcess = runProcess;
-		this.id = id;
+		
 	}
 
 	@Override
@@ -54,7 +49,7 @@ public class Dumper implements Callable<String> {
 
 		int threadCount = topThreadGroup.enumerate(allThreads, true);
 
-		sw.append("JVM Info Aggregrating Thread Groups All Threads Report serialize(protoBuff) to Derby \n");
+		sw.append("JVM Info Aggregrating Thread Groups All Threads Report\n");
 
 		// dump info o all its threads
 		for (Thread th : allThreads) {
@@ -62,13 +57,13 @@ public class Dumper implements Callable<String> {
 			if (th == null)
 				continue;
 
-			dumpToDerby("Top Group Thread" + th.getName(),
+			setReportLine("Top Group Thread" + th.getName(),
 					(th.isDaemon() ? "daemon" : "not daemon "),
 					(th.isAlive() ? "alive" : "dead "), "to group NA",
-					"no stack", runProcess, id, topThreadGroup.getName());
-
+					"no stack", runProcess, topThreadGroup.getName());
 		}
-
+		
+		
 		// find all the child gtoups
 		ThreadGroup[] allGroups = new ThreadGroup[1000];
 
@@ -84,38 +79,31 @@ public class Dumper implements Callable<String> {
 
 				// dump info on all its threads
 				dumpThreadGroupInfo(tg);
-				try {// derby needs time to update
-					Thread.sleep(800);
-				} catch (InterruptedException e) {
+				
 				}
 			}
-		}
-
+		
 		return sw.toString();
 
+		
+	}
+	
+	
+	void setReportLine(String name, String daemon, String alive, String destroyed, String Stack, String process, String group) {
+		
+		sw.append(name+"\n");
+		sw.append(daemon+"\n");
+		sw.append(alive+"\n");
+		sw.append(destroyed+"\n");
+		sw.append(Stack+"\n");
+		sw.append(process+"\n");
 	}
 
-	private void dumpToDerby(String name, String daemon, String alive,
-			String destroyed, String Stack, String process, int id2,
-			String group) {
-
-		int uniqueID = id2 * 100 + id2;
-
-		ThreadSerDump serDump = ProtoThreadSerDump.ThreadSerDump.newBuilder()
-				.setId(uniqueID).setAlive(alive).setDaemon(daemon)
-				.setName(name).setGroup(group).setProces(process)
-				.setStackdump(Stack).build();
-		byte[] store = serDump.toByteArray();
-		int fileLength = store.length;
-		DerbyUtils.setDumpData(uniqueID, fileLength, store);
-
-	}
-
+	
 	// method to report info on child group threads
 	public void dumpThreadGroupInfo(ThreadGroup tg) {
 
-		String parentName = (tg.getParent() == null ? "No Parent" : tg
-				.getName());
+		String parentName = (tg.getParent() == null ? "No Parent" : tg.getName());
 
 		// Dump thread group info.
 
@@ -126,11 +114,10 @@ public class Dumper implements Callable<String> {
 		for (Thread th : allThreads) {
 			if (th == null)
 				continue;
-
-			dumpToDerby("Child Group Thread" + th.getName(),
+			setReportLine("Child Group Thread" + th.getName(),
 					(th.isDaemon() ? "daemon" : "not daemon "),
 					(th.isAlive() ? "alive" : "dead "), "to group NA",
-					"no stack", runProcess, id, tg.getName());
+					"no stack", runProcess, tg.getName());
 		}
 	}
 }
