@@ -11,10 +11,9 @@ import dev.benchmarks.BenchMarkRunner;
 import dev.dump.Dumper;
 
 /**  
- *  This class is the entry point for the benchmarking and optimization code
- * 	results will be stored in an embedded Derby database.
- * 
- * 
+ *  This class is the entry point for the benchmarking and thread dump code
+ *  reports results as a simple screen dump
+ *  
  *  @ dumpTask class dumps status on all threads at a specified time in the program 
  *    using  java.util.concurrent.Future
  * 
@@ -40,19 +39,21 @@ public class JvmResearch {
 		
 		// get initial thread information
 		dumpTask = threadExecutor.submit(new Dumper("Initial Thread state task " ));
-				
+		
+		// report initial thread information		
 		System.out.println("Initial Thread dunp task result:"+dumpTask.get());
 	
 		System.out.println("");
 		System.out.println("Please wait while running Java Collection Benchmarks may take a minute");
 			// run collection benchmarks
 		benchMarkTask = threadExecutor.submit(new BenchMarkRunner());
+		
+		// report benchMarkTask results
 		System.out.println(benchMarkTask.get());
 		System.out.println("");
 		System.out.println("End  Java Collection Benchmarks");
 		System.out.println("");
 
-			// all done drop the database as is just system  test data for now
 		threadExecutor.shutdown();
 
 	}
