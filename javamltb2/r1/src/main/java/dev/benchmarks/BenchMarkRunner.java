@@ -50,7 +50,7 @@ import dev.dump.Dumper;
 public class BenchMarkRunner implements Callable<String> {
 
 	
-	// ExecutorService for lifecycle methods for threads
+	// ExecutorService extends Executor for lifecycle methods for threads
 	// these are the two map and list benchmark threads
 	private  ExecutorService threadExecutor = Executors.newCachedThreadPool();
 	
