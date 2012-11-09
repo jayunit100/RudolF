@@ -134,7 +134,7 @@ public class MapResults implements Callable<HashMap<String, HashMap<String, Stri
 
 			}
 	
-	// this method runs the bench mark for the java.util.HashMap
+	// this method runs the bench mark for the java.util.concurrent.ConcurrentHashMap
 	public HashMap<String, String> concurrentHashMapResult() {
 	// store the results of the benchmark run in this map to return	
 	final HashMap<String, String> results = new HashMap<String, String>();
@@ -162,7 +162,7 @@ public class MapResults implements Callable<HashMap<String, HashMap<String, Stri
 
 			}
 	 
-	
+	// this method runs the bench mark for the java.util.Hashtable
 		public HashMap<String,String> hashTableResult() {
 			// store the results of the benchmark run in this map to return
 			final HashMap<String, String> results = new HashMap<String, String>();
