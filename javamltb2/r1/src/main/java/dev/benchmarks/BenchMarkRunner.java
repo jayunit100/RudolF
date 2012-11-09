@@ -100,7 +100,7 @@ public class BenchMarkRunner implements Callable<String> {
 		// data for maps
 		output.append("Java Collection Map Benchmark memory stats: "+"\n");
 		output.append(""+"\n");
-		output.append("hashMap memory: " + hashMapResult.get("memStat"+"\n"));
+		output.append("hashMap memory: " + hashMapResult.get("memStat")+"\n");
 		output.append("concurrentMap memory: "+ concurrentMapResult.get("memStat")+"\n");
 		output.append("hashtable memory: " + hashtableResult.get("memStat")+"\n");
 		output.append(""+"\n");
