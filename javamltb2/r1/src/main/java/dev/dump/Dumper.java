@@ -101,12 +101,8 @@ public class Dumper implements Callable<String> {
 	// a utility method to write a line in the output report String
 	void setReportLine(String name, String daemon, String alive, String destroyed, String Stack, String process, String group) {
 		
-		sw.append(name+"\n");
-		sw.append(daemon+"\n");
-		sw.append(alive+"\n");
-		sw.append(destroyed+"\n");
-		sw.append(Stack+"\n");
-		sw.append(process+"\n");
+		sw.append(name+": "+daemon+": "+alive+": "+destroyed+": "+process+"\n");
+
 	}
 
 	
