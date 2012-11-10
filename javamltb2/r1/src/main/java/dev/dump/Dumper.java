@@ -4,7 +4,7 @@ import java.io.StringWriter;
 import java.util.concurrent.Callable;
 
 
-/*  This class dumps status on all threads at the time specified time it is called
+/**  This class dumps status on all threads at the time specified time it is called
  *  using  java.util.concurrent.Future
  * 
  *  @ runProcess the name of the process running in the jvm at the time of the dump
@@ -18,6 +18,10 @@ import java.util.concurrent.Callable;
  * dumpThreadGroupInfo() aggregates information for child threads of the parent thread groups
  * 
  * this class can be called at any time in the program to get a snap shot of the running threads
+ * 
+ * Notes on thread terminology used in this class
+ * 
+ * A dameon thread runs behind the application. It is started by JVM. The thread stops when all non-dameon threads stop
  * 
  */
 
