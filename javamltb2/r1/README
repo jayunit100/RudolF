@@ -1,27 +1,22 @@
 Build Instructions
 
-"mvn install"
+1) to build the executable jar type "mvn package"
 
-or
+2) to build and run the tests "mvn install"
 
-"mvn test"
+3) to run the tests "mvn test"
 
 
-The main class JvmResearch.java  uses  sun.misc.Unsafe.class to obtain the 
-allocated memory size in bytes for a range of data structures.
+The main class JvmResearch.java  runs two main processes
 
-It implements the process in a loop and the results are stored in a Bench Mark
-SQL database this object heavy  loop will be optimized for the JIT,  
+1) A simple BenchMark to measure the memory footprint of the 
+thread safe Collection classes in the java.util.concurrent.*
+package
 
-The main class JvmResearchDMA.java uses  sun.misc.Unsafe.class to illustrate
-critical parameters for the underlying C structs for the Java Class and Object 
-definitions used by the JVM. Principally the markers that can be exploited
-to:
+2) A simple Thread aggregation process that collates data on all 
+the threads in the JVM at the time the process is called
 
-1) create java objects off the heap, by copying the memory address and memory bytes 
-of an object on  the heap to a native buffer output address
-
-2) hijack superclass memory address to perform illegal object casts
+	see below for notes on these processes
 
 
 An  initial tool for profiling, tracing and obtaining  stack traces is 
@@ -31,6 +26,30 @@ In the SDK bin directory or anywhere else if your path is set a shell cmd
 "jvisualvm"  will run the VisualVM tool. For the first run the tool calibrates 
 performance so for best results run the tool for the first time as the only 
 process running on your machine.
+
+Notes on process 1)
+
+Many Java developers are in the early stages not only of learning to write concurrent programs
+but in understanding the implications of concurrency for the Java Memory model (JMM). 
+Studying concurrency and the JMM is a good way to discover the subtleties of multithreaded programming.
+For example race conditions. The synchronised maps and lists in the java.util.concurrent.* package
+will help you master the subtleties and become more familiar with the idioms.
+For example we compare some of the "Collections.synchronized" of Java 1.4 classes with the more modern
+java.util.concurrent.* Java 1.5. The "Collections.synchronized" can suffer from a symmetric lock 
+deadlock scenario where two or more threads refuse to release a lock on a resource. The 
+java.util.concurrent.CopyOnWriteArrayList gets around this by cloning a copy of its underlying
+List for every write operation. Does this extra machinery have a significant impact for  JMM
+run the code and discover for yourself!
+
+Notes on process 2)
+
+While there are many heap inspection tools available this is not always as helpful as you may want
+and require command line parameters that can be a pain to implement, or scripts to maintain. See for
+yourself how easy it is to program a thread dump utility in the code that you can call at any point 
+in the program using the Future and Callable interfaces from the java.util.concurrent.* package
+
+
+
 
 
 
