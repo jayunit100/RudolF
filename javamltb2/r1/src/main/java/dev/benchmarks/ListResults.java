@@ -14,12 +14,13 @@ import java.util.concurrent.Future;
 import dev.dump.Dumper;
 
 
-/*   This class obtains the  Benchmark Results for the CopyOnWriteArrayList 
- *   compared to the standard java.util.* Collections. This class spawns 
- *   a thread data aggregation process, this data is returned to the main 
- *   BenchMarkRunner class. At the moment the thread data aggregation only occurs
+/**   This class obtains the  Benchmark results for the ava.util.concurrent.CopyOnWriteArrayList 
+ *   compared to the standard Maps found in the  java.util.* Collections package. 
+ *   This class spawns a thread data aggregation process, this data is returned to the main 
+ *   BenchMarkRunner class as a String. At the moment the thread data aggregation only occurs
  *   in the  copyOnWriteArrayListResult() method for simplicity but it can be called at any 
- *   point in the code
+ *   point in the code using the Future and Callable interfaces in the java.util.concurrent.*
+ *   package.
  * 
  *  @ resultsMap  container for list results stats
  *  
@@ -37,8 +38,8 @@ public class ListResults implements Callable<HashMap<String, HashMap<String, Str
 	
 	final HashMap<String, HashMap<String, String>> resultsMap = new HashMap<String, HashMap<String, String>>();
 	
-	// ExecutorService for lifecycle methods for threads
-	// in this class the threads are spawned for the thread dump aggregating/report
+	// ExecutorService for life-cycle methods for threads
+	// in this class the threads are spawned for the thread dump report
 	private final  ExecutorService threadExecutor = Executors.newCachedThreadPool();	
 	// container for bench mark results will be returned to the BenchMarkRunner Class
 	private final HashMap<String, String> dumpResults = new  HashMap<String, String>();
@@ -146,7 +147,9 @@ public class ListResults implements Callable<HashMap<String, HashMap<String, Str
 	public static long displayMemory() {
 	    Runtime r=Runtime.getRuntime();
 	    r.gc();
-	    r.gc(); // gc sweep one is not enough
+	    r.gc(); // gc sweep one is not enough because some objects will overide finalize() 
+	    //and inside this method the object becomes accessible by a live 
+	    //thread of execution and is not garbage collected
 	   return r.totalMemory()-r.freeMemory();
 	}
 
