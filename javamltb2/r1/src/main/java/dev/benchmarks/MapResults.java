@@ -195,9 +195,11 @@ public class MapResults implements Callable<HashMap<String, HashMap<String, Stri
 			public static long displayMemory() {
 			    Runtime r=Runtime.getRuntime();
 			    r.gc();
-			    r.gc();  // gc sweep one is not enough because some objects will overide finalize() 
-			    //and inside this method the object becomes accessible by a live 
-			    //thread of execution and is not garbage collected
+			    r.gc();  // gc sweep. One is not enough because some objects possibly will over-ride finalize() 
+			    //and if inside this method, the object becomes accessible by a live thread of execution and 
+			    // hence will not be garbage collected. However since this occurred in a finalizer it is the coders 
+			    //intention that this object be garbage collected, however in the JMM the finalize method will 
+			    //not be called again, so we cover for this with the second call
 			   return r.totalMemory()-r.freeMemory();
 			}
 			
