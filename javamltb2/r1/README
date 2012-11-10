@@ -12,13 +12,13 @@ Project Description
 The main class dev.JvmResearch.java  runs two main processes
 
 A simple BenchMark to measure the memory footprint of the  thread safe Collection classes in the java.util.concurrent.* package.
+
 A simple Thread aggregation process that collates data on all the threads in the JVM at the time the process is called
 
 	see * below for notes on these processes
 
 Tools
-An  initial tool for profiling, tracing and obtaining  stack traces is  "Java VisualVM"  a standard tool from 1.6.07 in the java SDK bin directory. In the SDK bin directory or anywhere else if your path is set a shell cmd  "jvisualvm"  will run the VisualVM tool. For the first run the tool calibrates 
-performance so for best results run the tool for the first time as the only  process running on your machine.
+An  initial tool for profiling, tracing and obtaining  stack traces is  "Java VisualVM"  a standard tool from 1.6.07 in the java SDK bin directory. In the SDK bin directory or anywhere else if your path is set a shell cmd  "jvisualvm"  will run the VisualVM tool. For the first run the tool calibrates performance so for best results run the tool for the first time as the only  process running on your machine.
 
  *  Notes on process 1
 
