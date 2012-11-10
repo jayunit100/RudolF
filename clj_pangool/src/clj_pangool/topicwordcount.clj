@@ -1,14 +1,31 @@
-(ns clojure.examples.instance
- (gen-class
+(ns clj_pangool)
+ 
+(gen-class
   :name rudolf.pangool.topicwordcount
-  :implements [com.datasalt.pangool.tuplemr.TupleMapper]
-  :prefix "impl-"
+  :extends [com.datasalt.pangool.tuplemr.BaseExampleJob]
+  :prefix "job-"
   :exposes {conf {:get getConf :set setConf}}
-  :methods [[run int []]]))
+  :methods [[run int []]])
+
+(gen-class
+  :name rudolf.pangool.topicwordcountmapper
+  :implements [com.datasalt.pangool.tuplemr.TupleMapper]
+  :prefix "map-"
+  :methods [[map [org.apache.hadoop.io.LongWritable 
+                  org.apache.hadoop.io.Text 
+                  com.datasalt.pangool.tuplemr.TupleMapper.Collector] void]])
+
+(gen-class
+  :name rudolf.pangool.topicwordcountmapper
+  :implements [com.datasalt.pangool.tuplemr.TupleMapper]
+  :prefix "red-"
+  :methods [[reduce [com.datasalt.pangool.io.ITuple 
+                     java.lang.Iterable 
+                     com.datasalt.pangool.tuplemr.TupleMRBuilder] void]])
 
 ;OVERRIDING 
 ;public int run(String[] args) throws Exception 
-(defn impl-run []
+(defn job-run []
   (if (not (= (length args) 2))
     -1 (run-with args)))
 
