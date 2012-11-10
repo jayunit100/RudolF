@@ -12,12 +12,13 @@ import java.util.concurrent.Future;
 
 import dev.dump.Dumper;
 
-/*   This class obtains the  Benchmark Results for the ConcurrentMap 
- *   compared to the standard java.util.* Collections. This class spawns 
- *   a thread data aggregation process, this data is returned to the main 
- *   BenchMarkRunner class. At the moment the thread data aggregation only occurs
+/**   This class obtains the  Benchmark results for the java.util.concurrent.ConcurrentHashMap 
+ *   compared to the standard Maps found in the  java.util.* Collections package. 
+ *   This class spawns a thread data aggregation process, this data is returned to the main 
+ *    dev.benchmarks.BenchMarkRunner.java class. At the moment the thread data aggregation only occurs
  *   in the  hashMapResult() method for simplicity but it can be called at any 
- *   point in the code
+ *   point in the code using the Future and Callable interfaces in the java.util.concurrent.*
+ *   package.
  * 
  *  @ resultsMap  container for list results stats
  * 
@@ -94,7 +95,7 @@ public class MapResults implements Callable<HashMap<String, HashMap<String, Stri
 		//all tasks finished shut down the threads
 		threadExecutor.shutdown();
 		
-		// return all results to the NenchMarkRunner class
+		// return all results to the dev.benchmarks.BenchMarkRunner.java class
 		return resultsMap;
 		}
 
@@ -194,7 +195,9 @@ public class MapResults implements Callable<HashMap<String, HashMap<String, Stri
 			public static long displayMemory() {
 			    Runtime r=Runtime.getRuntime();
 			    r.gc();
-			    r.gc(); // gc sweep one is not enough
+			    r.gc();  // gc sweep one is not enough because some objects will overide finalize() 
+			    //and inside this method the object becomes accessible by a live 
+			    //thread of execution and is not garbage collected
 			   return r.totalMemory()-r.freeMemory();
 			}
 			
