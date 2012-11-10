@@ -13,9 +13,10 @@ import dev.dump.Dumper;
 
 
 
-/*  This class is the entry point for the benchmarking, it obtains a report String
- *  from the bench mark classes MapResults and ListResults, it then passes this along to the main class
- *  for reporting as a screen dump String. During the benchmarking we poll the thread groups for thread 
+/**  This class is the entry point for the benchmarking, it obtains a report String
+ *  from the bench mark classes dev.benchmarks.MapResults and dev.benchmarks.ListResults, 
+ *  it then passes this along to the main class dev.JvmResearch.java  for reporting as a 
+ *  simple screen dump. During the benchmarking we poll the thread groups for thread 
  *  data and aggregate this into the bench mark report.
  *  
  *  From this class we can measure the memory cost of the java.util.concurrent  Collections
@@ -50,7 +51,7 @@ import dev.dump.Dumper;
 public class BenchMarkRunner implements Callable<String> {
 
 	
-	// ExecutorService extends Executor for lifecycle methods for threads
+	// ExecutorService extends Executor for life-cycle methods for threads
 	// these are the two map and list benchmark threads
 	private  ExecutorService threadExecutor = Executors.newCachedThreadPool();
 	
@@ -59,12 +60,12 @@ public class BenchMarkRunner implements Callable<String> {
 	// java.util.concurrent.Future for running benchmark for  list classes
 	private  Future<HashMap<String, HashMap<String, String>>> listTask;
 	
-	//benchmark results for  map classes
+	//container for benchmark results for  map classes
 	private  HashMap<String, HashMap<String, String>> mapBenchMarks;	
-	//benchmark results for  list classes
+	//container for benchmark results for  list classes
 	private  HashMap<String, HashMap<String, String>> listBenchMarks;
 	
-	// This aggregates the results for reporting to the screen
+	// This aggregates the results as a String  for reporting to the screen
 	private StringWriter output = new StringWriter();
 	
 	
