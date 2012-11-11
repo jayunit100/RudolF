@@ -41,16 +41,27 @@
 
 ; now let's implement Comparable for real
 ; (although note that the implementation is kind of dumb)
+; > (.compareTo (real-comp) 3)
 (defn real-comp
   []
   (proxy [Comparable] []
     (compareTo [other] 1)))
 
+; known 'issues' with proxy:
+;   overloaded methods:  clojure just thinks there's one 
+
 ; create a proxied object
 ;   that uses other proxied objects,
 ;   or takes them as parameters
+; TODO
+(defn real-comp
+  []
+  (proxy [Comparable] []
+    (compareTo [other] 1)))
 
-(defn -main
-  [hmm]
-  (println (str "hi?" hmm " or something")))
-
+; Nesting proxies. 
+(defn comp-hash-map
+  []
+  (new java.util.TreeSet 
+    (proxy [java.util.Comparator] [] 
+       (compare [a b] (- (.hashCode a) (.hashCode b))))))
