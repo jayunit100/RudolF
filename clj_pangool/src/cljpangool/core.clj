@@ -1,4 +1,4 @@
-(ns clj-pangool.core)
+(ns cljpangool.core)
 
 (defn -main
   "I don't do a whole lot."

@@ -1,4 +1,4 @@
-(ns clj_pangool)
+(ns cljpangool)
  
 (gen-class
   :name rudolf.pangool.topicwordcount
@@ -36,20 +36,21 @@
 (defn run-with [input output]
   (let [fields (. java.util.ArrayList) 
         _ (doto fields 
-  		      (.add create com.datasalt.pangool.io.Fields/create "intField" (com.datasalt.pangool.io.Schema.Field.Type/valueOf "INT")
+  		      (.add )
 	  	      (.add create com.datasalt.pangool.io.Fields/create "strField" (com.datasalt.pangool.io.Schema.Field.Type/valueOf "STRING")
 		        (.add create com.datasalt.pangool.io.Fields/create "longField" (com.datasalt.pangool.io.Schema.Field.Type/valueOf "LONG")
-		        (.add create com.datasalt.pangool.io.Fields/create "doubleField" (com.datasalt.pangool.io.Schema.Field.Type/valueOf "DOUBLE"))))))
+		        (.add create com.datasalt.pangool.io.Fields/create "doubleField" (com.datasalt.pangool.io.Schema.Field.Type/valueOf "DOUBLE")))))
         schema (. com.datasalt.pangool.io.Schema fields)
         mr (. com.datasalt.pangool.io.TupleMRBuilder (getConf) "Pangool Secondary Sort (clojure)")]
         _  (doto mr 
              (addIntermediateSchema schema)
              (setGroupByFields "intField" "strField")
-             ;mapreduce
+
              (addInput (org.apache.hadoop.fs.Path input) 
                (get-mapper))
              (setTupleReducer 
                (get-reducer))
+
              (setOutput (org.apache.hadoop.fs.Path output) 
                (. mapred.lib.output.HadoopOutputFormat output) 
                (. (org.apache.hadoop.io.Text/class) )
