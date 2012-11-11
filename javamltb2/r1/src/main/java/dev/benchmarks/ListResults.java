@@ -15,7 +15,7 @@ import dev.dump.Dumper;
 
 
 /**   This class obtains the  Benchmark results for the ava.util.concurrent.CopyOnWriteArrayList 
- *   compared to the standard Maps found in the  java.util.* Collections package. 
+ *   compared to the standard Lists found in the  java.util.* Collections package. 
  *   This class spawns a thread data aggregation process, this data is returned to the main 
  *   BenchMarkRunner class as a String. At the moment the thread data aggregation only occurs
  *   in the  copyOnWriteArrayListResult() method for simplicity but it can be called at any 
@@ -147,11 +147,10 @@ public class ListResults implements Callable<HashMap<String, HashMap<String, Str
 	public static long displayMemory() {
 	    Runtime r=Runtime.getRuntime();
 	    r.gc();
-	    r.gc();// gc sweep. One is not enough because some objects possibly will over-ride finalize() 
-	    //and if inside this method, the object becomes accessible by a live thread of execution and 
-	    // hence will not be garbage collected. However since this occurred in a finalizer it is the coders 
-	    //intention that this object be garbage collected, however in the JMM the finalize method will 
-	    //not be called again, so we cover for this with the second call
+	    r.gc();	//Two  gc sweep required. One is not enough because some objects possibly will over-ride finalize() 
+	    		//and if as a result the object becomes accessible by a live thread it will not be garbage collected. 
+	    		//As this occurred in a finalizer method the object still needs to be garbage collected, however in the 
+	    		//JMM the finalize method will not be called again, so we cover for this with the second gc() call.
 	   return r.totalMemory()-r.freeMemory();
 	}
 
