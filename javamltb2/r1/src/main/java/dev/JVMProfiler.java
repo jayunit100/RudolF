@@ -10,7 +10,6 @@ import java.lang.management.ThreadMXBean;
 import java.util.List;
 
 public class JVMProfiler {
-
 	public static void main(String[] args) {
 		
 		RuntimeMXBean mxbean = ManagementFactory.getRuntimeMXBean();	
@@ -24,23 +23,16 @@ public class JVMProfiler {
 	     List<MemoryPoolMXBean> pools = ManagementFactory.getMemoryPoolMXBeans();
          for (MemoryPoolMXBean pool : pools) {
            MemoryUsage peak = pool.getPeakUsage();
-           System.out.printf("Peak %s memory used: %,d%n", pool.getName(), peak.getUsed());
-           
+           System.out.printf("Peak %s memory used: %,d%n", pool.getName(), peak.getUsed());          
            System.out.printf("Peak %s memory reserved: %,d%n", pool.getName(), peak.getCommitted());
          }
-
-         List<GarbageCollectorMXBean> gcbeans = ManagementFactory.getGarbageCollectorMXBeans();
-		
-         for (GarbageCollectorMXBean gc : gcbeans) {
-        	 
-        	 System.out.println("gc name"+ gc.getName()); 
-        	 
-        	 for (String s : gc.getMemoryPoolNames())  System.out.println(s);
-        	 
-        	 
+         List<GarbageCollectorMXBean> gcbeans = ManagementFactory.getGarbageCollectorMXBeans();		
+         for (GarbageCollectorMXBean gc : gcbeans) {        	 
+        	 System.out.println("gc name"+ gc.getName());       	 
+        	 for (String s : gc.getMemoryPoolNames())  System.out.println(s);        	       	 
          }
 		
-	
+
 	}
 
 }
