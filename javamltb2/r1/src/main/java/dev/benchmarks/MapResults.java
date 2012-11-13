@@ -12,7 +12,7 @@ import java.util.concurrent.Future;
 
 import dev.dump.Dumper;
 
-/**   This class obtains the  Benchmark results for the java.util.concurrent.ConcurrentHashMap 
+/**   This class obtains the  new Benchmark results for the java.util.concurrent.ConcurrentHashMap 
  *   compared to the standard Maps found in the  java.util.* Collections package. 
  *   This class spawns a thread data aggregation process, this data is returned to the main 
  *    dev.benchmarks.BenchMarkRunner.java class. At the moment the thread data aggregation only occurs
