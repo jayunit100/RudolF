@@ -1,17 +1,18 @@
 package dev.benchmarks;
 
-/**  This class is the SuperClass point for the Bench Mark Classes, it obtains a report String
- *  from the bench mark classes dev.benchmarks.MapResults and dev.benchmarks.ListResults, 
- *  it then passes this along to the main class dev.JvmResearch.java  for reporting as a 
- *  simple screen dump. During the benchmarking we poll the thread groups for thread 
- *  data and aggregate this into the bench mark report.
- *  
- *  From this class we can measure the memory cost of the java.util.concurrent  Collections
- *  CopyOnWriteArrayList and ConcurrentMap compared to the standard Collections classes
- * 
- *  From this class we can gain understanding of concurrency and its implications for the Java Memory Model
- *  
- *  @ mapTask is  benchmark thread for concurrent map
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.net.URL;
+import java.util.Collection;
+import java.util.Map;
+
+/**  This class is the SuperClass for the Bench Mark Classes
  * 
  *
  * 
@@ -22,7 +23,40 @@ package dev.benchmarks;
 public class BenchMarkBase {
 	
 	
+	static int SIZE = 40;
+	long start=0L;
+
+
+	public static void populateMap(Map m){
+		for(int i = 0 ; i < SIZE; i++){
+			m.put("a string", "a string");
+		}
+	}
 	
+	public static void populate(Collection c){
+		for(int i = 0 ; i < SIZE; i++){
+			c.add("a string");
+		}
+	}
+	
+
+	protected  void  getFreeMemory(int i)  {
+		System.out.println(i+": "+Runtime.getRuntime().freeMemory());
+		
+			
+	}
+	
+	
+	// get the memory footprint of the map at a point in the loop
+	protected  static long displayMemoryRuntime() {
+	    Runtime r=Runtime.getRuntime();
+	    r.gc();
+	    r.gc();	//Two  gc sweep required. One is not enough because some objects possibly will over-ride finalize() 
+	    		//and if as a result the object becomes accessible by a live thread it will not be garbage collected. 
+	    		//As this occurred in a finalizer method the object still needs to be garbage collected, however in the 
+	    		//JMM the finalize method will not be called again, so we cover for this with the second gc() call.
+	   return r.totalMemory()-r.freeMemory();
+	}
 	
 	
 
