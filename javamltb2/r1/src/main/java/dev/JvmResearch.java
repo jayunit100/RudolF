@@ -5,22 +5,20 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import dev.benchmarks.BenchMarkRunner;
+import dev.benchmarks.ListBenchMark;
+import dev.benchmarks.MapBenchMark;
 import dev.dump.Dumper;
 
 /**  
  *  This class is the entry point for the benchmarking and thread dump code
  *  
- *  This class aggregates data(Strings) from dev.benchmarks.BenchMarkRunner and dev.dump.Dumper
  *  
- *  it reports the results (Strings) for both the thread dump and benchmarks as a simple screen dump
+ *  it reports the results (Strings) for  benchmarks as a simple screen dump
  *  
- *  @ dumpTask class dumps status on all threads at a specified time in the program 
- *    using  java.util.concurrent.Future. Using the "java.util.concurrent.Executors"
- *    interfaces Future and Callable the thread dump can be called at any time in the program
+ *  @ ListBenchMark runs the simple ListBenchMarks
+ *  @ MapBenchMark  Bench Marks for Java Collection Data Structures 
  * 
- *  @ benchMarkTask  Bench Marks for Java Collection Data Structures 
- * 
- * The Strings from dev.benchmarks.BenchMarkRunner show the  memory footprint for implementations of 
+ * The Classes show the  memory footprint for implementations of 
  * java.util.concurrent.ConcurrentHashMap and java.util.concurrent.CopyOnWriteArrayList compared to the 
  * standard maps and lists in java.util.*
  * 
@@ -49,34 +47,16 @@ public class JvmResearch {
 	public static void main(String[] args) throws Exception {
 
 
-		// java concurrency thread container
-		ExecutorService threadExecutor = Executors.newCachedThreadPool();
+		ListBenchMark listBenchMark = new ListBenchMark();
 		
-		// java concurrency Future task to obtain a thread dump
-		Future<String> dumpTask;
+		listBenchMark.runSimpleArrayList();
 		
-		//  java concurrency Future task to run collection benchmarks
-		Future<String> benchMarkTask;
+		listBenchMark.runSimpleVectorTest();
 		
-		// method submit extends Executor.execute(java.lang.Runnable) to create and return a Future
-		// gere we use it with the Dumper class to get initial thread information
-		dumpTask = threadExecutor.submit(new Dumper("Initial Thread state task " ));
+		listBenchMark.runSynchronisedListComparisonTest();
 		
-		// report initial thread information		
-		System.out.println("Initial Thread dunp task result:"+dumpTask.get());
-	
-		System.out.println("");
-		System.out.println("Please wait while running Java Collection Benchmarks may take a minute");
-			// run collection benchmarks
-		benchMarkTask = threadExecutor.submit(new BenchMarkRunner());
+		MapBenchMark mapBenchMark  = new   MapBenchMark();
 		
-		// report benchMarkTask results
-		System.out.println(benchMarkTask.get());
-		System.out.println("");
-		System.out.println("End  Java Collection Benchmarks");
-		System.out.println("");
-
-		threadExecutor.shutdown();
-
+		mapBenchMark.getMapResults();
 	}
 }
