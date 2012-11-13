@@ -25,7 +25,7 @@ public class Example1 {
 			List<String> l = new ArrayList<String>();
 			l.add("A string");
 			myListHolder.add(l);
-			System.gc(); //<-- Auxillary question: Nigel - why is this call necessary to get a clear value for "freeMemory"?
+		//	System.gc(); //<-- Auxillary question: Nigel - why is this call necessary to get a clear value for "freeMemory"?
 			System.out.println(i+": "+Runtime.getRuntime().freeMemory());
 		}
 	}
