@@ -87,23 +87,21 @@ public class JvmResearchTest {
 
 		System.out.println("Stage 2 Tests Profile");
 		
-		
-		ListBenchMark listBenchMark = new ListBenchMark();
-		
-		listBenchMark.runSimpleArrayList();
-		
-		listBenchMark.runSimpleVectorTest();
-		
-		listBenchMark.runSynchronisedListComparisonTest();
-		
-		
-		MapBenchMark mapBenchMark  = new   MapBenchMark();
-		
-		mapBenchMark.getMapResults();
+		JVMProfiler.main(new String[] { "arg1" });
+	
 
 			}
 	
 	
+	public static void stageThreeTestNewCode() throws Exception {
+
+
+		System.out.println("Stage 2 Tests Profile");
+		
+		StackProfiler.main(new String[] { "arg1" });
+	
+
+			}
 	
 	
 	}
