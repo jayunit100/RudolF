@@ -10,17 +10,28 @@ public class TestDumper {
 	@Test
 	public void test1()  throws Exception {
 		
-		JvmResearchTest.stageTwoTestNewCode();
+		JvmResearchTest.stageOneTestNewCode();
 	}
 	
 	
 	@Test
 	public void test2()  throws Exception {
 		
-		 JVMProfiler.main(new String[] { "arg1" });
+		JvmResearchTest.stageTwoTestNewCode(); 
 		
 
 	}
+	
+
+	@Test
+	public void test3()  throws Exception {
+		
+		JvmResearchTest.stageThreeTestNewCode(); 
+		
+
+	}
+	
+	
 	
 	
 }
