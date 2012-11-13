@@ -1,6 +1,7 @@
 package dev;
 
 import java.lang.instrument.Instrumentation;
+import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryPoolMXBean;
 import java.lang.management.MemoryUsage;
@@ -28,9 +29,16 @@ public class JVMProfiler {
            System.out.printf("Peak %s memory reserved: %,d%n", pool.getName(), peak.getCommitted());
          }
 
-   
+         List<GarbageCollectorMXBean> gcbeans = ManagementFactory.getGarbageCollectorMXBeans();
 		
-		
+         for (GarbageCollectorMXBean gc : gcbeans) {
+        	 
+        	 System.out.println("gc name"+ gc.getName()); 
+        	 
+        	 for (String s : gc.getMemoryPoolNames())  System.out.println(s);
+        	 
+        	 
+         }
 		
 	
 	}
