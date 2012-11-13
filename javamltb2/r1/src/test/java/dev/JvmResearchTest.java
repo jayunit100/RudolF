@@ -5,6 +5,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import dev.benchmarks.BenchMarkRunner;
+import dev.benchmarks.ListBenchMark;
+import dev.benchmarks.MapBenchMark;
 import dev.dump.Dumper;
 
 /* 
@@ -54,6 +56,50 @@ public class JvmResearchTest {
 		System.out.println("End Tests "+"\n");
 			// all done drop the database as is just system  test data for now
 		threadExecutor.shutdown();
+
+			}
+	
+	public static void stageOneTestNewCode() throws InterruptedException, ExecutionException {
+
+
+		System.out.println("Stage 1 Tests Bench Marks");
+		
+		
+		ListBenchMark listBenchMark = new ListBenchMark();
+		
+		listBenchMark.runSimpleArrayList();
+		
+		listBenchMark.runSimpleVectorTest();
+		
+		listBenchMark.runSynchronisedListComparisonTest();
+		
+		
+		MapBenchMark mapBenchMark  = new   MapBenchMark();
+		
+		mapBenchMark.getMapResults();
+
+			}
+	
+	
+	
+	public static void stageTwoTestNewCode() throws InterruptedException, ExecutionException {
+
+
+		System.out.println("Stage 2 Tests Profile");
+		
+		
+		ListBenchMark listBenchMark = new ListBenchMark();
+		
+		listBenchMark.runSimpleArrayList();
+		
+		listBenchMark.runSimpleVectorTest();
+		
+		listBenchMark.runSynchronisedListComparisonTest();
+		
+		
+		MapBenchMark mapBenchMark  = new   MapBenchMark();
+		
+		mapBenchMark.getMapResults();
 
 			}
 	
