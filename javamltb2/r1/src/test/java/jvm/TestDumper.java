@@ -2,6 +2,7 @@ package jvm;
 
 import org.junit.Test;
 
+import dev.JVMProfiler;
 import dev.JvmResearchTest;
 
 public class TestDumper {
@@ -9,14 +10,16 @@ public class TestDumper {
 	@Test
 	public void test1()  throws Exception {
 		
-		JvmResearchTest.stageOneTest();
+		JvmResearchTest.stageTwoTestNewCode();
 	}
 	
 	
 	@Test
 	public void test2()  throws Exception {
 		
-		JvmResearchTest.stageTwoTest();
+		 JVMProfiler.main(new String[] { "arg1" });
+		
+
 	}
 	
 	
