@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import dev.benchmarks.ListBenchMark;
 import dev.benchmarks.MapBenchMark;
+import dev.benchmarks.SynchronizerBenchMark;
 import dev.dump.Dumper;
 
 /* 
@@ -37,7 +38,12 @@ public class JvmResearchTest {
 		MapBenchMark mapBenchMark  = new   MapBenchMark();
 		
 		mapBenchMark.getMapResults();
-
+		
+		SynchronizerBenchMark  synchBenchMark   =  new  SynchronizerBenchMark ();
+		
+		synchBenchMark.syncMethod();
+		synchBenchMark.syncCodeBlock();
+		synchBenchMark.syncCodeBlockWithVolatile();
 			}
 	
 	
@@ -62,6 +68,10 @@ public class JvmResearchTest {
 	
 
 			}  
+	
+	
+	
+	
 	
 	
 	}
