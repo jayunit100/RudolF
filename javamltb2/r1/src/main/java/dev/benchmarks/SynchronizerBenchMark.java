@@ -23,7 +23,7 @@ public class SynchronizerBenchMark extends BenchMarkBase {
 	volatile int volatileInt = 0;
 	
 	
-
+	//Synchronized Method
 	public synchronized void  syncMethod() {
 		long a = System.currentTimeMillis(); 		
 	     for (int i=0; i<1000000; i++)   {
@@ -32,7 +32,8 @@ public class SynchronizerBenchMark extends BenchMarkBase {
             System.out.println("Synchronized Method "+(System.currentTimeMillis()-a)+"s");
 	
 	}
-		
+	
+	// Synchronized Block
 	public void syncCodeBlock() {
 		long a = System.currentTimeMillis();
 		//synchronized statement
@@ -47,7 +48,7 @@ public class SynchronizerBenchMark extends BenchMarkBase {
 	
 	}
 	
-	
+	//Synchronized Block with Volatile field
 	public void syncCodeBlockWithVolatile() {
 		long a = System.currentTimeMillis();
 		//synchronized statement
