@@ -4,12 +4,22 @@ import dev.benchmarks.ListBenchMark;
 import dev.benchmarks.MapBenchMark;
 
 /**  
- *  This class is the entry point for the benchmarking and thread dump code
+ *  This class is the entry point for the benchmarking.
  *  
+ *  See JVMProfiler.java for heap profile code.
  *  
- *  it reports the results (Strings) for  benchmarks as a simple screen dump
+ *  See StackProfiler.java for heap profile code.
+ *  
+ *  it runs the  benchmarks as a series.
  *  
  *  @ ListBenchMark runs the simple ListBenchMarks
+ *  
+ *  from the ListBenchMarks we learn about the memory footprints of Collections and the 
+ *  cost in performance terms of synchronization.
+ *  
+ *  Highlights of List BenchMarks synchronization results include comparing the cost of 
+ *  implementing CopyOnWriteArrayList to Collections.synchronizedList and Vector to Array List
+ *  
  *  @ MapBenchMark  Bench Marks for Java Collection Data Structures 
  * 
  * The Classes show the  memory footprint for implementations of 
@@ -23,7 +33,7 @@ import dev.benchmarks.MapBenchMark;
  * The collection internally copies its contents over to a new array upon any modification, so readers 
  * accessing the contents of the array incur no synchronization costs (because they're never operating on mutable data)."
  * 
- * The List BenchMarks compare the cost of implementing CopyOnWriteArrayList to Collections.synchronizedList
+ * 
  * 
  * Map hosts a subtle concurrency bug. When a Map is accessed from multiple threads, the use of either containsKey() or get() 
  * to find out whether a given key is present before storing the key/value pair allows for another thread 
