@@ -2,6 +2,8 @@ package dev;
 
 import dev.benchmarks.ListBenchMark;
 import dev.benchmarks.MapBenchMark;
+import dev.benchmarks.MemoryBarrierBenchMark;
+import dev.benchmarks.SynchronizerBenchMark;
 
 /**  
  *  This class is the entry point for the benchmarking.
@@ -62,5 +64,16 @@ public class JvmResearch {
 		MapBenchMark mapBenchMark  = new   MapBenchMark();
 		
 		mapBenchMark.getMapResults();
+		
+		SynchronizerBenchMark  synchBenchMark   =  new  SynchronizerBenchMark ();
+		
+		synchBenchMark.syncMethod();
+		synchBenchMark.syncCodeBlock();
+		synchBenchMark.syncCodeBlockWithVolatile();
+		
+		MemoryBarrierBenchMark  memoryBarrierBenchMark   =  new  MemoryBarrierBenchMark ();
+		memoryBarrierBenchMark.compareSynchronizedToBarrier();
+		
+		
 	}
 }
