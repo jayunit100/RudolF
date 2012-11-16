@@ -73,6 +73,7 @@ public class JvmResearch {
 		
 		MemoryBarrierBenchMark  memoryBarrierBenchMark   =  new  MemoryBarrierBenchMark ();
 		memoryBarrierBenchMark.compareSynchronizedToBarrier();
+		memoryBarrierBenchMark.compareInLineToBarrier();
 		
 		
 	}
