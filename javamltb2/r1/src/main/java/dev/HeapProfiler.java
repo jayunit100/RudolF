@@ -38,7 +38,8 @@ public class HeapProfiler {
 	
 	private static SoftReferenceObjectPool<String[]> pool;
 	private static long freeMemory;
-	private static final  String nestedLeak = "leak";
+	private static  final String nestedLeak = "leak";
+	private static volatile String volatileLeak = "leak";
 
 	public static void main(String[] args) throws Exception {
 			// get the runtime
@@ -49,10 +50,10 @@ public class HeapProfiler {
 		   for (int i = 0 ; i < 1000 ; i++)  pool.addObject();   // put 100 objects in pool
 	  
 		   freeMemory = runtime.freeMemory();
-		   System.out.println(" free memory no System.gc "+freeMemory);
+		   System.out.println("free memory no System.gc "+freeMemory);
 		   System.gc();
 		   freeMemory = runtime.freeMemory();
-		   System.out.println(" free memory with System.gc "+freeMemory);		   
+		   System.out.println("free memory with System.gc "+freeMemory);		   
 		   // clear the pool
 		   pool.clear();
 		   pool = null;	
@@ -63,13 +64,30 @@ public class HeapProfiler {
 		   for (int i = 0 ; i < 1000 ; i++) pool.addObject();	    // put 100 leaky objects in pool
 
 		   freeMemory = runtime.freeMemory();
-		   System.out.println(" nested free memory no System.gc "+freeMemory);
+		   System.out.println("nested free memory no System.gc "+freeMemory);
 		   System.gc();
 		   freeMemory = runtime.freeMemory();
-		   System.out.println(" nested free memory with System.gc "+freeMemory);	   
+		   System.out.println("nested free memory with System.gc "+freeMemory);	   
 		   // clear the pool
 		   pool.clear();  		   
 		   pool = null;	
+		   
+		   System.gc();
+		   System.gc();
+		   pool = new SoftReferenceObjectPool<String[]>(new VolatileFieldObjectFactory());
+		   		  
+		   for (int i = 0 ; i < 1000 ; i++) pool.addObject();	    // put 100 leaky objects in pool
+
+		   freeMemory = runtime.freeMemory();
+		   System.out.println("volatile free memory no System.gc "+freeMemory);
+		   System.gc();
+		   freeMemory = runtime.freeMemory();
+		   System.out.println("volatile free memory with System.gc "+freeMemory);	   
+		   // clear the pool
+		   pool.clear();  		   
+		   pool = null;
+		   
+		   
 	}
 	
 	// make a factory for small pool objects
@@ -80,37 +98,21 @@ public class HeapProfiler {
 				String[] obj = new String[1];			
 				obj[0] = "leak";
 				return obj;
-				}
+				}		  
 			  
-			  
 			@Override
-			public void activateObject(String[] arg0) throws Exception {
-				// TODO Auto-generated method stub
-				
-			}
+			public void activateObject(String[] arg0) throws Exception {}
 		
 			@Override
-			public void destroyObject(String[] arg0) throws Exception {
-				// TODO Auto-generated method stub
-				
-			}
-		
-		
-		
+			public void destroyObject(String[] arg0) throws Exception {}
+
 			@Override
-			public void passivateObject(String[] arg0) throws Exception {
-				// TODO Auto-generated method stub
-				
-			}
+			public void passivateObject(String[] arg0) throws Exception {}
 		
 			@Override
 			public boolean validateObject(String[] arg0) {
-				// TODO Auto-generated method stub
 				return false;
-			}
-			  
-			  
-		
+			}	
 	  
 	  }
 
@@ -119,41 +121,46 @@ public class HeapProfiler {
 			@Override
 			public String[] makeObject() throws Exception {
 				 String[] obj = new String[1];	 
-				obj[0] = nestedLeak;
-				return obj;
+				 obj[0] = nestedLeak;
+				 return obj;
 			}
 
+		@Override
+		public void activateObject(String[] arg0) throws Exception {	}
+		@Override
+		public void destroyObject(String[] arg0) throws Exception {					}
 
 		@Override
-		public void activateObject(String[] arg0) throws Exception {
-			// TODO Auto-generated method stub
-			
-		}
-
-
-		@Override
-		public void destroyObject(String[] arg0) throws Exception {
-			// TODO Auto-generated method stub
-			
-		}
-
-
-		@Override
-		public void passivateObject(String[] arg0) throws Exception {
-			// TODO Auto-generated method stub
-			
-		}
-
+		public void passivateObject(String[] arg0) throws Exception {}
 
 		@Override
 		public boolean validateObject(String[] arg0) {
-			// TODO Auto-generated method stub
 			return false;
 		}
 		          }
 	  
-	  
-	  
+	  static class VolatileFieldObjectFactory implements PoolableObjectFactory<String[]> {
+		   
+			@Override
+			public String[] makeObject() throws Exception {
+				 String[] obj = new String[1];	 
+				 obj[0] = volatileLeak;
+				 return obj;
+			}
+
+		@Override
+		public void activateObject(String[] arg0) throws Exception {	}
+		@Override
+		public void destroyObject(String[] arg0) throws Exception {					}
+
+		@Override
+		public void passivateObject(String[] arg0) throws Exception {}
+
+		@Override
+		public boolean validateObject(String[] arg0) {
+			return false;
+		}
+		          }
 	  
 	  
 }
