@@ -55,7 +55,8 @@ public class ListBenchMark extends BenchMarkBase {
 	 * What happens when the JVM attempts to synchronize() a method call? 
 	 * How long does this take? How many operations does it involve?
 	 * 
-	 *  The vector is a synchronized class shows the effects of the extra operations
+	 *  The vector is a synchronized class shows the effects of the extra operations, however 
+	 *  in a method like this , may be inlined and these extra operations can be removed
 	 */	
 	public void runSimpleVectorTest() {
 	
