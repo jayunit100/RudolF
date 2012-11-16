@@ -4,10 +4,37 @@ import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
 import java.util.List;
 
+
+/**   This class attempts to profile the Java Stack
+ * 
+ * 	@CustomThread This class generates types of this thread, that then call a recursive method
+ *  to repeatedly class the stack to generate a stack overflow
+ * 
+ * 	@minRecursion statistic for the minimum number of recursions before a stack overflow 
+ * 
+ * 	@minRecursion statistic for the maximum number of recursions before a stack overflow 
+ *    
+ *  @gcbeans  Collection of java.lang.management.* GarbageCollectorMXBeans
+ *  
+ * 	@getGcSum() generates a count statistic of the number of times the gc is called
+ * 
+ *  from this class we can learn, the number of method calls the stack can handle and
+ *  the number of threads the System runtime can generate before an out of memory error
+ * 	 
+ * 
+ */
+
+
+
+
 public class StackProfiler implements Runnable {
 	
+	
+	 //recursion statistics
 	 int minRecursion = Integer.MAX_VALUE;
 	 int maxRecursion = 0;
+	 
+	 //GarbageCollectorMXBeans implement the management interface for the garbage collection
 	 List<GarbageCollectorMXBean> gcbeans = ManagementFactory.getGarbageCollectorMXBeans();	
 	
 	public static void main(String[] args) throws Exception {				
@@ -16,6 +43,7 @@ public class StackProfiler implements Runnable {
 		
 	}
 	
+	// generate threads to try and create a Stack overflow error
     public void run() {
         int i=0;
         long start = System.currentTimeMillis();
@@ -37,7 +65,7 @@ public class StackProfiler implements Runnable {
         System.out.println("Threads per second: "+ tps);
     }
 	
-	
+	// count the gc calls
     private int getGcSum() {
         int sum = 0;
         for (GarbageCollectorMXBean mb : gcbeans) {
@@ -45,7 +73,9 @@ public class StackProfiler implements Runnable {
         }
         return sum;
     }
+   
     
+    // custom thread that uses a recursive function to repeatedly call the stack to generate a Stack overflow
  public class CustomThread extends Thread {
         
         protected CustomThread(String name) {
