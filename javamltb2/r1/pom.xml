@@ -59,49 +59,10 @@
                <target>1.6</target>
              </configuration>
            </plugin>
-           <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<mainClass>dev.JvmResearch</mainClass>
-							<classpathPrefix>dependency-jars/</classpathPrefix>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-           	<plugin>
-                <groupId>org.dstovall</groupId>
-                <artifactId>onejar-maven-plugin</artifactId>
-                <version>1.4.4</version>
-                <executions>
-                    <execution>
-                        <configuration>
-                            <!-- Optional -->
-                            <onejarVersion>0.97</onejarVersion>
-                            <!-- Optional, default is false -->
-                            <attachToBuild>true</attachToBuild>
-                            <!-- Optional, default is "onejar" -->
-                            <classifier>onejar</classifier>
-                             <filename>JvmResearch.jar</filename>
-                        </configuration>
-                        <goals>
-                            <goal>one-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>  
+           
         </plugins>
     </build>
     
-  <pluginRepositories>
-        <pluginRepository>
-            <id>onejar-maven-plugin.googlecode.com</id>
-            <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
-        </pluginRepository>
-    </pluginRepositories>
+  
 
 </project>
