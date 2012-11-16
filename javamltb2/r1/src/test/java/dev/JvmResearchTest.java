@@ -45,24 +45,24 @@ public class JvmResearchTest {
 	public static void stageTwoTestNewCode() throws InterruptedException, ExecutionException {
 
 
-		System.out.println("Stage 2 Tests Profile");
+		System.out.println("Stage 2 Tests Main Profile");
 		
 		JVMProfiler.main(new String[] { "arg1" });
 	
 
 			}
 	
-/*
+
 	public static void stageThreeTestNewCode() throws Exception {
 
 
-		System.out.println("Stage 2 Tests Profile");
+		System.out.println("Stage 2 Tests Heap Profile");
 		
-		StackProfiler.main(new String[] { "arg1" });
+		HeapProfiler.main(new String[] { "arg1" });
 	
 
 			}  
 	
-	*/
+	
 	}
 

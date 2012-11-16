@@ -22,14 +22,14 @@ public class TestDumper {
 
 	}
 	
-/*
+
 	@Test
 	public void test3()  throws Exception {
 		
 		JvmResearchTest.stageThreeTestNewCode(); 
 		
 
-	}   */
+	}   
 	
 	
 	
