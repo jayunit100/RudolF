@@ -9,6 +9,14 @@ public class MapBenchMark extends BenchMarkBase {
 	
 	/**   This class obtains the  new Benchmark results for the java.util.concurrent.ConcurrentHashMap 
 	 *   compared to the standard Maps found in the  java.util.* Collections package. 
+	 *   
+	 *   @getMapResults() compares the cost for synchronization for the 1.5  synchronized Maps
+	 *   compared to the Java 1.4  synchronized HashTable. These are compared to the 
+	 *   unsynchronized HashMap.
+	 *   
+	 *   in this class we learn that the 1.5  synchronized Maps reduce the cost of synchronization over 
+	 *   HashTable 
+	 *   
 	 */
 
 	
