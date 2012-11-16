@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import dev.benchmarks.ListBenchMark;
 import dev.benchmarks.MapBenchMark;
+import dev.benchmarks.MemoryBarrierBenchMark;
 import dev.benchmarks.SynchronizerBenchMark;
 import dev.dump.Dumper;
 
@@ -44,6 +45,9 @@ public class JvmResearchTest {
 		synchBenchMark.syncMethod();
 		synchBenchMark.syncCodeBlock();
 		synchBenchMark.syncCodeBlockWithVolatile();
+		
+		MemoryBarrierBenchMark  memoryBarrierBenchMark   =  new  MemoryBarrierBenchMark ();
+		memoryBarrierBenchMark.compareSynchronizedToBarrier();
 			}
 	
 	
