@@ -52,7 +52,7 @@ public class JvmResearchTest {
 
 			}
 	
-	
+/*
 	public static void stageThreeTestNewCode() throws Exception {
 
 
@@ -61,8 +61,8 @@ public class JvmResearchTest {
 		StackProfiler.main(new String[] { "arg1" });
 	
 
-			}
+			}  
 	
-	
+	*/
 	}
 

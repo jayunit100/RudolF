@@ -8,7 +8,7 @@ import java.util.List;
 /**   This class attempts to profile the Java Stack
  * 
  * 	@CustomThread This class generates types of this thread, that then call a recursive method
- *  to repeatedly class the stack to generate a stack overflow
+ *  to repeatedly call the stack to generate a stack overflow
  * 
  * 	@minRecursion statistic for the minimum number of recursions before a stack overflow 
  * 
