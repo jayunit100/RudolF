@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**  This class is the SuperClass for the Bench Mark Classes
  * 
- *
+ *	 collect common methods and variables here
  * 
  */
 
