@@ -1,5 +1,8 @@
 package dev.benchmarks;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 
 /**   This class obtains the  Benchmark results for the Synchronization
  *	  Keeping a lock for longer than required, can slow down the other threads.
@@ -8,10 +11,11 @@ package dev.benchmarks;
  *    works in all situations. So we will test and see
  *
  *		@volatileInt volatile field for comparison with non volatile fields
+ * 		@lock simple reentrant lock
  *		@syncMethod() Synchronized Method
  *  	@syncCodeBlock() Synchronized Block
  *		@syncCodeBlockWithVolatile() Synchronized Block with Volatile field
- *
+ *		@codeBlockWithLock() block with simple reentrant lock
  * 	  from this class we can learn the performace cost of the JVM's Synchronization scheme
  *
  */
@@ -20,7 +24,8 @@ package dev.benchmarks;
 public class SynchronizerBenchMark extends BenchMarkBase {
 	
 	
-	volatile int volatileInt = 0;
+	private  volatile int volatileInt = 0;
+	private final Lock lock = new ReentrantLock();
 	
 	
 	//Synchronized Method
@@ -64,7 +69,7 @@ public class SynchronizerBenchMark extends BenchMarkBase {
 	}
 	
 	
-	
+
 	
 	
 
