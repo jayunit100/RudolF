@@ -1,27 +1,28 @@
 package dev.benchmarks;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**   This class obtains the  Benchmark results for the Lists
- *  
+ *    We look at memory usage by simple collections
+ *    @runSimpleArrayList() looks at memory model for ArrayList
+ * 	  @runSimpleVectorTest() looks at the cost for Vectors synchronization
+ * 	  compared to ArrayList
+ * 	  @runSynchronisedListComparisonTest() looks at the cost for synchronization
+ * 	  in the new java 1.5 synchronized collections.
  * 
+ * 	  in this class we learn that the 1.5  synchronized collections
+ * 	  reduce the cost of synchronization over Vector
+ * 
+ *   in this class we learn about the big cost to runtime performance
+ *   of a call to System.gc()
  */
 
 @SuppressWarnings("unchecked" )
 public class ListBenchMark extends BenchMarkBase {
 	
-
-	
-	public ListBenchMark() {
-		super();
-		
-	}
-
-
 	/*
 	 * In this very simple, single threaded example, we will monitor the increasing 
 	 * memory load taken up by a simple loop which creates a list of lists, where each list has a string in it.  
@@ -42,7 +43,7 @@ public class ListBenchMark extends BenchMarkBase {
 		List<String> l = new ArrayList<String>();
 		l.add("A string");
 		myListHolder.add(l);
-	//	System.gc(); //<-- Auxillary question: Nigel - why is this call necessary to get a clear value for "freeMemory"?
+		//	System.gc(); //<-- Auxillary question: Nigel - why is this call necessary to get a clear value for "freeMemory"?
 
 		System.out.println(i+": "+Runtime.getRuntime().freeMemory());
 		
@@ -76,7 +77,11 @@ public class ListBenchMark extends BenchMarkBase {
 		}
 	
 	
-	
+	/*
+	 * Shows cost of synchronized collection CopyOnWriteArrayList
+	 *  to ArrayList
+	 */	
+		
 	public void runSynchronisedListComparisonTest() {
 		@SuppressWarnings("rawtypes")
 		List myListHolder = new ArrayList();	
