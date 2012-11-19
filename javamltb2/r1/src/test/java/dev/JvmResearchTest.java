@@ -39,9 +39,9 @@ public class JvmResearchTest {
 		MapBenchMark mapBenchMark  = new   MapBenchMark();
 		
 		mapBenchMark.getMapResults();
+		mapBenchMark.getMapMemoryResults();
 		
 		SynchronizerBenchMark  synchBenchMark   =  new  SynchronizerBenchMark ();
-		
 		synchBenchMark.syncMethod();
 		synchBenchMark.syncCodeBlock();
 		synchBenchMark.syncCodeBlockWithVolatile();

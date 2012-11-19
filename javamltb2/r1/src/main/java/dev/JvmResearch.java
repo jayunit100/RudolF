@@ -64,6 +64,7 @@ public class JvmResearch {
 		MapBenchMark mapBenchMark  = new   MapBenchMark();
 		
 		mapBenchMark.getMapResults();
+		mapBenchMark.getMapMemoryResults();
 		
 		SynchronizerBenchMark  synchBenchMark   =  new  SynchronizerBenchMark ();
 		

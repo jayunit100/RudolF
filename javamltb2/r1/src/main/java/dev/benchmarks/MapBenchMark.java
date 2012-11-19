@@ -14,6 +14,10 @@ public class MapBenchMark extends BenchMarkBase {
 	 *   compared to the Java 1.4  synchronized HashTable. These are compared to the 
 	 *   unsynchronized HashMap.
 	 *   
+	 *   @getMapMemoryResults compares the memory use for the 1.5  synchronized Maps
+	 *   compared to the Java 1.4  synchronized HashTable. These are compared to the 
+	 *   unsynchronized HashMap.
+	 *   
 	 *   in this class we learn that the 1.5  synchronized Maps reduce the cost of synchronization over 
 	 *   HashTable 
 	 *   
@@ -31,7 +35,7 @@ public class MapBenchMark extends BenchMarkBase {
 		
 		Map syncMap;	
 		
-		for(int i = 0 ; i < 10 ; i++){
+		for(int i = 0 ; i < 100 ; i++){
 			long start=0L;
 			
 			start=System.currentTimeMillis();
@@ -56,6 +60,46 @@ public class MapBenchMark extends BenchMarkBase {
 	
 	
 	}
+	
+	// test the memory footprint of the maps
+	// results seem  show memeory footprint of HashMap is significantly  better than  synchronized maps
+	public void getMapMemoryResults() {
+		// test maps
+		Map hashMap;		
+		Hashtable  hashTable;
+		Map syncMap;
+		
+		// get System free memory
+		long mem = displayMemoryRuntime();
+		System.out.println("displayMemoryRuntime " + mem + " bytes"); 
+		hashMap =  new HashMap();		
+		populateMap(hashMap);
+		// get memory footprint of map
+		mem = displayMemoryRuntime() - mem;		 
+		System.out.println("hashMap " + mem + " bytes"); 
+		hashMap.clear();
+		
+		// repeat for ConcurrentHashMap
+		mem = displayMemoryRuntime(); 
+		syncMap = new ConcurrentHashMap();
+		populateMap(syncMap);		 
+		mem = displayMemoryRuntime() - mem;		 
+		System.out.println("ConcurrentHashMap " + mem + " bytes"); 
+		syncMap.clear();
+		
+		// repeat for hashTable
+		mem = displayMemoryRuntime();
+		hashTable = new Hashtable();
+		populateMap(hashTable);
+		mem = displayMemoryRuntime() - mem;	
+		System.out.println("Hashtable " + mem + " bytes"); 
+		hashTable.clear();
+		 
+		
+		
+	}
+	
+	
 	
 	
 	
