@@ -1,7 +1,12 @@
 package dev.benchmarks;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import junit.framework.Assert;
 
 
 /**   This class obtains the  Benchmark results for the Synchronization
