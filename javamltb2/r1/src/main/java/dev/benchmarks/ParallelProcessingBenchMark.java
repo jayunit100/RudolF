@@ -1,5 +1,7 @@
 package dev.benchmarks;
 
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -29,8 +31,10 @@ public class ParallelProcessingBenchMark {
 	volatile int volt = 0;
 	static int NUM_TESTS =10;
 	static int threadId =0;
+	final static CountDownLatch start = new CountDownLatch(1);
+    final static CountDownLatch end = new CountDownLatch(NUM_TESTS);
 	
-	// simplest example
+	// simplest example, need to extend for thread competition
 	
 	public  void simpleLockTest() throws InterruptedException {
 		
@@ -44,6 +48,16 @@ public class ParallelProcessingBenchMark {
 
 				@Override
 				public void run() {
+					Random rand= new Random();
+					int min = 700, max = 10000;
+					int randomNum = rand.nextInt(max - min + 1) + min;
+				// try and throw threads of sequential access	
+					 try {
+						Thread.sleep(randomNum);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
 					Lock rl = rwl.writeLock();
 					rl.lock();
 					atom.incrementAndGet();
@@ -58,11 +72,15 @@ public class ParallelProcessingBenchMark {
 					
 						}
 				}).start();
-				
-			
-
 
 				}
+			// start the threads and wait for finish
+				start.countDown();
+	        try {
+	            end.await();
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
 		}
 	
 	
