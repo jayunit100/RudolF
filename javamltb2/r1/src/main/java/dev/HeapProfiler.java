@@ -14,8 +14,8 @@ import org.apache.commons.pool.impl.SoftReferenceObjectPool;
  * and  org.apache.commons.pool.PoolableObjectFactory  to create pools of object 
  * then run the System.gc()
  * 
- * Look at what happens for the references in different contexts, static , final
- * and nested.
+ * Look at what happens for the references in different contexts,  for example 
+ *  static final  and static volatile  nested fields.
  *   
  * We could extend this to concurrent pools, we could  look at cost of blocking pools
  * 
@@ -44,8 +44,11 @@ public class HeapProfiler {
 	public static void main(String[] args) throws Exception {
 			// get the runtime
 		 	final Runtime runtime = Runtime.getRuntime();		
-			// SoftReferenceObjectPool allows garbage collection of unused objects.		
+			// SoftReferenceObjectPool GC will reclaim these objects only when the space is really needed	
 		   pool = new SoftReferenceObjectPool<String[]>(new SmallObjectFactory());
+		   
+		   // now perform some simple tests for some changing sets of objects, looking
+		   // at memory implications for static final and static volatile
 		   	  
 		   for (int i = 0 ; i < 1000 ; i++)  pool.addObject();   // put 100 objects in pool
 	  
@@ -99,7 +102,8 @@ public class HeapProfiler {
 				obj[0] = "leak";
 				return obj;
 				}		  
-			  
+			
+			// interface methods
 			@Override
 			public void activateObject(String[] arg0) throws Exception {}
 		
@@ -115,7 +119,8 @@ public class HeapProfiler {
 			}	
 	  
 	  }
-
+	  
+	// make a factory for small pool objects with a static reference leak
 	  static class LeakyObjectFactory implements PoolableObjectFactory<String[]> {
 			   
 			@Override
@@ -124,7 +129,7 @@ public class HeapProfiler {
 				 obj[0] = nestedLeak;
 				 return obj;
 			}
-
+			// interface methods
 		@Override
 		public void activateObject(String[] arg0) throws Exception {	}
 		@Override
@@ -138,7 +143,7 @@ public class HeapProfiler {
 			return false;
 		}
 		          }
-	  
+		// make a factory for small pool objects with a static volatile reference leak
 	  static class VolatileFieldObjectFactory implements PoolableObjectFactory<String[]> {
 		   
 			@Override
@@ -147,7 +152,7 @@ public class HeapProfiler {
 				 obj[0] = volatileLeak;
 				 return obj;
 			}
-
+			// interface methods
 		@Override
 		public void activateObject(String[] arg0) throws Exception {	}
 		@Override
