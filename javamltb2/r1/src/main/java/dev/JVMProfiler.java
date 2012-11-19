@@ -4,8 +4,11 @@ import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryPoolMXBean;
 import java.lang.management.MemoryUsage;
+import java.lang.management.OperatingSystemMXBean;
 import java.lang.management.RuntimeMXBean;
 import java.lang.management.ThreadMXBean;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.List;
 
 /**
@@ -22,6 +25,9 @@ import java.util.List;
  * 
  * @RuntimeMXBean interface for the runtime system of the JVM. The JVM has a single 
  * instance of the implementation class of this interface
+ * 
+ * @OperatingSystemMXBean interface for the operating system on which the Java virtual 
+ * machine is running
  *
  */
 
@@ -30,13 +36,33 @@ import java.util.List;
 public class JVMProfiler {
 	public static void main(String[] args) {
 		
+		// get the OperatingSystemMXBean "singelton"
+		//OperatingSystemMXBean interface defines  methods for accessing system properties
+		OperatingSystemMXBean operatingSystemMXBean = ManagementFactory.getOperatingSystemMXBean();
+		
+		for (Method method : operatingSystemMXBean.getClass().getDeclaredMethods())  {
+		method.setAccessible(true);
+		if (method.getName().startsWith("get")&& Modifier.isPublic(method.getModifiers())) {
+		Object value;
+		try {
+		value = method.invoke(operatingSystemMXBean); 
+		}  catch (Exception e) { value = e;
+		System.out.println( e.getLocalizedMessage());
+		}
+		
+		// lets see what OperatingSystemMXBean does
+		System.out.println("\t"+method.getName() + " = " + value);
+		}
+		}// end for
+		
 		// get the RuntimeMXBean "singelton"
 		RuntimeMXBean mxbean = ManagementFactory.getRuntimeMXBean();	
 		// get some info for basic runtime parameters
 		System.out.println(mxbean.getVmVendor());
-		System.out.println(mxbean.getBootClassPath());
-		System.out.println(mxbean.getSystemProperties());
-		System.out.println(mxbean.getLibraryPath());	
+		// comment out temp for less cluttered output
+//		System.out.println(mxbean.getBootClassPath());	
+//		System.out.println(mxbean.getSystemProperties());
+//		System.out.println(mxbean.getLibraryPath());	
 		
 		// get the ThreadMXBean ony call the simplest parameters
 		// can do a lot more here 
