@@ -3,6 +3,7 @@ package dev;
 import dev.benchmarks.ListBenchMark;
 import dev.benchmarks.MapBenchMark;
 import dev.benchmarks.MemoryBarrierBenchMark;
+import dev.benchmarks.MemoryTest;
 import dev.benchmarks.SynchronizerBenchMark;
 
 /**  
@@ -14,7 +15,7 @@ import dev.benchmarks.SynchronizerBenchMark;
  *  
  *  it runs the  benchmarks as a series.
  *  
- *  @ ListBenchMark runs the simple ListBenchMarks
+ *  @ListBenchMark runs the simple ListBenchMarks
  *  
  *  from the ListBenchMarks we learn about the memory footprints of Collections and the 
  *  cost in performance terms of synchronization.
@@ -22,7 +23,7 @@ import dev.benchmarks.SynchronizerBenchMark;
  *  Highlights of List BenchMarks synchronization results include comparing the cost of 
  *  implementing CopyOnWriteArrayList to Collections.synchronizedList and Vector to Array List
  *  
- *  @ MapBenchMark  Bench Marks for Java Collection Data Structures 
+ *  @MapBenchMark  Bench Marks for Java Collection Data Structures 
  * 
  * The Classes show the  memory footprint for implementations of 
  * java.util.concurrent.ConcurrentHashMap and java.util.concurrent.CopyOnWriteArrayList compared to the 
@@ -46,6 +47,14 @@ import dev.benchmarks.SynchronizerBenchMark;
  * 
  * ConcurrentMap is an easy solution. The map BenchMarks compare the cost of implementing java.util.concurrent.ConcurrentMap
  * to the standard Maps in java.util.*
+ * 
+ * 
+ * @SynchronizerBenchMark looks at the cost of synchronized methods and code blocks
+ * 
+ * @MemoryTest looks at differences in memory measurement by Runtime and MemoryXBean, measures size of empty collection types
+ * 
+ * @MemoryBarrierBenchMark looks at cost of memory barriers , locks, latches
+ * 
  */
 public class JvmResearch {
 
@@ -76,6 +85,10 @@ public class JvmResearch {
 		memoryBarrierBenchMark.compareSynchronizedToBarrier();
 		memoryBarrierBenchMark.compareInLineToBarrier();
 		
+		
+		// looks at size of empty collections using ManagementXBean amd Runtime
+		MemoryTest mtest = new MemoryTest();
+		mtest.genericCollectionAnalyzer();
 		
 	}
 }

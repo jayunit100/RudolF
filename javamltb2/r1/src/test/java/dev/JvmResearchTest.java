@@ -7,6 +7,7 @@ import java.util.concurrent.Future;
 import dev.benchmarks.ListBenchMark;
 import dev.benchmarks.MapBenchMark;
 import dev.benchmarks.MemoryBarrierBenchMark;
+import dev.benchmarks.MemoryTest;
 import dev.benchmarks.SynchronizerBenchMark;
 import dev.dump.Dumper;
 
@@ -21,7 +22,7 @@ public class JvmResearchTest {
 	
 
 	
-	public static void stageOneTestNewCode() throws InterruptedException, ExecutionException {
+	public static void stageOneTestNewCode() throws InterruptedException, ExecutionException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
 
 		System.out.println("Stage 1 Tests Bench Marks");
@@ -49,6 +50,10 @@ public class JvmResearchTest {
 		MemoryBarrierBenchMark  memoryBarrierBenchMark   =  new  MemoryBarrierBenchMark ();
 		memoryBarrierBenchMark.compareSynchronizedToBarrier();
 		memoryBarrierBenchMark.compareInLineToBarrier();
+		
+		
+		MemoryTest mtest = new MemoryTest();
+		mtest.genericCollectionAnalyzer();
 			}
 	
 	
