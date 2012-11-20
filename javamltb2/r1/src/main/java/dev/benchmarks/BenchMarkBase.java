@@ -21,11 +21,8 @@ import java.util.Map;
 
 
 public class BenchMarkBase {
-	
-	
 	static int SIZE = 40;
 	long start=0L;
-
 
 	public static void populateMap(Map m){
 		for(int i = 0 ; i < SIZE; i++){
@@ -38,14 +35,10 @@ public class BenchMarkBase {
 			c.add("a string");
 		}
 	}
-	
 
-	protected  void  getFreeMemory(int i)  {
+	protected void getFreeMemory(int i)  {
 		System.out.println(i+": "+Runtime.getRuntime().freeMemory());
-		
-			
 	}
-	
 	
 	// get the memory footprint of the map at a point in the loop
 	protected  static long displayMemoryRuntime() {
@@ -58,7 +51,5 @@ public class BenchMarkBase {
 	    		//JMM the finalize method will not be called again, so we cover for this with the second gc() call.
 	   return r.totalMemory() -  r.freeMemory();
 	}
-	
-	
 }
 
