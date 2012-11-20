@@ -30,9 +30,9 @@ public class BenchMarkBase {
 		}
 	}
 	
-	public static void populate(Collection c){
+	public static void populate(Collection c, Object aString){
 		for(int i = 0 ; i < SIZE; i++){
-			c.add("a string");
+			c.add(aString);
 		}
 	}
 

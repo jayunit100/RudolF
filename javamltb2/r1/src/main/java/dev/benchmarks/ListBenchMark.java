@@ -65,12 +65,12 @@ public class ListBenchMark extends BenchMarkBase {
 
 			start=System.currentTimeMillis();
 			Vector v = new Vector(SIZE);
-			populate(v);
+			populate(v, "a string");
 			System.out.println(System.currentTimeMillis()-start);
 	
 			start=System.currentTimeMillis();
 			List l = new ArrayList(SIZE);
-			populate(l);
+			populate(l, "a string");
 			System.out.println(System.currentTimeMillis()-start);
 			System.out.println("--");
 				}	
