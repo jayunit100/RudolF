@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 public class Example3 {
 
 	
@@ -12,19 +15,14 @@ public class Example3 {
 
 		long numThreads=ManagementFactory.getThreadMXBean().getTotalStartedThreadCount();
 
-		for(int i = 0 ; i < 1000; i++){
-			Thread t1 = new ProfileThread(new Vector());
+		Multimap<String,Long> classes = HashMultimap.create();
+		for(Collection c : new Collection[]{new Vector(), new ArrayList(), new Vector(), new ArrayList(), new Vector(), new ArrayList()} ){
+			Thread t1 = new ProfileThread(c);
 			long cpuStart1=ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime();
 			t1.start();
 			t1.join();
-			System.out.print(ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime()-cpuStart1 + " ");
-		
-			Thread t2 = new ProfileThread(new ArrayList());
-			long cpuStart2=ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime();
-			t2.start();
-			t2.join();
-			System.out.println(ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime()-cpuStart2);
-
+			long cpu=(ManagementFactory.getThreadMXBean().getCurrentThreadCpuTime()-cpuStart1);
+			classes.put(c.getClass().getName(),cpu);
 		}
 
 	}
