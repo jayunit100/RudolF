@@ -28,10 +28,12 @@ public class Example2 {
 			//Nigel: The vector generally takes 2 to 3 times longer for adding these objects.  Why?
 			start=System.currentTimeMillis();
 			Vector v = new Vector(SIZE);
+			System.out.println("Populating a vector.");
 			populate(v);
 			System.out.println(System.currentTimeMillis()-start);
 	
 			start=System.currentTimeMillis();
+			System.out.println("Populating a list.");
 			List l = new ArrayList(SIZE);
 			populate(l);
 			System.out.println(System.currentTimeMillis()-start);
