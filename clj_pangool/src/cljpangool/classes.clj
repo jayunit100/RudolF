@@ -19,15 +19,18 @@
   (proxy [Object] []
     (toString [] (str "constructor proxed: " x y))))
 
-; alright, let's do a more complex example where
+; here's a more complex example where
 ; we extend something more complicated than Object
 (defn arraylist-proxy
   []
   (proxy [java.util.ArrayList] []
     (toString [] "arr")))
 
+
 ; now let's implement an interface
-; this example shows that Clojure doesn't seem to check if you don't actually implement the interface properly
+
+; this example shows that Clojure doesn't seem to check 
+; whether the interface is properly implemented
 (defn comparable-proxy
   []
   (proxy [Comparable] []
@@ -36,28 +39,22 @@
 ; now let's try to faithfully implement the Comparable interface
 (defn fake-comp
   []
-  (proxy [Comparable] []
-    (compareTo [other] false))) ; oops -- fails at runtime b/c 'compareTo' must return an integer!
+  (proxy [Comparable] [13]
+    (compareTo [other] false))) ; oops -- fails at runtime b/c 
+                                ; 'compareTo' must return an integer!
 
 ; now let's implement Comparable for real
 ; (although note that the implementation is kind of dumb)
-; > (.compareTo (real-comp) 3)
+; > (.compareTo (real-comp 74) 23)
 (defn real-comp
-  []
+  [me]
   (proxy [Comparable] []
-    (compareTo [other] 1)))
+    (compareTo [you] 
+      (- me you))))
 
 ; known 'issues' with proxy:
-;   overloaded methods:  clojure just thinks there's one 
+;   overloaded methods:  Clojure just sees one 
 
-; create a proxied object
-;   that uses other proxied objects,
-;   or takes them as parameters
-; TODO
-(defn real-comp
-  []
-  (proxy [Comparable] []
-    (compareTo [other] 1)))
 
 ; Nesting proxies. 
 (defn comp-hash-map
