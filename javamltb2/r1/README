@@ -1,0 +1,27 @@
+Build Instructions
+
+1. To build and run the tests "mvn install"
+2. To run the tests "mvn test"
+
+End Build Instructions
+
+
+Project Description
+
+A number of classes with the sole focus to profile and learn about the JVM. What it does and how it does it.
+ 
+For example we look at Collections and the cost in JMM terms of synchronization.
+
+We use the Classes contained in the java.management.* to obtain information about the Heap. The permanent generation space is a special part of the heap.
+
+We use a class to profile the stack and try to generate a stack overflow by recursively creating threads and using those threads to create a JMM memory barrier by creating a synchronised lock.
+
+End Project Description
+
+The files READMEJVMResearch.rtf and READMEJVMResearch.pdf are identical and summarise in an accessible format a background for the JVM, what it is, what it does
+and how it functions. Further to this it provides examples of how to optimise code for the JVM.
+
+Tools
+An  initial tool for profiling, tracing and obtaining  stack traces is  "Java VisualVM"  a standard tool from 1.6.07 in the java SDK bin directory. In the SDK bin directory or anywhere else if your path is set a shell cmd  "jvisualvm"  will run the VisualVM tool. For the first run the tool calibrates performance so for best results run the tool for the first time as the only  process running on your machine.
+
+ 

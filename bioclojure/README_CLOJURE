@@ -1,0 +1,19 @@
+Clojure indentation within a function definition:  
+  2 spaces of indentation for parameter-list line 
+  then one additional space for each level of nesting after that
+  unless parentheses can be matched up
+No spaces between square brackets and parameter names
+
+
+
+
+TESTING IN CLOJURE WITH LEIN
+----------------------------
+
+To run "tests.clj"
+
+repl-> lein test tests
+
+To run all tests. 
+
+repl-> lein test

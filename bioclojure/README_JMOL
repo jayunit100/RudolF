@@ -1,0 +1,8 @@
+JMol is necessary for molecular visualization. 
+To simplify the process of installation, Itts been bundled here. 
+
+Run this command. 
+
+mvn install:install-file -DgroupId=jmol -DartifactId=jmol -Dversion=12.0.49 -Dpackaging=jar -Dfile=./jmol-12.0.49/Jmol.jar
+
+Then, run lein deps. 

@@ -1,0 +1,117 @@
+Machine learning in Vowpal Wabbit - PyStyle . 
+
+Machine learning in with VowpalWabbit is HOT right now. 
+Unfortunately, its not particulalry easy to get started because 
+documentation on VW input types isnt all that clear.  
+
+VW is used to predict parameters from an input data set in realtime with predictions
+improving over time as we add more data to the system.
+
+A VW input data set is simply a set of lines , with individual features being | delimited : 
+
+Installing vowpal wabbit is a single step process on linux : 
+
+sudo apt-get install vowpal-wabbit
+
+However- running it is another story.  Vowpal wabbit's inputs are not entirely clear
+from existing documentation - so I will attempt to clarify the way we build an input 
+set here. 
+
+Basically, VW takes a map of features and weights as input.  
+
+Thankfully, this has been abstracted for us by Shilad Sen, available here 
+https://github.com/shilad/PyVowpal
+
+Shilad's wrapper abstracts the task of creating VW inputs, and writes a file such as this for us, 
+which predicts "running speed" for a group of fictional sports atheletes.  The exemplary learning set looks
+like this (as a VW input set, created using the PyVowpal) 
+
+ 0.4 1.0 0|body weight:0.3 height:0.8|age age:0.4|sports football
+ 0.7 1.0 1|body weight:0.3 height:0.8|age age:0.3|sports soccer
+ 0.2 1.0 2|body weight:0.5 height:0.8|age age:0.7|sports soccer
+ 0.7 1.0 3|body weight:0.3 height:0.9|age age:0.2|sports track
+ 0.9 1.0 4|body weight:0.3 height:0.7|age age:0.3|sports track
+ 0.6 1.0 5|body weight:0.7 height:0.7|age age:0.2|sports track
+
+We can see here that the input values have predicted, normalized speeds (.4,.7,...) associated with
+ids for input records (0, 1, 2 ...) and pipe delimited sources, where each source has an associated
+map of features.  For example, the "body" source, has features "weight" and "height".  There are 3 
+such sources. These inputs can be visualized by the slight modifications to Shilad's code of adding 
+a print statement to the method in the VWExample class which creates a VW string.
+
+
+So - how do we store these features ?  What is the input to the VWExample class ? 
+
+Thankfully, further borrowing from Shilad's code , we can visualize the input format of VW if we decompose it as a Python json map, rather than a single | delimited string... This has the advantage of telling us something about the 
+semantic structure of data which VW takes as input : 
+
+DATA = [
+    [0.4, {'body' : {'height' : 0.8, 'weight' : 0.3}, 'age' : {'age' : 0.4}, 'sports' : { 'football' : None }}],
+    [0.7, {'body' : {'height' : 0.8, 'weight' : 0.3}, 'age' : {'age' : 0.3}, 'sports' : { 'soccer' : None }}],
+    [0.2, {'body' : {'height' : 0.8, 'weight' : 0.5}, 'age' : {'age' : 0.7}, 'sports' : { 'soccer' : None }}],
+    [0.7, {'body' : {'height' : 0.9, 'weight' : 0.3}, 'age' : {'age' : 0.2}, 'sports' : { 'track' : None }}],
+    [0.9, {'body' : {'height' : 0.7, 'weight' : 0.3}, 'age' : {'age' : 0.3}, 'sports' : { 'track' : None }}],
+    [0.6, {'body' : {'height' : 0.7, 'weight' : 0.7}, 'age' : {'age' : 0.2}, 'sports' : { 'track' : None }}],
+    [None, {'body' : {'height' : 0.7, 'weight' : 0.2}, 'age' : {'age' : 0.3}, 'sports' : { 'track' : None }}],
+    [None, {'body' : {'height' : 0.7, 'weight' : 0.2}, 'age' : {'age' : 0.3}, 'sports' : { 'soccer' : None }}],
+]
+
+So - whats in this data structure ? We can easily view this json in formatted style using http://jsonviewer.stack.hu/
+this is what we get : a list of [score,map] lists.  
+[
+  [
+    0.4,
+    {
+      'body': {
+        'height': 0.8,
+        'weight': 0.3
+      },
+      'age': {
+        'age': 0.4
+      },
+      'sports': {
+        'football': None
+      }
+    }
+  ],
+  .... 
+]
+
+
+FINALLY : Instructions for running this source package. 
+
+1) sudo apt-get install vowpal-wabbit
+2) make sure that 'vw' is on your path by typing vw - the man page should show up.
+3) execute the examples : python ./test_examples.py
+
+#########################README FROM ORIGINAL VW 
+
+A python wrapper for the Vowpal Wabbit machine learning program.
+More on Vowpal Wabbit at https://github.com/JohnLangford/vowpal_wabbit/wiki
+
+Authored by Shilad Sen.
+
+Distributed under the Apache Software Foundation License, version 2: http://www.apache.org/licenses/LICENSE-2.0
+
+You can find code examples in test_examples.py.
+
+Requires:
+- Python >= 2.4 (for the subprocess module and deque).
+- The vw executable (from the main VW website).
+
+Basic usage of the module:
+- Create VowpalExample objects for both the training and test set.
+- Create a new Vowpal object and pass the records to the predict method.
+- Receive predictions as a return value.
+
+There are three ways to specify input examples:
+- A list of VowpalExample objects. The entire dataset must fit in memory.
+- An ExampleStream object. You can write VowpalExample objects to it, and they do not need to fit in memory. All training examples must appear before testing examples.
+- A file in the correct input format. All training examples must appear before testing examples.
+
+
+CHANGELOG:
+- Added methods to support streaming of input examples.
+
+TODO:
+- Support streaming of prediction results so that they don't need to fit in memory.

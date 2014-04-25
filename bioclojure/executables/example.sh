@@ -1,0 +1,1 @@
+java -jar BioClojure-0.0.2-SNAPSHOT-standalone.jar shift-plot ../data/connjur.seq ../data/connjur.prot HA

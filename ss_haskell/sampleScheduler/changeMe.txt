@@ -1,0 +1,13 @@
+
+getting set up:
+
+download and install the Haskell Platform
+
+if it installed correctly, you should be able to type 'ghci' from a command terminal
+
+this starts a haskell interpreter
+
+if you started it in the same directory as a source file,
+	you can do ':load <filename>' to bring it into the interpreter
+	then you can play with the functions it defines
+	but everything has to compile -- if there are compile errors, it won't work

@@ -1,0 +1,135 @@
+
+testable properties
+-------------------------------------------------------
+
+
+Formatter:
+
+  varian
+    number of lines equal to number of points
+    minimum indices of 0 in each dimension
+    each line unique
+
+  bruker
+    number of lines equal to number of dimensions times number of unique grid points
+    minimum indices of 1 in each dimension
+
+  toolkit
+    number of lines equal to number of unique grid points
+    minimum indices of 1 in each dimension
+
+  custom
+    number of lines equal to number of points
+    minimum indices of 1 in each dimension
+    
+  json
+    number of points equal to number of points in schedule??
+
+  separateTransients
+    number of lines equal to sum of all transients
+    minimum indices of 1 in each dimension
+
+-------------------------------------------------------
+
+Selector:
+
+  selectNBest
+    no elements in output that were not in input
+    correct number selected, unless fewer than n in input
+    no duplicates
+
+  selectNRandomly
+    no elements in output that were not in input
+    correct number selected, unless fewer than n in input
+    no duplicates
+
+  selectNProb
+    no elements in output that were not in input
+    correct number selected
+
+  genericSelect
+    transients added correctly (where applicable -- if selected multiple times)
+    ????indication of error or problem when something goes wrong????
+    ??
+
+  for all groupers
+    ungrouper (grouper pts) = pts
+    grouper (ungrouper pts) = pts  -- ?? is this necessary?
+    the set of grid points in ungrouped is:
+      equal to the set of grid points in the grouped points
+
+  sepTransSepQuad
+    number of points equal to sum of all transients
+
+  combTransCombQuad
+    number of (things) equal to number of unique grid points
+
+  combTransSepQuad
+    number of (things) equal to number of (pairs) in schedule
+
+
+-------------------------------------------------------
+
+Quadrature:
+
+  allQuadUnits
+    length of output equal to (2 ** (num dims) * length input)
+    quadunit have same length as gridpoints
+    all input present in output (as part of a tuple)
+
+  justReals
+    length of output equal to length of input
+    just reals!
+    quadunit have same length as gridpoints
+    all input present in output (as part of a tuple)
+
+  singleRandom
+    length of output equal to length of input
+    quadunit have same length as gridpoints
+    pretty random distribution
+    all input present in output (as part of a tuple)
+
+  allquadunits
+    number of quadunits equal to 2 ** (number of dimensions)
+    no repeated quadunits
+    length of each quadunit equal to number of dimensions
+
+
+-------------------------------------------------------
+
+Model:
+
+can't combine schedules of different dimensionalities
+can't add point to schedule of different dimensionality
+GridPoint and QuadUnit have same dimensionality
+
+
+-------------------------------------------------------
+
+GridPoint:
+
+  uniformGrid
+    correct number
+    no duplicates
+    nothing outside of boundaries
+    dimensionality correct
+
+  allLowerBounds
+    correct number
+    no duplicates
+    all on edge
+    dimensionality correct
+
+  firstPoint
+    1 point
+    right position
+    dimensionality correct
+
+  lastPoint
+    1 point
+    right position
+    dimensionality correct
+
+
+
+

@@ -1,0 +1,18 @@
+todos:
+
+read real Haskell source code to determine conventions for:
+	code
+	names
+	usage
+	documentation
+	type annotations
+	design/library design
+	combinators
+	architecture
+	??other patterns or idioms??
+
+error handling/bad state handling
+
+specifications (of functions)
+
+testing TESTING !!TESTING!!!

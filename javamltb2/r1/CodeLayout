@@ -1,0 +1,32 @@
+Layout of code
+
+Package  dev  
+
+HeapProfiler.java  	main class runs runs code to create object pools and look at garbage collection
+JVMProfiler.java   	main class runs runs code to java.lang.management package to profile the JVM
+JvmResearch.java  	main class runs runs the benchmarking code in the dev.benchmarks package
+StackProfiler.java 	mani class runs a recursive stack profiling function, will not run on a 64 bit jvm
+
+Package dev.benchmarks
+
+BenchMarkBase.java  super class for benchmarks
+ListBenchMark.java and MapBenchMark.java benchmarking code for Java Collections and Maps
+MemoryBarrierBenchMark.java, MemoryTest.java, ParallelProcessingBenchMark.java, SynchronizerBenchMark.java
+run code to test the Java Memory Model (JMM)
+
+Package dev.dump
+Dumper.java  class to perform a thread dump, can be called at any time in the code
+
+package net.rudolfcode.jvm
+Example1.java  very simple example to look at memory use of java collections
+Example2.java  very simple example to look at memory use of synchronization
+Example3.java  example of using java.lang.management package to look at memory use of java collections
+Example3A.java example of using java.lang.management package to look at cpu use of java collections
+
+
+ 
+
+
+
+
+

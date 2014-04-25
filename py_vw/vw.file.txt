@@ -1,0 +1,8 @@
+0.4 1.0 0|body weight:0.3 height:0.8|age age:0.4|sports football
+0.7 1.0 1|body weight:0.3 height:0.8|age age:0.3|sports soccer
+0.2 1.0 2|body weight:0.5 height:0.8|age age:0.7|sports soccer
+0.7 1.0 3|body weight:0.3 height:0.9|age age:0.2|sports track
+0.9 1.0 4|body weight:0.3 height:0.7|age age:0.3|sports track
+0.6 1.0 5|body weight:0.7 height:0.7|age age:0.2|sports track
+1.0 6|body weight:0.2 height:0.7|age age:0.3|sports track
+1.0 7|body weight:0.2 height:0.7|age age:0.3|sports soccer
