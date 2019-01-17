@@ -1,4 +1,4 @@
-#Welcome to RudolF! 
+# Welcome to RudolF! 
 
 This project is named after the Reindeer, whose red nose was an asset to Santa on Christmas. 
 This analogy is meant to reflect the notion that functional programming and dynamic languages CAN have a very
@@ -6,7 +6,7 @@ meaningful role in the "real world" --- and project RudolF aims to realize this 
 exemplify the power of functional and dynamic languages applied to a broad range of data mining problems. 
 
 
-##BioClojure: 
+## BioClojure: 
 
 This project demonstrates the ease of java-interop for sophisticated bioinformatics data integration and processing. 
 
@@ -19,7 +19,7 @@ Thanks to Lee Hinnman for helping us get this off the ground!
 Contributors are Jay Vyas, Matt Fenwick and Colbert Sesanker. 
 
 
-##Haskell: 
+## Haskell: 
 
 This is a general source code repo for haskell data processing.
 
@@ -33,7 +33,7 @@ paradigms applied to real world problems in data mining and analysis.
 But of course, if you want to start out with a 'hello world' just to get involved, you're MORE THAN WELCOME to join us!
 
 
-##SequenceML
+## SequenceML
 
 This is a repo for machine learning algorithms applied to sequence (peptide/nucleotide) data. 
 
